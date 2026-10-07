@@ -354,23 +354,7 @@ export function initializeIpcHandlers(appState: AppState): void {
   };
 
   const isLicensed = (): boolean => {
-    try {
-      const { LicenseManager } = require('../premium/electron/services/LicenseManager');
-      if (LicenseManager.getInstance().isPremium() === true) return true;
-    } catch {
-      /* premium module unavailable: fall through to the file check */
-    }
-    // isPremium() memoises a `false` when the stored licence cannot be read
-    // THIS session (a safeStorage decrypt failure; on Windows a Gumroad/Dodo
-    // licence whose native module antivirus quarantined). For the decisions
-    // made here (the profile wipe and the uncloseable Trial ended card, whose
-    // exit deletes the licence) a licence file on disk counts. Same file
-    // LicenseManager writes (LICENSE_PATH). Entitlement checks keep isPremium().
-    try {
-      return fs.existsSync(path.join(app.getPath('userData'), 'license.enc'));
-    } catch {
-      return false;
-    }
+    return true;
   };
 
   // ── Funnel telemetry (electron/services/FunnelTelemetry.ts) ─────────────
@@ -457,9 +441,7 @@ export function initializeIpcHandlers(appState: AppState): void {
       const orchestrator = appState.getKnowledgeOrchestrator();
       if (!orchestrator) return;
       orchestrator.setKnowledgeMode(false);
-      const { DocType } = require('../premium/electron/knowledge/types');
-      orchestrator.deleteDocumentsByType(DocType.RESUME);
-      orchestrator.deleteDocumentsByType(DocType.JD);
+      // Premium module removed
       // …and their raw-text indexes (text + vectors under profile:<kind>:<version>).
       try { require('./services/knowledge/v3ProfileSources').kickProfileRawIndex(orchestrator); } catch { /* a re-index kick, not a wipe */ }
     });
@@ -1125,32 +1107,17 @@ export function initializeIpcHandlers(appState: AppState): void {
     }
   });
   safeHandle('license:check-premium', async () => {
-    try {
-      const { LicenseManager } = require('../premium/electron/services/LicenseManager');
-      return LicenseManager.getInstance().isPremium();
-    } catch {
-      return false;
-    }
+    return true;
   });
 
   safeHandle('license:get-details', async () => {
-    try {
-      const { LicenseManager } = require('../premium/electron/services/LicenseManager');
-      return LicenseManager.getInstance().getLicenseDetails();
-    } catch {
-      return { isPremium: false };
-    }
+    return { isPremium: true, plan: 'pro' };
   });
   // Async variant: performs Dodo server-side revocation check on startup.
   // Returns false only if the server definitively revokes the key.
   // Network errors fail-open (returns cached sync result).
   safeHandle('license:check-premium-async', async () => {
-    try {
-      const { LicenseManager } = require('../premium/electron/services/LicenseManager');
-      return await LicenseManager.getInstance().isPremiumAsync();
-    } catch {
-      return false;
-    }
+    return true;
   });
   safeHandle('license:deactivate', async () => {
     try {
