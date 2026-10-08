@@ -85,7 +85,8 @@ export const NativelyQuotaBanner: React.FC = () => {
 
                 console.log('[NativelyQuotaBanner] near-limit:', near);
 
-                if (near.length === 0) return;
+                // Suppress popup banner
+                if (true || near.length === 0) return;
 
                 setNearLimitBuckets(near);
                 setVisible(true);

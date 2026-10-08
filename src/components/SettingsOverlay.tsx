@@ -134,101 +134,101 @@ const MockupNativelyInterface = ({ opacity, theme }: { opacity: number; theme: M
             // theme's preview would silently ignore the slider entirely.
             style={{ ['--overlay-opacity' as '--overlay-opacity']: String(opacity) } as React.CSSProperties}
         >
-                {/* NativelyInterface Widget — opacity controlled by the slider.
+            {/* NativelyInterface Widget — opacity controlled by the slider.
                     Shifted up enough to clear the opacity-slider-card, which
                     stays visible (and in its normal in-flow position) during
                     the preview — see #opacity-slider-card's z-index override
                     in startPreviewingOpacity(). */}
-                <div
-                    id="mockup-natively-interface"
-                    data-interface-theme={isGlassTheme ? 'liquid-glass' : isModernTheme ? 'modern' : 'default'}
-                    className="flex flex-col items-center pointer-events-none -mt-96"
-                >
-                    {/* TopPill Replica */}
-                    <div className="flex justify-center mb-2 select-none z-50">
-                        <div className="flex items-center gap-2 rounded-full overlay-pill-surface backdrop-blur-md pl-1.5 pr-1.5 py-1.5" style={appearance.pillStyle}>
-                            <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden overlay-icon-surface" style={appearance.iconStyle}>
-                                <img
-                                    src={icon}
-                                    alt="Natively"
-                                    className="w-[24px] h-[24px] object-contain opacity-95 scale-105 force-black-icon"
-                                    draggable="false"
-                                />
-                            </div>
-                            <div className="flex items-center gap-2 px-4 py-1.5 rounded-full text-[12px] font-medium border overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
-                                <ChevronUp className="w-3.5 h-3.5 opacity-70" />
-                                <span className="opacity-80 tracking-wide">{t('Hide')}</span>
-                            </div>
-                            <div className="w-8 h-8 rounded-full flex items-center justify-center overlay-icon-surface overlay-text-primary" style={appearance.iconStyle}>
-                                <div className="w-3.5 h-3.5 rounded-[3px] bg-red-400 opacity-80" />
+            <div
+                id="mockup-natively-interface"
+                data-interface-theme={isGlassTheme ? 'liquid-glass' : isModernTheme ? 'modern' : 'default'}
+                className="flex flex-col items-center pointer-events-none -mt-96"
+            >
+                {/* TopPill Replica */}
+                <div className="flex justify-center mb-2 select-none z-50">
+                    <div className="flex items-center gap-2 rounded-full overlay-pill-surface backdrop-blur-md pl-1.5 pr-1.5 py-1.5" style={appearance.pillStyle}>
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden overlay-icon-surface" style={appearance.iconStyle}>
+                            <img
+                                src={icon}
+                                alt="Natively"
+                                className="w-[24px] h-[24px] object-contain opacity-95 scale-105 force-black-icon"
+                                draggable="false"
+                            />
+                        </div>
+                        <div className="flex items-center gap-2 px-4 py-1.5 rounded-full text-[12px] font-medium border overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
+                            <ChevronUp className="w-3.5 h-3.5 opacity-70" />
+                            <span className="opacity-80 tracking-wide">{t('Hide')}</span>
+                        </div>
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center overlay-icon-surface overlay-text-primary" style={appearance.iconStyle}>
+                            <div className="w-3.5 h-3.5 rounded-[3px] bg-red-400 opacity-80" />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Main Interface Window Replica */}
+                <div ref={shellRef} className="relative w-[600px] max-w-full overlay-shell-surface overlay-text-primary backdrop-blur-2xl border rounded-[24px] overflow-hidden flex flex-col pt-2 pb-3" style={appearance.shellStyle}>
+                    {isGlassTheme && <GlassEffectLayer parentRef={shellRef} cornerRadius={24} />}
+
+                    {/* Rolling Transcript Bar */}
+                    <div className="w-full flex justify-center py-2 px-4 border-b mb-1 overlay-transcript-surface" style={appearance.transcriptStyle}>
+                        <p className="text-[13px] truncate max-w-[90%] font-medium overlay-text-primary">
+                            <span className="overlay-text-muted mr-2 font-semibold">{t('Interviewer')}</span>
+                            <span className="opacity-95">{t('So how would you optimize the current algorithm?')}</span>
+                        </p>
+                    </div>
+
+                    {/* Chat History Mock */}
+                    <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3">
+                        <div className="flex justify-start">
+                            <div className="max-w-[85%] px-4 py-3 text-[14px] leading-relaxed font-normal overlay-text-primary">
+                                <span className="font-semibold text-emerald-500 block mb-1">{t('Suggestion')}</span>
+                                {t('A good approach would be to use a hash map to cache the intermediate results, which brings the time complexity down from O(n²) to O(n).')}
                             </div>
                         </div>
                     </div>
 
-                    {/* Main Interface Window Replica */}
-                    <div ref={shellRef} className="relative w-[600px] max-w-full overlay-shell-surface overlay-text-primary backdrop-blur-2xl border rounded-[24px] overflow-hidden flex flex-col pt-2 pb-3" style={appearance.shellStyle}>
-                        {isGlassTheme && <GlassEffectLayer parentRef={shellRef} cornerRadius={24} />}
+                    {/* Quick Actions */}
+                    <div className="flex flex-nowrap justify-center items-center gap-1.5 px-4 pb-3 pt-3">
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium border shrink-0 overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
+                            <Pencil className="w-3 h-3 opacity-70" /> {t('What to answer?')}
+                        </div>
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium border shrink-0 overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
+                            <MessageSquare className="w-3 h-3 opacity-70" /> {t('Clarify')}
+                        </div>
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium border shrink-0 overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
+                            <RefreshCw className="w-3 h-3 opacity-70" /> {t('Recap')}
+                        </div>
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium border shrink-0 overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
+                            <HelpCircle className="w-3 h-3 opacity-70" /> {t('Follow Up Question')}
+                        </div>
+                        <div className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium min-w-[74px] shrink-0 border overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
+                            <Mic className="w-3 h-3 opacity-70" /> {t('Answer')}
+                        </div>
+                    </div>
 
-                        {/* Rolling Transcript Bar */}
-                        <div className="w-full flex justify-center py-2 px-4 border-b mb-1 overlay-transcript-surface" style={appearance.transcriptStyle}>
-                            <p className="text-[13px] truncate max-w-[90%] font-medium overlay-text-primary">
-                                <span className="overlay-text-muted mr-2 font-semibold">{t('Interviewer')}</span>
-                                <span className="opacity-95">{t('So how would you optimize the current algorithm?')}</span>
-                            </p>
+                    {/* Input Area */}
+                    <div className="px-3">
+                        <div className="relative group">
+                            <div className="w-full border rounded-xl pl-3 pr-10 py-2.5 h-[38px] flex items-center overlay-input-surface" style={appearance.inputStyle}>
+                                <span className="text-[13px] overlay-text-muted">{t('Ask anything on screen or conversation')}</span>
+                            </div>
                         </div>
 
-                        {/* Chat History Mock */}
-                        <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3">
-                            <div className="flex justify-start">
-                                <div className="max-w-[85%] px-4 py-3 text-[14px] leading-relaxed font-normal overlay-text-primary">
-                                    <span className="font-semibold text-emerald-500 block mb-1">{t('Suggestion')}</span>
-                                    {t('A good approach would be to use a hash map to cache the intermediate results, which brings the time complexity down from O(n²) to O(n).')}
+                        {/* Bottom Row */}
+                        <div className="flex items-center justify-between mt-3 px-0.5">
+                            <div className="flex items-center gap-1.5">
+                                <div className="flex items-center gap-1 pl-3 pr-1.5 h-7 border rounded-[9px] text-xs font-medium text-left shrink-0 overlay-control-surface overlay-text-interactive" style={{ ...appearance.controlStyle, width: MODEL_SELECTOR_WIDTH }}>
+                                    <ModelSelectorLabel>Gemini 3 Flash</ModelSelectorLabel>
+                                    <ChevronDown size={12} className="shrink-0" />
                                 </div>
-                            </div>
-                        </div>
-
-                        {/* Quick Actions */}
-                        <div className="flex flex-nowrap justify-center items-center gap-1.5 px-4 pb-3 pt-3">
-                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium border shrink-0 overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
-                                <Pencil className="w-3 h-3 opacity-70" /> {t('What to answer?')}
-                            </div>
-                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium border shrink-0 overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
-                                <MessageSquare className="w-3 h-3 opacity-70" /> {t('Clarify')}
-                            </div>
-                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium border shrink-0 overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
-                                <RefreshCw className="w-3 h-3 opacity-70" /> {t('Recap')}
-                            </div>
-                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium border shrink-0 overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
-                                <HelpCircle className="w-3 h-3 opacity-70" /> {t('Follow Up Question')}
-                            </div>
-                            <div className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium min-w-[74px] shrink-0 border overlay-chip-surface overlay-text-interactive" style={appearance.chipStyle}>
-                                <Mic className="w-3 h-3 opacity-70" /> {t('Answer')}
-                            </div>
-                        </div>
-
-                        {/* Input Area */}
-                        <div className="px-3">
-                            <div className="relative group">
-                                <div className="w-full border rounded-xl pl-3 pr-10 py-2.5 h-[38px] flex items-center overlay-input-surface" style={appearance.inputStyle}>
-                                    <span className="text-[13px] overlay-text-muted">{t('Ask anything on screen or conversation')}</span>
-                                </div>
-                            </div>
-
-                            {/* Bottom Row */}
-                            <div className="flex items-center justify-between mt-3 px-0.5">
-                                <div className="flex items-center gap-1.5">
-                                    <div className="flex items-center gap-1 pl-3 pr-1.5 h-7 border rounded-[9px] text-xs font-medium text-left shrink-0 overlay-control-surface overlay-text-interactive" style={{ ...appearance.controlStyle, width: MODEL_SELECTOR_WIDTH }}>
-                                        <ModelSelectorLabel>Gemini 3 Flash</ModelSelectorLabel>
-                                        <ChevronDown size={12} className="shrink-0" />
-                                    </div>
-                                    <div className="w-7 h-7 rounded-[9px] flex items-center justify-center overlay-bare-icon">
-                                        <SlidersHorizontal className="w-3.5 h-3.5" />
-                                    </div>
+                                <div className="w-7 h-7 rounded-[9px] flex items-center justify-center overlay-bare-icon">
+                                    <SlidersHorizontal className="w-3.5 h-3.5" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     );
 };
@@ -280,8 +280,8 @@ const SttModelList: React.FC<{
         catalogIsComplete
         models={models}
         enabled={[]}
-        onToggle={() => {}}
-        onReset={() => {}}
+        onToggle={() => { }}
+        onReset={() => { }}
         defaultId={value}
         onSetDefault={onSelect}
     />
@@ -786,10 +786,10 @@ const SettingsOverlay: React.FC<SettingsOverlayProps> = ({
             </span>
         ) : null
     );
-    const [isUndetectable, setIsUndetectable] = useState(false);
+    const [isUndetectable, setIsUndetectable] = useState(true);
     const [isMousePassthrough, setIsMousePassthrough] = useState(false);
     const [disguiseMode, setDisguiseMode] = useState<'terminal' | 'settings' | 'activity' | 'none'>('none');
-    const [openOnLogin, setOpenOnLogin] = useState(false);
+    const [openOnLogin, setOpenOnLogin] = useState(true);
     // Windows-only. Defaults to true to match the main-process policy (unset ⟹
     // on), so the toggle doesn't flash off before the IPC read lands.
     const [shortcutGuard, setShortcutGuard] = useState(true);
@@ -1976,14 +1976,14 @@ const SettingsOverlay: React.FC<SettingsOverlayProps> = ({
         // "the STT key was lost on restart."
         const hasStoredKeyForCurrentProvider = (() => {
             switch (sttProvider) {
-                case 'groq':       return hasStoredSttGroqKey;
-                case 'openai':     return hasStoredSttOpenaiKey;
-                case 'deepgram':   return hasStoredDeepgramKey;
+                case 'groq': return hasStoredSttGroqKey;
+                case 'openai': return hasStoredSttOpenaiKey;
+                case 'deepgram': return hasStoredDeepgramKey;
                 case 'elevenlabs': return hasStoredElevenLabsKey;
-                case 'azure':      return hasStoredAzureKey;
-                case 'ibmwatson':  return hasStoredIbmWatsonKey;
-                case 'soniox':     return hasStoredSonioxKey;
-                default:           return false;
+                case 'azure': return hasStoredAzureKey;
+                case 'ibmwatson': return hasStoredIbmWatsonKey;
+                case 'soniox': return hasStoredSonioxKey;
+                default: return false;
             }
         })();
 
@@ -2305,137 +2305,137 @@ const SettingsOverlay: React.FC<SettingsOverlayProps> = ({
                 shadow={isLight ? SETTINGS_SHADOW_LIGHT : SETTINGS_SHADOW_DARK}
                 radius={16}
             >
-                        <div
-                            id="settings-panel"
-                            data-genie-view={activeTab}
-                            className="flex w-full h-full"
-                            // Inherit rather than force 'visible': a forced value would show
-                            // the real panel through the card while GenieModal hides it mid-genie.
-                            style={{ visibility: isPreviewingOpacity ? 'hidden' : undefined }}
+                <div
+                    id="settings-panel"
+                    data-genie-view={activeTab}
+                    className="flex w-full h-full"
+                    // Inherit rather than force 'visible': a forced value would show
+                    // the real panel through the card while GenieModal hides it mid-genie.
+                    style={{ visibility: isPreviewingOpacity ? 'hidden' : undefined }}
+                >
+                    {/* Sidebar */}
+                    <div className="w-64 bg-bg-sidebar flex flex-col border-r border-border-subtle">
+                        <button
+                            onClick={onClose}
+                            className="self-start ml-2 mt-2 mb-1 p-1.5 rounded-md text-text-tertiary hover:text-text-primary transition-colors"
+                            title={t('Close')}
+                            aria-label={t('Close')}
                         >
-                        {/* Sidebar */}
-                        <div className="w-64 bg-bg-sidebar flex flex-col border-r border-border-subtle">
-                            <button
-                                onClick={onClose}
-                                className="self-start ml-2 mt-2 mb-1 p-1.5 rounded-md text-text-tertiary hover:text-text-primary transition-colors"
-                                title={t('Close')}
-                                aria-label={t('Close')}
-                            >
-                                <X size={15} />
-                            </button>
-                            <div className="px-5 pt-2 pb-3 overflow-y-auto flex-1 min-h-0">
-                                <h2 className="mb-0 text-[13px] font-bold uppercase tracking-[0.01em] text-text-primary">{t('Settings')}</h2>
-                                <nav className="mt-2 space-y-1">
-                                    <button
-                                        onClick={() => setActiveTab('general')}
-                                        className={navItemClass(activeTab === 'general')}
-                                    >
-                                        {activeTab === 'general' && navActivePill}
-                                        <Monitor size={16} /> {t('General')}
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveTab('plans')}
-                                        className={navItemClass(activeTab === 'plans' || activeTab === 'natively-api' || activeTab === 'natively-pro')}
-                                    >
-                                        {(activeTab === 'plans' || activeTab === 'natively-api' || activeTab === 'natively-pro') && navActivePill}
-                                        <HiCreditCard size={16} />
-                                        <span>{t('Plans & Billing')}</span>
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveTab('ai-providers')}
-                                        className={navItemClass(activeTab === 'ai-providers')}
-                                    >
-                                        {activeTab === 'ai-providers' && navActivePill}
-                                        <FlaskConical size={16} /> {t('AI Providers')}
-                                    </button>
-                                    {/* One entry for both halves of document search. The
+                            <X size={15} />
+                        </button>
+                        <div className="px-5 pt-2 pb-3 overflow-y-auto flex-1 min-h-0">
+                            <h2 className="mb-0 text-[13px] font-bold uppercase tracking-[0.01em] text-text-primary">{t('Settings')}</h2>
+                            <nav className="mt-2 space-y-1">
+                                <button
+                                    onClick={() => setActiveTab('general')}
+                                    className={navItemClass(activeTab === 'general')}
+                                >
+                                    {activeTab === 'general' && navActivePill}
+                                    <Monitor size={16} /> {t('General')}
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('plans')}
+                                    className={navItemClass(activeTab === 'plans' || activeTab === 'natively-api' || activeTab === 'natively-pro')}
+                                >
+                                    {(activeTab === 'plans' || activeTab === 'natively-api' || activeTab === 'natively-pro') && navActivePill}
+                                    <HiCreditCard size={16} />
+                                    <span>{t('Plans & Billing')}</span>
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('ai-providers')}
+                                    className={navItemClass(activeTab === 'ai-providers')}
+                                >
+                                    {activeTab === 'ai-providers' && navActivePill}
+                                    <FlaskConical size={16} /> {t('AI Providers')}
+                                </button>
+                                {/* One entry for both halves of document search. The
                                         legacy 'embedding' and 'reranker' ids still render
                                         here (see isRetrievalTab) so existing deep links
                                         land on the matching sub-tab instead of a blank
                                         content area. */}
-                                    <button
-                                        onClick={() => setActiveTab('retrieval')}
-                                        className={navItemClass(isRetrievalTab(activeTab))}
-                                    >
-                                        {isRetrievalTab(activeTab) && navActivePill}
-                                        <Boxes size={16} /> {t('Retrieval')}
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveTab('audio')}
-                                        className={navItemClass(activeTab === 'audio')}
-                                    >
-                                        {activeTab === 'audio' && navActivePill}
-                                        <Mic size={16} /> {t('Audio')}
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveTab('calendar')}
-                                        className={navItemClass(activeTab === 'calendar')}
-                                    >
-                                        {activeTab === 'calendar' && navActivePill}
-                                        <Calendar size={16} /> {t('Calendar')}
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveTab('skills')}
-                                        className={navItemClass(activeTab === 'skills')}
-                                    >
-                                        {activeTab === 'skills' && navActivePill}
-                                        <Folder size={16} /> {t('Skills')}
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveTab('keybinds')}
-                                        className={navItemClass(activeTab === 'keybinds')}
-                                    >
-                                        {activeTab === 'keybinds' && navActivePill}
-                                        <Keyboard size={16} /> {t('Keybinds')}
-                                    </button>
-
-                                    <button
-                                        onClick={() => setActiveTab('phone-mirror')}
-                                        className={navItemClass(activeTab === 'phone-mirror')}
-                                    >
-                                        {activeTab === 'phone-mirror' && navActivePill}
-                                        <Smartphone size={16} /> {t('Sync')}
-                                    </button>
-
-                                    <button
-                                        onClick={() => setActiveTab('intelligence')}
-                                        className={navItemClass(activeTab === 'intelligence')}
-                                    >
-                                        {activeTab === 'intelligence' && navActivePill}
-                                        <Cpu size={16} /> {t('Intelligence')}
-                                    </button>
-
-
-                                    <button
-                                        onClick={() => setActiveTab('help')}
-                                        className={navItemClass(activeTab === 'help', 'text-[13px]')}
-                                    >
-                                        {activeTab === 'help' && navActivePill}
-                                        <HelpCircle size={16} /> {t('Setup & Help')}
-                                    </button>
-
-                                    <button
-                                        onClick={() => setActiveTab('about')}
-                                        className={navItemClass(activeTab === 'about')}
-                                    >
-                                        {activeTab === 'about' && navActivePill}
-                                        <Info size={16} /> {t('About')}
-                                    </button>
-                                </nav>
-                            </div>
-
-                            <div className="mt-auto py-4 px-6 border-t border-border-subtle">
                                 <button
-                                    onClick={() => window.electronAPI.quitApp()}
-                                    className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-3"
+                                    onClick={() => setActiveTab('retrieval')}
+                                    className={navItemClass(isRetrievalTab(activeTab))}
                                 >
-                                    <LogOut size={16} /> {t('Quit Natively')}
+                                    {isRetrievalTab(activeTab) && navActivePill}
+                                    <Boxes size={16} /> {t('Retrieval')}
                                 </button>
-                            </div>
+                                <button
+                                    onClick={() => setActiveTab('audio')}
+                                    className={navItemClass(activeTab === 'audio')}
+                                >
+                                    {activeTab === 'audio' && navActivePill}
+                                    <Mic size={16} /> {t('Audio')}
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('calendar')}
+                                    className={navItemClass(activeTab === 'calendar')}
+                                >
+                                    {activeTab === 'calendar' && navActivePill}
+                                    <Calendar size={16} /> {t('Calendar')}
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('skills')}
+                                    className={navItemClass(activeTab === 'skills')}
+                                >
+                                    {activeTab === 'skills' && navActivePill}
+                                    <Folder size={16} /> {t('Skills')}
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('keybinds')}
+                                    className={navItemClass(activeTab === 'keybinds')}
+                                >
+                                    {activeTab === 'keybinds' && navActivePill}
+                                    <Keyboard size={16} /> {t('Keybinds')}
+                                </button>
+
+                                <button
+                                    onClick={() => setActiveTab('phone-mirror')}
+                                    className={navItemClass(activeTab === 'phone-mirror')}
+                                >
+                                    {activeTab === 'phone-mirror' && navActivePill}
+                                    <Smartphone size={16} /> {t('Sync')}
+                                </button>
+
+                                <button
+                                    onClick={() => setActiveTab('intelligence')}
+                                    className={navItemClass(activeTab === 'intelligence')}
+                                >
+                                    {activeTab === 'intelligence' && navActivePill}
+                                    <Cpu size={16} /> {t('Intelligence')}
+                                </button>
+
+
+                                <button
+                                    onClick={() => setActiveTab('help')}
+                                    className={navItemClass(activeTab === 'help', 'text-[13px]')}
+                                >
+                                    {activeTab === 'help' && navActivePill}
+                                    <HelpCircle size={16} /> {t('Setup & Help')}
+                                </button>
+
+                                <button
+                                    onClick={() => setActiveTab('about')}
+                                    className={navItemClass(activeTab === 'about')}
+                                >
+                                    {activeTab === 'about' && navActivePill}
+                                    <Info size={16} /> {t('About')}
+                                </button>
+                            </nav>
                         </div>
 
-                        {/* Content */}
-                        {/* `overflow-anchor: none` — scroll anchoring defaults to
+                        <div className="mt-auto py-4 px-6 border-t border-border-subtle">
+                            <button
+                                onClick={() => window.electronAPI.quitApp()}
+                                className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-3"
+                            >
+                                <LogOut size={16} /> {t('Quit Natively')}
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Content */}
+                    {/* `overflow-anchor: none` — scroll anchoring defaults to
                             `auto` on a scroll container, so when content above the
                             viewport changes height Chromium silently adjusts
                             scrollTop to compensate. Mid-animation it does that
@@ -2443,8 +2443,8 @@ const SettingsOverlay: React.FC<SettingsOverlayProps> = ({
                             and are independent of frame rate. Plans & Billing
                             animates whole regions in and out; this stops the
                             browser fighting it. */}
-                        <div ref={panelScrollRef} className="flex-1 bg-bg-main overflow-y-auto p-8 relative" style={{ overflowAnchor: 'none' }}>
-                            {/* Section transition. Keyed on panelKey, so React remounts this
+                    <div ref={panelScrollRef} className="flex-1 bg-bg-main overflow-y-auto p-8 relative" style={{ overflowAnchor: 'none' }}>
+                        {/* Section transition. Keyed on panelKey, so React remounts this
                                 subtree on a section change — which both replays this
                                 translate AND restarts the per-child `data-settings-stagger`
                                 CSS cascade inside each section (see src/index.css).
@@ -2463,15 +2463,15 @@ const SettingsOverlay: React.FC<SettingsOverlayProps> = ({
                                 add p-8 to a full-height box and manufacture 64px of phantom
                                 scroll, and `relative` would re-parent absolutely-positioned
                                 descendants off the scroll container. */}
-                            <motion.div
-                                key={panelKey}
-                                style={{ '--settings-stagger-dy': staggerDy } as React.CSSProperties}
-                                initial={animatePanel ? { y: reduceMotion ? 0 : panelDirection * 10 } : false}
-                                animate={{ y: 0 }}
-                                transition={reduceMotion
-                                    ? { duration: 0 }
-                                    : { duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
-                            >
+                        <motion.div
+                            key={panelKey}
+                            style={{ '--settings-stagger-dy': staggerDy } as React.CSSProperties}
+                            initial={animatePanel ? { y: reduceMotion ? 0 : panelDirection * 10 } : false}
+                            animate={{ y: 0 }}
+                            transition={reduceMotion
+                                ? { duration: 0 }
+                                : { duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+                        >
                             {/* A render error in ANY settings section used to destroy the
                                 whole launcher window. SettingsOverlay sits inside App's
                                 <ErrorBoundary context="Launcher">, so the throw bubbled all
@@ -2484,295 +2484,295 @@ const SettingsOverlay: React.FC<SettingsOverlayProps> = ({
                                 clears a latched error — without that, one bad section would
                                 show its fallback on every other tab too. */}
                             <ErrorBoundary context={`Settings · ${panelKey}`}>
-                            {activeTab === 'general' && (
-                                <SettingsMotionReady.Provider value={generalMotionReady}>
-                                <div className="space-y-6 animated fadeIn">
-                                    <div className="space-y-3.5">
-                                        <div data-settings-stagger>
-                                            <h3 className="text-lg font-bold text-text-primary mb-1">{t('General settings')}</h3>
-                                            <p className="text-xs text-text-secondary mb-2">{t('Customize how Natively works for you')}</p>
+                                {activeTab === 'general' && (
+                                    <SettingsMotionReady.Provider value={generalMotionReady}>
+                                        <div className="space-y-6 animated fadeIn">
+                                            <div className="space-y-3.5">
+                                                <div data-settings-stagger>
+                                                    <h3 className="text-lg font-bold text-text-primary mb-1">{t('General settings')}</h3>
+                                                    <p className="text-xs text-text-secondary mb-2">{t('Customize how Natively works for you')}</p>
 
-                                            <div className="rounded-xl border bg-transparent border-transparent divide-y divide-border-subtle/20">
-                                            <div className="space-y-0">
-                                                {/* Detectable / Undetectable */}
-                                                <div className="flex items-center justify-between px-4 py-3">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                            {/* The row's state, in all three places it shows: the glyph
+                                                    <div className="rounded-xl border bg-transparent border-transparent divide-y divide-border-subtle/20">
+                                                        <div className="space-y-0">
+                                                            {/* Detectable / Undetectable */}
+                                                            <div className="flex items-center justify-between px-4 py-3">
+                                                                <div className="flex items-center gap-4">
+                                                                    <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                        {/* The row's state, in all three places it shows: the glyph
                                                                 cross-fades, title and sentence swap (Presence). */}
-                                                            <Presence kind="icon" id={isUndetectable ? 'undetectable' : 'detectable'} slotClassName="w-5 h-5">
-                                                            {isUndetectable ? (
-                                                                <svg
-                                                                    width="20"
-                                                                    height="20"
-                                                                    viewBox="0 0 24 24"
-                                                                    fill="none"
-                                                                    stroke="currentColor"
-                                                                    strokeWidth="2"
-                                                                    strokeLinecap="round"
-                                                                    strokeLinejoin="round"
-                                                                >
-                                                                    <path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z" fill="currentColor" stroke="currentColor" />
-                                                                    <path d="M9 10h.01" stroke="var(--bg-item-surface)" strokeWidth="2.5" />
-                                                                    <path d="M15 10h.01" stroke="var(--bg-item-surface)" strokeWidth="2.5" />
-                                                                </svg>
-                                                            ) : (
-                                                                <Ghost size={20} />
-                                                            )}
-                                                            </Presence>
-                                                        </div>
-                                                        <div>
-                                                            <h3 className="text-sm font-bold text-text-primary">
-                                                                <Presence kind="text" id={isUndetectable ? 'undetectable' : 'detectable'}>
-                                                                    {isUndetectable ? t('Undetectable') : t('Detectable')}
-                                                                </Presence>
-                                                            </h3>
-                                                            <p className="text-xs text-text-secondary mt-0.5">
-                                                                <Presence kind="text" id={isUndetectable ? 'undetectable' : 'detectable'}>
-                                                                    {isUndetectable ? t('Natively is currently undetectable by screen-sharing.') : t('Natively is currently detectable by screen-sharing.')}
-                                                                </Presence>{' '}
-                                                                {/* The underline fades in with the hover rather than snapping on. */}
-                                                                <button onClick={() => window.electronAPI?.openExternal?.('https://natively.software/supportedapps')} className="text-accent-primary underline decoration-transparent hover:decoration-current transition-colors duration-150 ease-out">{t('Supported apps here')}</button>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <SettingsToggle
-                                                        checked={isUndetectable}
-                                                        label={t('Undetectable mode')}
-                                                        onChange={() => {
-                                                            const newState = !isUndetectable;
-                                                            setIsUndetectable(newState);
-                                                            window.electronAPI?.setUndetectable(newState);
-                                                            // Analytics: Undetectable Mode Toggle
-                                                            analytics.trackModeSelected(newState ? 'undetectable' : 'overlay');
-                                                        }}
-                                                        className={isUndetectable ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                    />
-                                                </div>
+                                                                        <Presence kind="icon" id={isUndetectable ? 'undetectable' : 'detectable'} slotClassName="w-5 h-5">
+                                                                            {isUndetectable ? (
+                                                                                <svg
+                                                                                    width="20"
+                                                                                    height="20"
+                                                                                    viewBox="0 0 24 24"
+                                                                                    fill="none"
+                                                                                    stroke="currentColor"
+                                                                                    strokeWidth="2"
+                                                                                    strokeLinecap="round"
+                                                                                    strokeLinejoin="round"
+                                                                                >
+                                                                                    <path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z" fill="currentColor" stroke="currentColor" />
+                                                                                    <path d="M9 10h.01" stroke="var(--bg-item-surface)" strokeWidth="2.5" />
+                                                                                    <path d="M15 10h.01" stroke="var(--bg-item-surface)" strokeWidth="2.5" />
+                                                                                </svg>
+                                                                            ) : (
+                                                                                <Ghost size={20} />
+                                                                            )}
+                                                                        </Presence>
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 className="text-sm font-bold text-text-primary">
+                                                                            <Presence kind="text" id={isUndetectable ? 'undetectable' : 'detectable'}>
+                                                                                {isUndetectable ? t('Undetectable') : t('Detectable')}
+                                                                            </Presence>
+                                                                        </h3>
+                                                                        <p className="text-xs text-text-secondary mt-0.5">
+                                                                            <Presence kind="text" id={isUndetectable ? 'undetectable' : 'detectable'}>
+                                                                                {isUndetectable ? t('Natively is currently undetectable by screen-sharing.') : t('Natively is currently detectable by screen-sharing.')}
+                                                                            </Presence>{' '}
+                                                                            {/* The underline fades in with the hover rather than snapping on. */}
+                                                                            <button onClick={() => window.electronAPI?.openExternal?.('https://natively.software/supportedapps')} className="text-accent-primary underline decoration-transparent hover:decoration-current transition-colors duration-150 ease-out">{t('Supported apps here')}</button>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <SettingsToggle
+                                                                    checked={isUndetectable}
+                                                                    label={t('Undetectable mode')}
+                                                                    onChange={() => {
+                                                                        const newState = !isUndetectable;
+                                                                        setIsUndetectable(newState);
+                                                                        window.electronAPI?.setUndetectable(newState);
+                                                                        // Analytics: Undetectable Mode Toggle
+                                                                        analytics.trackModeSelected(newState ? 'undetectable' : 'overlay');
+                                                                    }}
+                                                                    className={isUndetectable ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                />
+                                                            </div>
 
-                                                {/* Open at Login */}
-                                                <div className="flex items-center justify-between px-4 py-3">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                            <Power size={20} />
-                                                        </div>
-                                                        <div>
-                                                            <h3 className="text-sm font-bold text-text-primary">{t('Open Natively when you log in')}</h3>
-                                                            <p className="text-xs text-text-secondary mt-0.5">{t('Natively will open automatically when you log in to your computer')}</p>
-                                                        </div>
-                                                    </div>
-                                                    <SettingsToggle
-                                                        checked={openOnLogin}
-                                                        label={t('Open Natively when you log in')}
-                                                        onChange={() => {
-                                                            const newState = !openOnLogin;
-                                                            setOpenOnLogin(newState);
-                                                            window.electronAPI?.setOpenAtLogin(newState);
-                                                        }}
-                                                        className={openOnLogin ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                    />
-                                                </div>
+                                                            {/* Open at Login */}
+                                                            <div className="flex items-center justify-between px-4 py-3">
+                                                                <div className="flex items-center gap-4">
+                                                                    <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                        <Power size={20} />
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 className="text-sm font-bold text-text-primary">{t('Open Natively when you log in')}</h3>
+                                                                        <p className="text-xs text-text-secondary mt-0.5">{t('Natively will open automatically when you log in to your computer')}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <SettingsToggle
+                                                                    checked={openOnLogin}
+                                                                    label={t('Open Natively when you log in')}
+                                                                    onChange={() => {
+                                                                        const newState = !openOnLogin;
+                                                                        setOpenOnLogin(newState);
+                                                                        window.electronAPI?.setOpenAtLogin(newState);
+                                                                    }}
+                                                                    className={openOnLogin ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                />
+                                                            </div>
 
-                                                {/* Shortcut guard — Windows only. The macOS build has no
+                                                            {/* Shortcut guard — Windows only. The macOS build has no
                                                     equivalent: RegisterHotKey is the Windows API that silently
                                                     drops registrations, so there is nothing to guard against on
                                                     macOS and no toggle to show. */}
-                                                {isWindows && (
-                                                    <div className="flex items-center justify-between px-4 py-3">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                                <Keyboard size={20} />
-                                                            </div>
-                                                            <div>
-                                                                <h3 className="text-sm font-bold text-text-primary">{t('Protect Natively shortcuts')}</h3>
-                                                                <p className="text-xs text-text-secondary mt-0.5">{t('Keeps shortcuts from typing into the app below. Turn off if antivirus flags it.')}</p>
-                                                            </div>
-                                                        </div>
-                                                        <SettingsToggle
-                                                            checked={shortcutGuard}
-                                                            label={t('Protect Natively shortcuts')}
-                                                            onChange={async () => {
-                                                                const previous = shortcutGuard;
-                                                                const newState = !previous;
-                                                                setShortcutGuard(newState); // Optimistic
-                                                                try {
-                                                                    const result = await window.electronAPI?.setStealthShortcutGuard?.(newState);
-                                                                    if (result && !result.success) {
-                                                                        setShortcutGuard(previous);
-                                                                        console.error('[Settings] Failed to set shortcut guard');
-                                                                    }
-                                                                } catch (err) {
-                                                                    setShortcutGuard(previous);
-                                                                    console.error('[Settings] Exception setting shortcut guard:', err);
-                                                                }
-                                                            }}
-                                                            className={shortcutGuard ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                        />
-                                                    </div>
-                                                )}
+                                                            {isWindows && (
+                                                                <div className="flex items-center justify-between px-4 py-3">
+                                                                    <div className="flex items-center gap-4">
+                                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                            <Keyboard size={20} />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h3 className="text-sm font-bold text-text-primary">{t('Protect Natively shortcuts')}</h3>
+                                                                            <p className="text-xs text-text-secondary mt-0.5">{t('Keeps shortcuts from typing into the app below. Turn off if antivirus flags it.')}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <SettingsToggle
+                                                                        checked={shortcutGuard}
+                                                                        label={t('Protect Natively shortcuts')}
+                                                                        onChange={async () => {
+                                                                            const previous = shortcutGuard;
+                                                                            const newState = !previous;
+                                                                            setShortcutGuard(newState); // Optimistic
+                                                                            try {
+                                                                                const result = await window.electronAPI?.setStealthShortcutGuard?.(newState);
+                                                                                if (result && !result.success) {
+                                                                                    setShortcutGuard(previous);
+                                                                                    console.error('[Settings] Failed to set shortcut guard');
+                                                                                }
+                                                                            } catch (err) {
+                                                                                setShortcutGuard(previous);
+                                                                                console.error('[Settings] Exception setting shortcut guard:', err);
+                                                                            }
+                                                                        }}
+                                                                        className={shortcutGuard ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                    />
+                                                                </div>
+                                                            )}
 
-                                                {/* Ambient AI Chat */}
-                                                <div className="flex items-center justify-between px-4 py-3">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                            <Headphones size={20} />
-                                                        </div>
-                                                        <div>
-                                                            <h3 className="text-sm font-bold text-text-primary">{t('Ambient AI Chat')}</h3>
-                                                            <p className="text-xs text-text-secondary mt-0.5">{t('Meetings start without capturing mic or system audio')}</p>
-                                                        </div>
-                                                    </div>
-                                                    <SettingsToggle
-                                                        checked={ambientChatEnabled}
-                                                        label={t('Ambient AI Chat')}
-                                                        onChange={() => {
-                                                            const newState = !ambientChatEnabled;
-                                                            setAmbientChatEnabled(newState);
-                                                            window.electronAPI?.setAmbientChatEnabled?.(newState);
-                                                        }}
-                                                        className={ambientChatEnabled ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                    />
-                                                </div>
+                                                            {/* Ambient AI Chat */}
+                                                            <div className="flex items-center justify-between px-4 py-3">
+                                                                <div className="flex items-center gap-4">
+                                                                    <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                        <Headphones size={20} />
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 className="text-sm font-bold text-text-primary">{t('Ambient AI Chat')}</h3>
+                                                                        <p className="text-xs text-text-secondary mt-0.5">{t('Meetings start without capturing mic or system audio')}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <SettingsToggle
+                                                                    checked={ambientChatEnabled}
+                                                                    label={t('Ambient AI Chat')}
+                                                                    onChange={() => {
+                                                                        const newState = !ambientChatEnabled;
+                                                                        setAmbientChatEnabled(newState);
+                                                                        window.electronAPI?.setAmbientChatEnabled?.(newState);
+                                                                    }}
+                                                                    className={ambientChatEnabled ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                />
+                                                            </div>
 
-                                                {/* Auto Answer */}
-                                                <div className="flex items-center justify-between px-4 py-3">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                            <AutoAnswerIcon size={20} />
-                                                        </div>
-                                                        <div>
-                                                            <div className="flex items-center gap-2">
-                                                                <h3 className="text-sm font-bold text-text-primary">{t('Auto Answer')}</h3>
-                                                                {/* The same Liquid Glass tag as Direct Assist's, so the two
+                                                            {/* Auto Answer */}
+                                                            <div className="flex items-center justify-between px-4 py-3">
+                                                                <div className="flex items-center gap-4">
+                                                                    <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                        <AutoAnswerIcon size={20} />
+                                                                    </div>
+                                                                    <div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <h3 className="text-sm font-bold text-text-primary">{t('Auto Answer')}</h3>
+                                                                            {/* The same Liquid Glass tag as Direct Assist's, so the two
                                                                     Beta features read as one decision rather than two. It
                                                                     replaces a bespoke solid-yellow span whose --badge-beta-*
                                                                     tokens now have no other reader. */}
-                                                                <LiquidGlassBadge variant="sky">{t('Beta')}</LiquidGlassBadge>
+                                                                            <LiquidGlassBadge variant="sky">{t('Beta')}</LiquidGlassBadge>
+                                                                        </div>
+                                                                        <p className="text-xs text-text-secondary mt-0.5">{t('Answers appear as soon as the interviewer finishes a question')}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <SettingsToggle
+                                                                    checked={autoAnswerEnabled}
+                                                                    label={t('Auto Answer')}
+                                                                    onChange={async () => {
+                                                                        const previous = autoAnswerEnabled;
+                                                                        const newState = !previous;
+                                                                        setAutoAnswerEnabled(newState); // Optimistic update
+                                                                        try {
+                                                                            const result = await window.electronAPI?.setAutoAnswerEnabled?.(newState);
+                                                                            if (result && !result.success) {
+                                                                                // Rollback on explicit failure (settings store degraded)
+                                                                                setAutoAnswerEnabled(previous);
+                                                                                console.error('[Settings] Failed to set Auto Answer:', result.error);
+                                                                            }
+                                                                        } catch (err) {
+                                                                            setAutoAnswerEnabled(previous);
+                                                                            console.error('[Settings] Exception setting Auto Answer:', err);
+                                                                        }
+                                                                    }}
+                                                                    className={autoAnswerEnabled ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                />
                                                             </div>
-                                                            <p className="text-xs text-text-secondary mt-0.5">{t('Answers appear as soon as the interviewer finishes a question')}</p>
-                                                        </div>
-                                                    </div>
-                                                    <SettingsToggle
-                                                        checked={autoAnswerEnabled}
-                                                        label={t('Auto Answer')}
-                                                        onChange={async () => {
-                                                            const previous = autoAnswerEnabled;
-                                                            const newState = !previous;
-                                                            setAutoAnswerEnabled(newState); // Optimistic update
-                                                            try {
-                                                                const result = await window.electronAPI?.setAutoAnswerEnabled?.(newState);
-                                                                if (result && !result.success) {
-                                                                    // Rollback on explicit failure (settings store degraded)
-                                                                    setAutoAnswerEnabled(previous);
-                                                                    console.error('[Settings] Failed to set Auto Answer:', result.error);
-                                                                }
-                                                            } catch (err) {
-                                                                setAutoAnswerEnabled(previous);
-                                                                console.error('[Settings] Exception setting Auto Answer:', err);
-                                                            }
-                                                        }}
-                                                        className={autoAnswerEnabled ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                    />
-                                                </div>
 
-                                                {/* Meeting Retention */}
-                                                <div className="flex items-start justify-between px-4 py-3 gap-4">
-                                                    <div className="flex items-start gap-4">
-                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                            <Shield size={20} />
-                                                        </div>
-                                                        <div className="flex-1">
-                                                            <h3 className="text-sm font-bold text-text-primary">{t('Do not save meetings')}</h3>
-                                                            <p className="text-xs text-text-secondary mt-0.5 leading-normal">{t('Nothing is saved after the meeting ends')}</p>
-                                                        </div>
-                                                    </div>
-                                                    <SettingsToggle
-                                                        checked={meetingRetention === 'never'}
-                                                        label={t('Do not save meetings')}
-                                                        onChange={() => {
-                                                            const nextRetention = meetingRetention === 'never' ? 'forever' : 'never';
-                                                            setMeetingRetention(nextRetention);
-                                                            window.electronAPI?.setMeetingRetention?.(nextRetention);
-                                                        }}
-                                                        className={`mt-2 ${meetingRetention === 'never' ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}`}
-                                                    />
-                                                </div>
+                                                            {/* Meeting Retention */}
+                                                            <div className="flex items-start justify-between px-4 py-3 gap-4">
+                                                                <div className="flex items-start gap-4">
+                                                                    <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                        <Shield size={20} />
+                                                                    </div>
+                                                                    <div className="flex-1">
+                                                                        <h3 className="text-sm font-bold text-text-primary">{t('Do not save meetings')}</h3>
+                                                                        <p className="text-xs text-text-secondary mt-0.5 leading-normal">{t('Nothing is saved after the meeting ends')}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <SettingsToggle
+                                                                    checked={meetingRetention === 'never'}
+                                                                    label={t('Do not save meetings')}
+                                                                    onChange={() => {
+                                                                        const nextRetention = meetingRetention === 'never' ? 'forever' : 'never';
+                                                                        setMeetingRetention(nextRetention);
+                                                                        window.electronAPI?.setMeetingRetention?.(nextRetention);
+                                                                    }}
+                                                                    className={`mt-2 ${meetingRetention === 'never' ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}`}
+                                                                />
+                                                            </div>
 
-                                                {/* Theme */}
-                                                <div className="flex items-center justify-between px-4 py-3">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                            <Palette size={20} />
-                                                        </div>
-                                                        <div>
-                                                            <h3 className="text-sm font-bold text-text-primary">{t('Theme')}</h3>
-                                                            <p className="text-xs text-text-secondary mt-0.5">{t('Customize how Natively looks on your device')}</p>
-                                                        </div>
-                                                    </div>
+                                                            {/* Theme */}
+                                                            <div className="flex items-center justify-between px-4 py-3">
+                                                                <div className="flex items-center gap-4">
+                                                                    <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                        <Palette size={20} />
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 className="text-sm font-bold text-text-primary">{t('Theme')}</h3>
+                                                                        <p className="text-xs text-text-secondary mt-0.5">{t('Customize how Natively looks on your device')}</p>
+                                                                    </div>
+                                                                </div>
 
-                                                    {/* Theme, Language, Meeting Interface Style and the Check
+                                                                {/* Theme, Language, Meeting Interface Style and the Check
                                                         and Export buttons share px-2.5 + min-w-[105px], so they
                                                         match. 105px holds the widest label each can show in
                                                         English: Theme "System" with its icon (104.9px, icon at
                                                         gap-1.5) and Check's "Up to date" (104.4px), so no state
                                                         resizes them. A longer label ("Liquid Glass") still grows. */}
-                                                    <div className="relative" ref={themeDropdownRef}>
-                                                        <button
-                                                            onClick={() => setIsThemeDropdownOpen(!isThemeDropdownOpen)}
-                                                            className="bg-bg-component hover:bg-bg-elevated border border-border-subtle text-text-primary px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-2 min-w-[105px] justify-between"
-                                                        >
-                                                            <div className="flex items-center gap-1.5 overflow-hidden">
-                                                                <span className="text-text-secondary shrink-0 flex">
-                                                                    <Presence kind="icon" id={themeMode}>
-                                                                        {themeMode === 'system' && <Monitor size={14} />}
-                                                                        {themeMode === 'light' && <Sun size={14} />}
-                                                                        {themeMode === 'dark' && <Moon size={14} />}
-                                                                    </Presence>
-                                                                </span>
-                                                                <span className="capitalize text-ellipsis overflow-hidden whitespace-nowrap">
-                                                                    <Presence kind="text" id={themeMode}>{themeMode}</Presence>
-                                                                </span>
+                                                                <div className="relative" ref={themeDropdownRef}>
+                                                                    <button
+                                                                        onClick={() => setIsThemeDropdownOpen(!isThemeDropdownOpen)}
+                                                                        className="bg-bg-component hover:bg-bg-elevated border border-border-subtle text-text-primary px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-2 min-w-[105px] justify-between"
+                                                                    >
+                                                                        <div className="flex items-center gap-1.5 overflow-hidden">
+                                                                            <span className="text-text-secondary shrink-0 flex">
+                                                                                <Presence kind="icon" id={themeMode}>
+                                                                                    {themeMode === 'system' && <Monitor size={14} />}
+                                                                                    {themeMode === 'light' && <Sun size={14} />}
+                                                                                    {themeMode === 'dark' && <Moon size={14} />}
+                                                                                </Presence>
+                                                                            </span>
+                                                                            <span className="capitalize text-ellipsis overflow-hidden whitespace-nowrap">
+                                                                                <Presence kind="text" id={themeMode}>{themeMode}</Presence>
+                                                                            </span>
+                                                                        </div>
+                                                                        <ChevronDown size={12} className={`shrink-0 transition-transform duration-[250ms] ease-sculpted motion-reduce:transition-none ${isThemeDropdownOpen ? 'rotate-180' : ''}`} />
+                                                                    </button>
+
+                                                                    {/* Dropdown Menu */}
+                                                                    <SettingsMenu open={isThemeDropdownOpen} origin="top right" className="absolute right-0 top-full mt-1 min-w-full w-max bg-bg-elevated border border-border-subtle rounded-lg shadow-xl overflow-hidden z-20 p-1 select-none">
+                                                                        {[
+                                                                            { mode: 'system', label: 'System', icon: <Monitor size={14} /> },
+                                                                            { mode: 'light', label: 'Light', icon: <Sun size={14} /> },
+                                                                            { mode: 'dark', label: 'Dark', icon: <Moon size={14} /> }
+                                                                        ].map((option) => (
+                                                                            <button
+                                                                                key={option.mode}
+                                                                                onClick={() => {
+                                                                                    handleSetTheme(option.mode as any);
+                                                                                    setIsThemeDropdownOpen(false);
+                                                                                }}
+                                                                                className={`group w-full text-left px-2 py-1.5 rounded-md text-xs flex items-center gap-2 transition-colors ${themeMode === option.mode ? 'text-text-primary bg-[color:color-mix(in_srgb,var(--bg-item-active)_50%,transparent)]' : 'text-text-secondary hover:bg-bg-input hover:text-text-primary'}`}
+                                                                            >
+                                                                                <span className={themeMode === option.mode ? 'text-text-primary' : 'text-text-secondary group-hover:text-text-primary'}>{option.icon}</span>
+                                                                                <span className="font-medium">{t(option.label)}</span>
+                                                                            </button>
+                                                                        ))}
+                                                                    </SettingsMenu>
+                                                                </div>
                                                             </div>
-                                                            <ChevronDown size={12} className={`shrink-0 transition-transform duration-[250ms] ease-sculpted motion-reduce:transition-none ${isThemeDropdownOpen ? 'rotate-180' : ''}`} />
-                                                        </button>
 
-                                                        {/* Dropdown Menu */}
-                                                        <SettingsMenu open={isThemeDropdownOpen} origin="top right" className="absolute right-0 top-full mt-1 min-w-full w-max bg-bg-elevated border border-border-subtle rounded-lg shadow-xl overflow-hidden z-20 p-1 select-none">
-                                                            {[
-                                                                { mode: 'system', label: 'System', icon: <Monitor size={14} /> },
-                                                                { mode: 'light', label: 'Light', icon: <Sun size={14} /> },
-                                                                { mode: 'dark', label: 'Dark', icon: <Moon size={14} /> }
-                                                            ].map((option) => (
-                                                                <button
-                                                                    key={option.mode}
-                                                                    onClick={() => {
-                                                                        handleSetTheme(option.mode as any);
-                                                                        setIsThemeDropdownOpen(false);
-                                                                    }}
-                                                                    className={`group w-full text-left px-2 py-1.5 rounded-md text-xs flex items-center gap-2 transition-colors ${themeMode === option.mode ? 'text-text-primary bg-[color:color-mix(in_srgb,var(--bg-item-active)_50%,transparent)]' : 'text-text-secondary hover:bg-bg-input hover:text-text-primary'}`}
-                                                                >
-                                                                    <span className={themeMode === option.mode ? 'text-text-primary' : 'text-text-secondary group-hover:text-text-primary'}>{option.icon}</span>
-                                                                    <span className="font-medium">{t(option.label)}</span>
-                                                                </button>
-                                                            ))}
-                                                        </SettingsMenu>
-                                                    </div>
-                                                </div>
+                                                            {/* Language */}
+                                                            <div className="flex items-center justify-between px-4 py-3">
+                                                                <div className="flex items-center gap-4">
+                                                                    <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                        <Globe size={20} />
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 className="text-sm font-bold text-text-primary">{t('Language')}</h3>
+                                                                        <p className="text-xs text-text-secondary mt-0.5">{t('Interface language for Natively')}</p>
+                                                                    </div>
+                                                                </div>
 
-                                                {/* Language */}
-                                                <div className="flex items-center justify-between px-4 py-3">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                            <Globe size={20} />
-                                                        </div>
-                                                        <div>
-                                                            <h3 className="text-sm font-bold text-text-primary">{t('Language')}</h3>
-                                                            <p className="text-xs text-text-secondary mt-0.5">{t('Interface language for Natively')}</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="relative" ref={langDropdownRef}>
-                                                        {/* The language name is centred, in the button and in
+                                                                <div className="relative" ref={langDropdownRef}>
+                                                                    {/* The language name is centred, in the button and in
                                                             the menu. In the button it travels with an icon, like
                                                             Theme's and Check's, and the two are centred together.
                                                             Two spacers share the free space. The right one holds
@@ -2780,449 +2780,448 @@ const SettingsOverlay: React.FC<SettingsOverlayProps> = ({
                                                             plus the old 8px gap, so a long name slides left
                                                             instead of under it. The button keeps the 105px of its
                                                             column: "English" with its icon fills it. */}
-                                                        <button
-                                                            onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                                                            className="bg-bg-component hover:bg-bg-elevated border border-border-subtle text-text-primary px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center min-w-[105px]"
-                                                        >
-                                                            <span aria-hidden="true" className="flex-1 basis-0 min-w-0" />
-                                                            <span className="min-w-0 flex items-center gap-1.5">
-                                                                <Languages size={14} className="text-text-secondary shrink-0" aria-hidden="true" />
-                                                                <span className="min-w-0 text-ellipsis overflow-hidden whitespace-nowrap">
-                                                                    {LANG_NATIVE_NAMES[lang]}
-                                                                </span>
-                                                            </span>
-                                                            <span aria-hidden="true" className="flex-1 basis-0 min-w-[20px] flex justify-end">
-                                                                <ChevronDown size={12} className={`shrink-0 transition-transform duration-[250ms] ease-sculpted motion-reduce:transition-none ${isLangDropdownOpen ? 'rotate-180' : ''}`} />
-                                                            </span>
-                                                        </button>
+                                                                    <button
+                                                                        onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
+                                                                        className="bg-bg-component hover:bg-bg-elevated border border-border-subtle text-text-primary px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center min-w-[105px]"
+                                                                    >
+                                                                        <span aria-hidden="true" className="flex-1 basis-0 min-w-0" />
+                                                                        <span className="min-w-0 flex items-center gap-1.5">
+                                                                            <Languages size={14} className="text-text-secondary shrink-0" aria-hidden="true" />
+                                                                            <span className="min-w-0 text-ellipsis overflow-hidden whitespace-nowrap">
+                                                                                {LANG_NATIVE_NAMES[lang]}
+                                                                            </span>
+                                                                        </span>
+                                                                        <span aria-hidden="true" className="flex-1 basis-0 min-w-[20px] flex justify-end">
+                                                                            <ChevronDown size={12} className={`shrink-0 transition-transform duration-[250ms] ease-sculpted motion-reduce:transition-none ${isLangDropdownOpen ? 'rotate-180' : ''}`} />
+                                                                        </span>
+                                                                    </button>
 
-                                                        <SettingsMenu open={isLangDropdownOpen} origin="top right" className="absolute right-0 top-full mt-1 min-w-full w-max bg-bg-elevated border border-border-subtle rounded-lg shadow-xl overflow-hidden z-20 p-1 select-none">
-                                                            {[
-                                                                { code: 'en' as const, label: LANG_NATIVE_NAMES.en },
-                                                                { code: 'ru' as const, label: LANG_NATIVE_NAMES.ru },
-                                                                { code: 'zh' as const, label: LANG_NATIVE_NAMES.zh },
-                                                                { code: 'ja' as const, label: LANG_NATIVE_NAMES.ja },
-                                                                { code: 'es' as const, label: LANG_NATIVE_NAMES.es },
-                                                            ].map((option) => (
-                                                                <button
-                                                                    key={option.code}
-                                                                    onClick={() => {
-                                                                        setLang(option.code);
-                                                                        setIsLangDropdownOpen(false);
-                                                                    }}
-                                                                    className={`relative w-full text-center px-5 py-1.5 rounded-md text-xs flex items-center justify-center transition-colors ${lang === option.code ? 'text-text-primary bg-[color:color-mix(in_srgb,var(--bg-item-active)_50%,transparent)]' : 'text-text-secondary hover:bg-bg-input hover:text-text-primary'}`}
-                                                                >
-                                                                    {/* Pinned left, out of the flow, so the tick does not push
+                                                                    <SettingsMenu open={isLangDropdownOpen} origin="top right" className="absolute right-0 top-full mt-1 min-w-full w-max bg-bg-elevated border border-border-subtle rounded-lg shadow-xl overflow-hidden z-20 p-1 select-none">
+                                                                        {[
+                                                                            { code: 'en' as const, label: LANG_NATIVE_NAMES.en },
+                                                                            { code: 'ru' as const, label: LANG_NATIVE_NAMES.ru },
+                                                                            { code: 'zh' as const, label: LANG_NATIVE_NAMES.zh },
+                                                                            { code: 'ja' as const, label: LANG_NATIVE_NAMES.ja },
+                                                                            { code: 'es' as const, label: LANG_NATIVE_NAMES.es },
+                                                                        ].map((option) => (
+                                                                            <button
+                                                                                key={option.code}
+                                                                                onClick={() => {
+                                                                                    setLang(option.code);
+                                                                                    setIsLangDropdownOpen(false);
+                                                                                }}
+                                                                                className={`relative w-full text-center px-5 py-1.5 rounded-md text-xs flex items-center justify-center transition-colors ${lang === option.code ? 'text-text-primary bg-[color:color-mix(in_srgb,var(--bg-item-active)_50%,transparent)]' : 'text-text-secondary hover:bg-bg-input hover:text-text-primary'}`}
+                                                                            >
+                                                                                {/* Pinned left, out of the flow, so the tick does not push
                                                                         the selected name off centre; px-5 keeps every name
                                                                         clear of it. */}
-                                                                    {lang === option.code && <Check size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-text-primary" />}
-                                                                    <span className={lang === option.code ? 'text-text-primary' : 'text-text-secondary'}>{option.label}</span>
-                                                                </button>
-                                                            ))}
-                                                        </SettingsMenu>
-                                                    </div>
-                                                </div>
+                                                                                {lang === option.code && <Check size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-text-primary" />}
+                                                                                <span className={lang === option.code ? 'text-text-primary' : 'text-text-secondary'}>{option.label}</span>
+                                                                            </button>
+                                                                        ))}
+                                                                    </SettingsMenu>
+                                                                </div>
+                                                            </div>
 
-                                                {/* Version. items-center like the Theme and Language rows:
+                                                            {/* Version. items-center like the Theme and Language rows:
                                                     items-start pinned the Check button 5px above their
                                                     buttons, which sit on their tile's centre line. */}
-                                                <div className="flex items-center justify-between gap-4 px-4 py-3">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                            <BadgeCheck size={20} />
-                                                        </div>
-                                                        <div>
-                                                            <h3 className="text-sm font-bold text-text-primary">{t('Version')}</h3>
-                                                            <p className="text-xs text-text-secondary mt-0.5">
-                                                                {t('You are currently using Natively version')} {packageJson.version}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <button
-                                                        onClick={async () => {
-                                                            if (updateStatus === 'available') {
-                                                                try {
-                                                                    // @ts-ignore
-                                                                    await window.electronAPI.downloadUpdate();
-                                                                    onClose(); // Close settings to show the banner
-                                                                } catch (err) {
-                                                                    console.error("Failed to start download:", err);
-                                                                }
-                                                            } else {
-                                                                handleCheckForUpdates();
-                                                            }
-                                                        }}
-                                                        disabled={updateStatus === 'checking'}
-                                                        className={`px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-[color,background-color,border-color,box-shadow,transform] duration-150 ease-out active:scale-[0.97] disabled:active:scale-100 motion-reduce:active:scale-100 flex items-center justify-start gap-2 shrink-0 min-w-[105px] ${
-                                                            updateStatus === 'checking'
-                                                                ? 'bg-bg-input text-text-tertiary border-border-subtle cursor-wait'
-                                                                : updateStatus === 'available'
-                                                                    ? 'bg-legacy-action-bg text-legacy-action-fg border-legacy-action-bg hover:bg-legacy-action-hover shadow-lg shadow-[var(--legacy-action-shadow)]'
-                                                                    : updateStatus === 'uptodate'
-                                                                        ? 'bg-green-500/10 text-green-400 border-green-500/20'
-                                                                        : updateStatus === 'error'
-                                                                            ? 'bg-red-500/10 text-red-400 border-red-500/20'
-                                                                            : 'bg-bg-component hover:bg-bg-elevated text-text-primary border-border-subtle'
-                                                        }`}
-                                                    >
-                                                        {/* Each status is one glyph + one word: the glyph cross-fades
+                                                            <div className="flex items-center justify-between gap-4 px-4 py-3">
+                                                                <div className="flex items-center gap-4">
+                                                                    <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                        <BadgeCheck size={20} />
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 className="text-sm font-bold text-text-primary">{t('Version')}</h3>
+                                                                        <p className="text-xs text-text-secondary mt-0.5">
+                                                                            {t('You are currently using Natively version')} {packageJson.version}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <button
+                                                                    onClick={async () => {
+                                                                        if (updateStatus === 'available') {
+                                                                            try {
+                                                                                // @ts-ignore
+                                                                                await window.electronAPI.downloadUpdate();
+                                                                                onClose(); // Close settings to show the banner
+                                                                            } catch (err) {
+                                                                                console.error("Failed to start download:", err);
+                                                                            }
+                                                                        } else {
+                                                                            handleCheckForUpdates();
+                                                                        }
+                                                                    }}
+                                                                    disabled={updateStatus === 'checking'}
+                                                                    className={`px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-[color,background-color,border-color,box-shadow,transform] duration-150 ease-out active:scale-[0.97] disabled:active:scale-100 motion-reduce:active:scale-100 flex items-center justify-start gap-2 shrink-0 min-w-[105px] ${updateStatus === 'checking'
+                                                                            ? 'bg-bg-input text-text-tertiary border-border-subtle cursor-wait'
+                                                                            : updateStatus === 'available'
+                                                                                ? 'bg-legacy-action-bg text-legacy-action-fg border-legacy-action-bg hover:bg-legacy-action-hover shadow-lg shadow-[var(--legacy-action-shadow)]'
+                                                                                : updateStatus === 'uptodate'
+                                                                                    ? 'bg-green-500/10 text-green-400 border-green-500/20'
+                                                                                    : updateStatus === 'error'
+                                                                                        ? 'bg-red-500/10 text-red-400 border-red-500/20'
+                                                                                        : 'bg-bg-component hover:bg-bg-elevated text-text-primary border-border-subtle'
+                                                                        }`}
+                                                                >
+                                                                    {/* Each status is one glyph + one word: the glyph cross-fades
                                                             in its 14px slot, the word swaps (Sync's Copy → Copied).
                                                             justify-start puts the glyph where Theme's and Language's
                                                             icons start; centred, it sat 12px further in. */}
-                                                        <Presence kind="icon" id={updateStatus}>
-                                                            {updateStatus === 'checking' ? <RefreshCw size={14} className="animate-spin" />
-                                                                : updateStatus === 'available' ? <ArrowDown size={14} />
-                                                                : updateStatus === 'uptodate' ? <Check size={14} />
-                                                                : updateStatus === 'error' ? <X size={14} />
-                                                                : <RefreshCw size={14} />}
-                                                        </Presence>
-                                                        <LabelSwap id={updateStatus}>
-                                                            {updateStatus === 'checking' ? t('Checking')
-                                                                : updateStatus === 'available' ? t('Update')
-                                                                : updateStatus === 'uptodate' ? t('Up to date')
-                                                                : updateStatus === 'error' ? t('Error')
-                                                                : t('Check')}
-                                                        </LabelSwap>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            </div>
-
-                                            <div className="pt-1">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setShowAdvancedSettings((s) => !s)}
-                                                    aria-expanded={showAdvancedSettings}
-                                                    className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-text-tertiary hover:text-text-secondary transition-colors"
-                                                >
-                                                    <DisclosureChevron open={showAdvancedSettings} />
-                                                    <LabelSwap id={showAdvancedSettings ? 'hide' : 'show'}>
-                                                        {showAdvancedSettings ? t('Hide advanced settings') : t('Show advanced settings')}
-                                                    </LabelSwap>
-                                                </button>
-                                                <Disclosure open={showAdvancedSettings} unclipWhenOpen>
-                                                <div className="mt-1">
-                                                    {/* Mouse Passthrough Toggle — Adapted from public PR #113 */}
-                                                    <div className="flex items-center justify-between px-4 py-3">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                                <PointerOff size={20} />
-                                                            </div>
-                                                            <div>
-                                                                <h3 className="text-sm font-bold text-text-primary">{t('Mouse Passthrough')}</h3>
-                                                                <p className="text-xs text-text-secondary mt-0.5">
-                                                                    {t('Pass all mouse clicks through to the app beneath.')}
-                                                                </p>
+                                                                    <Presence kind="icon" id={updateStatus}>
+                                                                        {updateStatus === 'checking' ? <RefreshCw size={14} className="animate-spin" />
+                                                                            : updateStatus === 'available' ? <ArrowDown size={14} />
+                                                                                : updateStatus === 'uptodate' ? <Check size={14} />
+                                                                                    : updateStatus === 'error' ? <X size={14} />
+                                                                                        : <RefreshCw size={14} />}
+                                                                    </Presence>
+                                                                    <LabelSwap id={updateStatus}>
+                                                                        {updateStatus === 'checking' ? t('Checking')
+                                                                            : updateStatus === 'available' ? t('Update')
+                                                                                : updateStatus === 'uptodate' ? t('Up to date')
+                                                                                    : updateStatus === 'error' ? t('Error')
+                                                                                        : t('Check')}
+                                                                    </LabelSwap>
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                        <SettingsToggle
-                                                            checked={isMousePassthrough}
-                                                            label={t('Mouse Passthrough')}
-                                                            onChange={() => {
-                                                                const newState = !isMousePassthrough;
-                                                                setIsMousePassthrough(newState);
-                                                                window.electronAPI?.setOverlayMousePassthrough(newState);
-                                                            }}
-                                                            className={isMousePassthrough ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                        />
                                                     </div>
 
-                                                    {/* Genie animation — off uses the plain fade and keeps no pictures of popups */}
-                                                    <div className="flex items-center justify-between px-4 py-3">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                                <PanelBottomClose size={20} />
-                                                            </div>
-                                                            <div>
-                                                                <h3 className="text-sm font-bold text-text-primary">{t('Genie animation')}</h3>
-                                                                <p className="text-xs text-text-secondary mt-0.5">
-                                                                    {t('Popups pour in and out. Turn off for a simple fade and lower memory use.')}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <SettingsToggle
-                                                            checked={genieAnimationEnabled}
-                                                            label={t('Genie animation')}
-                                                            onChange={() => setGenieAnimationEnabled(!genieAnimationEnabled)}
-                                                            className={genieAnimationEnabled ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                        />
-                                                    </div>
-
-                                                    {/* Code Verification — runs LLM-generated code against test cases + one-shot correction */}
-                                                    <div className="flex items-center justify-between px-4 py-3">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                                <Code2 size={20} />
-                                                            </div>
-                                                            <div>
-                                                                <h3 className="text-sm font-bold text-text-primary">{t('Verify coding answers')}</h3>
-                                                                <p className="text-xs text-text-secondary mt-0.5">{t('Run generated code against test cases and self-correct')}</p>
-                                                            </div>
-                                                        </div>
-                                                        <SettingsToggle
-                                                            checked={codeVerification}
-                                                            label={t('Verify coding answers')}
-                                                            onChange={() => {
-                                                                const newState = !codeVerification;
-                                                                setCodeVerification(newState);
-                                                                // Swallow rejection: a missing handler (pre-rebuild) must not
-                                                                // spam the console with unhandledrejection noise like the
-                                                                // other toggle-style settings also use optional chaining.
-                                                                window.electronAPI?.setCodeVerification?.(newState)?.catch?.(() => { });
-                                                            }}
-                                                            className={codeVerification ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                        />
-                                                    </div>
-
-                                                    {/* Interviewer Transcript */}
-                                                    <div className="flex items-center justify-between px-4 py-3">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                                <MessageSquare size={20} />
-                                                            </div>
-                                                            <div>
-                                                                <h3 className="text-sm font-bold text-text-primary">{t('Interviewer Transcript')}</h3>
-                                                                <p className="text-xs text-text-secondary mt-0.5">{t('Show real-time transcription of the interviewer')}</p>
-                                                            </div>
-                                                        </div>
-                                                        <SettingsToggle
-                                                            checked={showTranscript}
-                                                            label={t('Interviewer Transcript')}
-                                                            onChange={() => {
-                                                                const newState = !showTranscript;
-                                                                setShowTranscript(newState);
-                                                                localStorage.setItem('natively_interviewer_transcript', String(newState));
-                                                                window.dispatchEvent(new Event('storage'));
-                                                            }}
-                                                            className={showTranscript ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                        />
-                                                    </div>
-
-                                                    {/* Usage statistics */}
-                                                    <div className="flex items-center justify-between px-4 py-3">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                                <Activity size={20} />
-                                                            </div>
-                                                            <div>
-                                                                <h3 className="text-sm font-bold text-text-primary">{t('Usage statistics')}</h3>
-                                                                <p className="text-xs text-text-secondary mt-0.5">
-                                                                    {t('Sends which features are used and how often. Never what you say, see or type.')}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <SettingsToggle
-                                                            checked={usageStatistics}
-                                                            label={t('Usage statistics')}
-                                                            onChange={() => {
-                                                                const newState = !usageStatistics;
-                                                                setUsageStatistics(newState);
-                                                                // A write the settings store refused did not change
-                                                                // anything: the switch goes back so it never shows
-                                                                // "off" while reports are still being sent.
-                                                                const revert = () => setUsageStatistics(!newState);
-                                                                const pending = window.electronAPI?.setUsageStatistics?.(newState);
-                                                                if (!pending) { revert(); return; }
-                                                                pending.then((r) => { if (!r?.success) revert(); }).catch(revert);
-                                                            }}
-                                                            className={usageStatistics ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                        />
-                                                    </div>
-
-                                                    {/* Debug Logging */}
-                                                    <div className="flex items-center justify-between px-4 py-3">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                                <Terminal size={20} />
-                                                            </div>
-                                                            <div>
-                                                                <h3 className="text-sm font-bold text-text-primary">{t('Debug logging')}</h3>
-                                                                <p className="text-xs text-text-secondary mt-0.5">
-                                                                    {t('Logs audio, STT, routing, questions and answers. API keys removed.')}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <SettingsToggle
-                                                            checked={verboseLogging}
-                                                            label={t('Debug logging')}
-                                                            onChange={() => {
-                                                                const newState = !verboseLogging;
-                                                                setVerboseLogging(newState);
-                                                                window.electronAPI?.setVerboseLogging?.(newState);
-                                                                if (newState) setShowVerboseToast(true);
-                                                            }}
-                                                            className={verboseLogging ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                                        />
-                                                    </div>
-
-
-                                                    {/* Verbose logging notice — the log location AND the
-                                                        full-capture privacy disclosure as ONE card, shown for
-                                                        10s when the user turns logging on. */}
-                                                    <AnimatePresence>
-                                                        {showVerboseToast && (
-                                                            <motion.div
-                                                                key="verbose-toast"
-                                                                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -6, height: 0 }}
-                                                                animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, height: 'auto' }}
-                                                                exit={reduceMotion
-                                                                    ? { opacity: 0, transition: { duration: 0.15 } }
-                                                                    : { opacity: 0, y: -4, height: 0, transition: { duration: 0.15, ease: [0.22, 1, 0.36, 1] } }}
-                                                                transition={{ duration: reduceMotion ? 0.15 : 0.25, ease: [0.22, 1, 0.36, 1] }}
-                                                                className="mx-4 mb-1 overflow-hidden"
-                                                            >
-                                                                <div className="px-3 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                                                                    <div className="flex items-center justify-between gap-3">
-                                                                        <div className="flex items-center gap-2.5 min-w-0">
-                                                                            <Terminal size={14} className={`${isLight ? 'text-amber-700' : 'text-amber-400'} shrink-0`} />
-                                                                            <p className={`text-xs ${isLight ? 'text-amber-800' : 'text-amber-200/80'} leading-snug truncate`}>
-                                                                                Logs → <span className={`font-mono ${isLight ? 'text-amber-900' : 'text-amber-300'}`}>~/Documents/natively_debug.log</span>
+                                                    <div className="pt-1">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setShowAdvancedSettings((s) => !s)}
+                                                            aria-expanded={showAdvancedSettings}
+                                                            className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-text-tertiary hover:text-text-secondary transition-colors"
+                                                        >
+                                                            <DisclosureChevron open={showAdvancedSettings} />
+                                                            <LabelSwap id={showAdvancedSettings ? 'hide' : 'show'}>
+                                                                {showAdvancedSettings ? t('Hide advanced settings') : t('Show advanced settings')}
+                                                            </LabelSwap>
+                                                        </button>
+                                                        <Disclosure open={showAdvancedSettings} unclipWhenOpen>
+                                                            <div className="mt-1">
+                                                                {/* Mouse Passthrough Toggle — Adapted from public PR #113 */}
+                                                                <div className="flex items-center justify-between px-4 py-3">
+                                                                    <div className="flex items-center gap-4">
+                                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                            <PointerOff size={20} />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h3 className="text-sm font-bold text-text-primary">{t('Mouse Passthrough')}</h3>
+                                                                            <p className="text-xs text-text-secondary mt-0.5">
+                                                                                {t('Pass all mouse clicks through to the app beneath.')}
                                                                             </p>
                                                                         </div>
-                                                                        <button
-                                                                            onClick={() => window.electronAPI?.openLogFile?.()}
-                                                                            className={`shrink-0 text-[11px] font-medium ${isLight ? 'text-amber-800 hover:text-amber-900' : 'text-amber-400 hover:text-amber-300'} transition-colors px-2 py-0.5 rounded-md bg-amber-500/15 hover:bg-amber-500/25`}
-                                                                        >
-                                                                            Open
-                                                                        </button>
                                                                     </div>
-                                                                    <p className={`text-xs ${isLight ? 'text-amber-800' : 'text-amber-200/80'} leading-snug mt-2`}>
-                                                                        {t('Full capture records your transcripts, questions, and answers in plaintext on this device. API keys and tokens are always removed. Review a log before sharing it.')}
-                                                                    </p>
+                                                                    <SettingsToggle
+                                                                        checked={isMousePassthrough}
+                                                                        label={t('Mouse Passthrough')}
+                                                                        onChange={() => {
+                                                                            const newState = !isMousePassthrough;
+                                                                            setIsMousePassthrough(newState);
+                                                                            window.electronAPI?.setOverlayMousePassthrough(newState);
+                                                                        }}
+                                                                        className={isMousePassthrough ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                    />
                                                                 </div>
-                                                            </motion.div>
-                                                        )}
-                                                    </AnimatePresence>
 
-                                                    {/* Meeting Interface Style */}
-                                                    <div className="flex items-center justify-between px-4 py-3">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                                <Layout size={20} />
-                                                            </div>
-                                                            <div>
-                                                                <h3 className="text-sm font-bold text-text-primary">{t('Meeting Interface Style')}</h3>
-                                                                <p className="text-xs text-text-secondary mt-0.5">
-                                                                    <Presence kind="text" id={meetingInterfaceTheme}>
-                                                                        {meetingInterfaceTheme === 'liquid-glass'
-                                                                            ? t('Liquid glass — Apple-inspired transparent overlay')
-                                                                            : meetingInterfaceTheme === 'modern'
-                                                                                ? t('Modern — polished dark glass with cobalt accents')
-                                                                                : t('Default overlay appearance')}
-                                                                    </Presence>
-                                                                </p>
-                                                            </div>
-                                                        </div>
+                                                                {/* Genie animation — off uses the plain fade and keeps no pictures of popups */}
+                                                                <div className="flex items-center justify-between px-4 py-3">
+                                                                    <div className="flex items-center gap-4">
+                                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                            <PanelBottomClose size={20} />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h3 className="text-sm font-bold text-text-primary">{t('Genie animation')}</h3>
+                                                                            <p className="text-xs text-text-secondary mt-0.5">
+                                                                                {t('Popups pour in and out. Turn off for a simple fade and lower memory use.')}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <SettingsToggle
+                                                                        checked={genieAnimationEnabled}
+                                                                        label={t('Genie animation')}
+                                                                        onChange={() => setGenieAnimationEnabled(!genieAnimationEnabled)}
+                                                                        className={genieAnimationEnabled ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                    />
+                                                                </div>
 
-                                                        <div className="relative" ref={interfaceThemeDropdownRef}>
-                                                            {/* Centred like Language's picker: two spacers share the free
+                                                                {/* Code Verification — runs LLM-generated code against test cases + one-shot correction */}
+                                                                <div className="flex items-center justify-between px-4 py-3">
+                                                                    <div className="flex items-center gap-4">
+                                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                            <Code2 size={20} />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h3 className="text-sm font-bold text-text-primary">{t('Verify coding answers')}</h3>
+                                                                            <p className="text-xs text-text-secondary mt-0.5">{t('Run generated code against test cases and self-correct')}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <SettingsToggle
+                                                                        checked={codeVerification}
+                                                                        label={t('Verify coding answers')}
+                                                                        onChange={() => {
+                                                                            const newState = !codeVerification;
+                                                                            setCodeVerification(newState);
+                                                                            // Swallow rejection: a missing handler (pre-rebuild) must not
+                                                                            // spam the console with unhandledrejection noise like the
+                                                                            // other toggle-style settings also use optional chaining.
+                                                                            window.electronAPI?.setCodeVerification?.(newState)?.catch?.(() => { });
+                                                                        }}
+                                                                        className={codeVerification ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                    />
+                                                                </div>
+
+                                                                {/* Interviewer Transcript */}
+                                                                <div className="flex items-center justify-between px-4 py-3">
+                                                                    <div className="flex items-center gap-4">
+                                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                            <MessageSquare size={20} />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h3 className="text-sm font-bold text-text-primary">{t('Interviewer Transcript')}</h3>
+                                                                            <p className="text-xs text-text-secondary mt-0.5">{t('Show real-time transcription of the interviewer')}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <SettingsToggle
+                                                                        checked={showTranscript}
+                                                                        label={t('Interviewer Transcript')}
+                                                                        onChange={() => {
+                                                                            const newState = !showTranscript;
+                                                                            setShowTranscript(newState);
+                                                                            localStorage.setItem('natively_interviewer_transcript', String(newState));
+                                                                            window.dispatchEvent(new Event('storage'));
+                                                                        }}
+                                                                        className={showTranscript ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                    />
+                                                                </div>
+
+                                                                {/* Usage statistics */}
+                                                                <div className="flex items-center justify-between px-4 py-3">
+                                                                    <div className="flex items-center gap-4">
+                                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                            <Activity size={20} />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h3 className="text-sm font-bold text-text-primary">{t('Usage statistics')}</h3>
+                                                                            <p className="text-xs text-text-secondary mt-0.5">
+                                                                                {t('Sends which features are used and how often. Never what you say, see or type.')}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <SettingsToggle
+                                                                        checked={usageStatistics}
+                                                                        label={t('Usage statistics')}
+                                                                        onChange={() => {
+                                                                            const newState = !usageStatistics;
+                                                                            setUsageStatistics(newState);
+                                                                            // A write the settings store refused did not change
+                                                                            // anything: the switch goes back so it never shows
+                                                                            // "off" while reports are still being sent.
+                                                                            const revert = () => setUsageStatistics(!newState);
+                                                                            const pending = window.electronAPI?.setUsageStatistics?.(newState);
+                                                                            if (!pending) { revert(); return; }
+                                                                            pending.then((r) => { if (!r?.success) revert(); }).catch(revert);
+                                                                        }}
+                                                                        className={usageStatistics ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                    />
+                                                                </div>
+
+                                                                {/* Debug Logging */}
+                                                                <div className="flex items-center justify-between px-4 py-3">
+                                                                    <div className="flex items-center gap-4">
+                                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                            <Terminal size={20} />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h3 className="text-sm font-bold text-text-primary">{t('Debug logging')}</h3>
+                                                                            <p className="text-xs text-text-secondary mt-0.5">
+                                                                                {t('Logs audio, STT, routing, questions and answers. API keys removed.')}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <SettingsToggle
+                                                                        checked={verboseLogging}
+                                                                        label={t('Debug logging')}
+                                                                        onChange={() => {
+                                                                            const newState = !verboseLogging;
+                                                                            setVerboseLogging(newState);
+                                                                            window.electronAPI?.setVerboseLogging?.(newState);
+                                                                            if (newState) setShowVerboseToast(true);
+                                                                        }}
+                                                                        className={verboseLogging ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                                                    />
+                                                                </div>
+
+
+                                                                {/* Verbose logging notice — the log location AND the
+                                                        full-capture privacy disclosure as ONE card, shown for
+                                                        10s when the user turns logging on. */}
+                                                                <AnimatePresence>
+                                                                    {showVerboseToast && (
+                                                                        <motion.div
+                                                                            key="verbose-toast"
+                                                                            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -6, height: 0 }}
+                                                                            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, height: 'auto' }}
+                                                                            exit={reduceMotion
+                                                                                ? { opacity: 0, transition: { duration: 0.15 } }
+                                                                                : { opacity: 0, y: -4, height: 0, transition: { duration: 0.15, ease: [0.22, 1, 0.36, 1] } }}
+                                                                            transition={{ duration: reduceMotion ? 0.15 : 0.25, ease: [0.22, 1, 0.36, 1] }}
+                                                                            className="mx-4 mb-1 overflow-hidden"
+                                                                        >
+                                                                            <div className="px-3 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                                                                                <div className="flex items-center justify-between gap-3">
+                                                                                    <div className="flex items-center gap-2.5 min-w-0">
+                                                                                        <Terminal size={14} className={`${isLight ? 'text-amber-700' : 'text-amber-400'} shrink-0`} />
+                                                                                        <p className={`text-xs ${isLight ? 'text-amber-800' : 'text-amber-200/80'} leading-snug truncate`}>
+                                                                                            Logs → <span className={`font-mono ${isLight ? 'text-amber-900' : 'text-amber-300'}`}>~/Documents/natively_debug.log</span>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <button
+                                                                                        onClick={() => window.electronAPI?.openLogFile?.()}
+                                                                                        className={`shrink-0 text-[11px] font-medium ${isLight ? 'text-amber-800 hover:text-amber-900' : 'text-amber-400 hover:text-amber-300'} transition-colors px-2 py-0.5 rounded-md bg-amber-500/15 hover:bg-amber-500/25`}
+                                                                                    >
+                                                                                        Open
+                                                                                    </button>
+                                                                                </div>
+                                                                                <p className={`text-xs ${isLight ? 'text-amber-800' : 'text-amber-200/80'} leading-snug mt-2`}>
+                                                                                    {t('Full capture records your transcripts, questions, and answers in plaintext on this device. API keys and tokens are always removed. Review a log before sharing it.')}
+                                                                                </p>
+                                                                            </div>
+                                                                        </motion.div>
+                                                                    )}
+                                                                </AnimatePresence>
+
+                                                                {/* Meeting Interface Style */}
+                                                                <div className="flex items-center justify-between px-4 py-3">
+                                                                    <div className="flex items-center gap-4">
+                                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                            <Layout size={20} />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h3 className="text-sm font-bold text-text-primary">{t('Meeting Interface Style')}</h3>
+                                                                            <p className="text-xs text-text-secondary mt-0.5">
+                                                                                <Presence kind="text" id={meetingInterfaceTheme}>
+                                                                                    {meetingInterfaceTheme === 'liquid-glass'
+                                                                                        ? t('Liquid glass — Apple-inspired transparent overlay')
+                                                                                        : meetingInterfaceTheme === 'modern'
+                                                                                            ? t('Modern — polished dark glass with cobalt accents')
+                                                                                            : t('Default overlay appearance')}
+                                                                                </Presence>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div className="relative" ref={interfaceThemeDropdownRef}>
+                                                                        {/* Centred like Language's picker: two spacers share the free
                                                                 space, and the right one holds the chevron and never gets
                                                                 narrower than the chevron plus the old 8px gap, so
                                                                 "Liquid Glass" slides left instead of under it. */}
-                                                            <button
-                                                                onClick={() => setIsInterfaceThemeDropdownOpen(!isInterfaceThemeDropdownOpen)}
-                                                                className="bg-bg-component hover:bg-bg-elevated border border-border-subtle text-text-primary px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center min-w-[105px]"
-                                                            >
-                                                                <span aria-hidden="true" className="flex-1 basis-0 min-w-0" />
-                                                                <span className="min-w-0 text-ellipsis overflow-hidden whitespace-nowrap">
-                                                                    <Presence kind="text" id={meetingInterfaceTheme}>
-                                                                        {meetingInterfaceTheme === 'liquid-glass'
-                                                                            ? 'Liquid Glass'
-                                                                            : meetingInterfaceTheme === 'modern'
-                                                                                ? 'Modern'
-                                                                                : t('Default')}
-                                                                    </Presence>
-                                                                </span>
-                                                                <span aria-hidden="true" className="flex-1 basis-0 min-w-[20px] flex justify-end">
-                                                                    <ChevronDown size={12} className={`shrink-0 transition-transform duration-[250ms] ease-sculpted motion-reduce:transition-none ${isInterfaceThemeDropdownOpen ? 'rotate-180' : ''}`} />
-                                                                </span>
-                                                            </button>
+                                                                        <button
+                                                                            onClick={() => setIsInterfaceThemeDropdownOpen(!isInterfaceThemeDropdownOpen)}
+                                                                            className="bg-bg-component hover:bg-bg-elevated border border-border-subtle text-text-primary px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center min-w-[105px]"
+                                                                        >
+                                                                            <span aria-hidden="true" className="flex-1 basis-0 min-w-0" />
+                                                                            <span className="min-w-0 text-ellipsis overflow-hidden whitespace-nowrap">
+                                                                                <Presence kind="text" id={meetingInterfaceTheme}>
+                                                                                    {meetingInterfaceTheme === 'liquid-glass'
+                                                                                        ? 'Liquid Glass'
+                                                                                        : meetingInterfaceTheme === 'modern'
+                                                                                            ? 'Modern'
+                                                                                            : t('Default')}
+                                                                                </Presence>
+                                                                            </span>
+                                                                            <span aria-hidden="true" className="flex-1 basis-0 min-w-[20px] flex justify-end">
+                                                                                <ChevronDown size={12} className={`shrink-0 transition-transform duration-[250ms] ease-sculpted motion-reduce:transition-none ${isInterfaceThemeDropdownOpen ? 'rotate-180' : ''}`} />
+                                                                            </span>
+                                                                        </button>
 
-                                                            {/* Opens down past the Export row: the advanced Disclosure is
+                                                                        {/* Opens down past the Export row: the advanced Disclosure is
                                                                 unclipWhenOpen, so the menu is not cut off at its edge. */}
-                                                            <SettingsMenu open={isInterfaceThemeDropdownOpen} origin="top right" className="absolute right-0 top-full mt-1 min-w-full w-max bg-bg-elevated border border-border-subtle rounded-lg shadow-xl overflow-hidden z-20 p-1 select-none">
-                                                                {([
-                                                                    { mode: 'default' as MeetingInterfaceTheme, label: 'Default' },
-                                                                    { mode: 'liquid-glass' as MeetingInterfaceTheme, label: 'Liquid Glass' },
-                                                                    { mode: 'modern' as MeetingInterfaceTheme, label: 'Modern' },
-                                                                ] as const).map((option) => (
-                                                                    <button
-                                                                        key={option.mode}
-                                                                        onClick={() => {
-                                                                            setMeetingInterfaceTheme(option.mode);
-                                                                            setMeetingInterfaceThemeState(option.mode);
-                                                                            setIsInterfaceThemeDropdownOpen(false);
-                                                                        }}
-                                                                        className={`w-full text-center px-2.5 py-1.5 rounded-md text-xs flex items-center justify-center transition-colors ${meetingInterfaceTheme === option.mode ? 'text-text-primary bg-[color:color-mix(in_srgb,var(--bg-item-active)_50%,transparent)]' : 'text-text-secondary hover:bg-bg-input hover:text-text-primary'}`}
-                                                                    >
-                                                                        <span className="font-medium">{t(option.label)}</span>
-                                                                    </button>
-                                                                ))}
-                                                            </SettingsMenu>
-                                                        </div>
-                                                    </div>
+                                                                        <SettingsMenu open={isInterfaceThemeDropdownOpen} origin="top right" className="absolute right-0 top-full mt-1 min-w-full w-max bg-bg-elevated border border-border-subtle rounded-lg shadow-xl overflow-hidden z-20 p-1 select-none">
+                                                                            {([
+                                                                                { mode: 'default' as MeetingInterfaceTheme, label: 'Default' },
+                                                                                { mode: 'liquid-glass' as MeetingInterfaceTheme, label: 'Liquid Glass' },
+                                                                                { mode: 'modern' as MeetingInterfaceTheme, label: 'Modern' },
+                                                                            ] as const).map((option) => (
+                                                                                <button
+                                                                                    key={option.mode}
+                                                                                    onClick={() => {
+                                                                                        setMeetingInterfaceTheme(option.mode);
+                                                                                        setMeetingInterfaceThemeState(option.mode);
+                                                                                        setIsInterfaceThemeDropdownOpen(false);
+                                                                                    }}
+                                                                                    className={`w-full text-center px-2.5 py-1.5 rounded-md text-xs flex items-center justify-center transition-colors ${meetingInterfaceTheme === option.mode ? 'text-text-primary bg-[color:color-mix(in_srgb,var(--bg-item-active)_50%,transparent)]' : 'text-text-secondary hover:bg-bg-input hover:text-text-primary'}`}
+                                                                                >
+                                                                                    <span className="font-medium">{t(option.label)}</span>
+                                                                                </button>
+                                                                            ))}
+                                                                        </SettingsMenu>
+                                                                    </div>
+                                                                </div>
 
-                                                    {/* Export debug logs — collects the main log, the previous
+                                                                {/* Export debug logs — collects the main log, the previous
                                                         session, the structured JSONL records and a system-info
                                                         header into one folder and reveals it. */}
-                                                    <div className="flex items-center justify-between px-4 py-3">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
-                                                                <Download size={20} />
-                                                            </div>
-                                                            <div>
-                                                                <h3 className="text-sm font-bold text-text-primary">{t('Export debug logs')}</h3>
-                                                                <p className="text-xs text-text-secondary mt-0.5">
-                                                                    <Presence kind="text" id={exportResult ?? 'idle'}>
-                                                                        {exportResult ?? t('Collect this session\u2019s logs into one folder to share')}
-                                                                    </Presence>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        {/* min-w-[105px] + px-2.5 like every other control in this column; it
+                                                                <div className="flex items-center justify-between px-4 py-3">
+                                                                    <div className="flex items-center gap-4">
+                                                                        <div className="w-10 h-10 bg-bg-item-surface rounded-lg border border-border-subtle text-text-primary flex items-center justify-center shrink-0">
+                                                                            <Download size={20} />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h3 className="text-sm font-bold text-text-primary">{t('Export debug logs')}</h3>
+                                                                            <p className="text-xs text-text-secondary mt-0.5">
+                                                                                <Presence kind="text" id={exportResult ?? 'idle'}>
+                                                                                    {exportResult ?? t('Collect this session\u2019s logs into one folder to share')}
+                                                                                </Presence>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    {/* min-w-[105px] + px-2.5 like every other control in this column; it
                                                             also holds "Exporting…", so the swap can't resize the box. */}
-                                                        <button
-                                                            type="button"
-                                                            disabled={exportingLogs}
-                                                            onClick={async () => {
-                                                                setExportingLogs(true);
-                                                                setExportResult(null);
-                                                                try {
-                                                                    const r = await window.electronAPI?.exportDebugLogs?.();
-                                                                    setExportResult(r?.success
-                                                                        ? t('Exported {{n}} file(s) \u2014 revealed in your file manager').replace('{{n}}', String(r.files?.length ?? 0))
-                                                                        : t('Export failed: {{e}}').replace('{{e}}', r?.error ?? 'unknown'));
-                                                                } catch (e: any) {
-                                                                    setExportResult(t('Export failed: {{e}}').replace('{{e}}', e?.message ?? 'unknown'));
-                                                                } finally {
-                                                                    setExportingLogs(false);
-                                                                }
-                                                            }}
-                                                            className="shrink-0 min-w-[105px] text-xs font-medium px-2.5 py-1.5 rounded-lg bg-bg-item-surface border border-border-subtle text-text-primary hover:bg-[color:var(--bg-row-hover)] transition-[color,background-color,border-color,opacity,transform] duration-150 ease-out active:scale-[0.97] disabled:active:scale-100 motion-reduce:active:scale-100 disabled:opacity-50"
-                                                        >
-                                                            <LabelSwap id={exportingLogs ? 'exporting' : 'idle'}>
-                                                                {exportingLogs ? t('Exporting\u2026') : t('Export')}
-                                                            </LabelSwap>
-                                                        </button>
+                                                                    <button
+                                                                        type="button"
+                                                                        disabled={exportingLogs}
+                                                                        onClick={async () => {
+                                                                            setExportingLogs(true);
+                                                                            setExportResult(null);
+                                                                            try {
+                                                                                const r = await window.electronAPI?.exportDebugLogs?.();
+                                                                                setExportResult(r?.success
+                                                                                    ? t('Exported {{n}} file(s) \u2014 revealed in your file manager').replace('{{n}}', String(r.files?.length ?? 0))
+                                                                                    : t('Export failed: {{e}}').replace('{{e}}', r?.error ?? 'unknown'));
+                                                                            } catch (e: any) {
+                                                                                setExportResult(t('Export failed: {{e}}').replace('{{e}}', e?.message ?? 'unknown'));
+                                                                            } finally {
+                                                                                setExportingLogs(false);
+                                                                            }
+                                                                        }}
+                                                                        className="shrink-0 min-w-[105px] text-xs font-medium px-2.5 py-1.5 rounded-lg bg-bg-item-surface border border-border-subtle text-text-primary hover:bg-[color:var(--bg-row-hover)] transition-[color,background-color,border-color,opacity,transform] duration-150 ease-out active:scale-[0.97] disabled:active:scale-100 motion-reduce:active:scale-100 disabled:opacity-50"
+                                                                    >
+                                                                        <LabelSwap id={exportingLogs ? 'exporting' : 'idle'}>
+                                                                            {exportingLogs ? t('Exporting\u2026') : t('Export')}
+                                                                        </LabelSwap>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </Disclosure>
                                                     </div>
-                                                </div>
-                                                </Disclosure>
-                                            </div>
 
-                                                {/* ------------------------------------------------------------------ */}
-                                                {/* Interface Opacity (Stealth Mode)                                   */}
-                                                {/* ------------------------------------------------------------------ */}
-                                                <div
-                                                    id="opacity-slider-card"
-                                                    style={isPreviewingOpacity ? { visibility: 'visible', position: 'relative', zIndex: 9999 } : {}}
-                                                    className={`${isLight ? 'bg-bg-card' : 'bg-bg-item-surface'} rounded-xl p-5 border border-border-subtle mt-4`}
-                                                >
-                                                    <div className="flex items-center justify-between mb-3">
-                                                        <label className="flex items-center gap-2 text-xs font-medium text-text-secondary uppercase tracking-wide">
-                                                            <Eye size={13} className="text-text-secondary" />
-                                                            {t('Interface Opacity')}
-                                                        </label>
-                                                        {/*
+                                                    {/* ------------------------------------------------------------------ */}
+                                                    {/* Interface Opacity (Stealth Mode)                                   */}
+                                                    {/* ------------------------------------------------------------------ */}
+                                                    <div
+                                                        id="opacity-slider-card"
+                                                        style={isPreviewingOpacity ? { visibility: 'visible', position: 'relative', zIndex: 9999 } : {}}
+                                                        className={`${isLight ? 'bg-bg-card' : 'bg-bg-item-surface'} rounded-xl p-5 border border-border-subtle mt-4`}
+                                                    >
+                                                        <div className="flex items-center justify-between mb-3">
+                                                            <label className="flex items-center gap-2 text-xs font-medium text-text-secondary uppercase tracking-wide">
+                                                                <Eye size={13} className="text-text-secondary" />
+                                                                {t('Interface Opacity')}
+                                                            </label>
+                                                            {/*
                                                          * Render previewOverlayOpacity (live drag value), NOT
                                                          * overlayOpacity (committed). The drag handler at
                                                          * handleOpacityChange does an imperative
@@ -3238,468 +3237,468 @@ const SettingsOverlay: React.FC<SettingsOverlayProps> = ({
                                                          * imperative write still wins the sub-frame race, React's
                                                          * commit just confirms the same value.
                                                          */}
-                                                        <span className="opacity-percent-label text-xs font-semibold text-text-primary tabular-nums">
-                                                            {Math.round(previewOverlayOpacity * 100)}%
+                                                            <span className="opacity-percent-label text-xs font-semibold text-text-primary tabular-nums">
+                                                                {Math.round(previewOverlayOpacity * 100)}%
+                                                            </span>
+                                                        </div>
+
+                                                        <input
+                                                            type="range"
+                                                            min={OVERLAY_OPACITY_MIN}
+                                                            max={1.0}
+                                                            step={0.01}
+                                                            defaultValue={overlayOpacity}
+                                                            onChange={(e) => handleOpacityChange(parseFloat(e.target.value))}
+                                                            onPointerDown={startPreviewingOpacity}
+                                                            onPointerUp={stopPreviewingOpacity}
+                                                            onPointerCancel={stopPreviewingOpacity}
+                                                            onPointerLeave={stopPreviewingOpacity}
+                                                            className="lg-slider w-full h-1.5 rounded-full appearance-none bg-bg-input"
+                                                            style={{
+                                                                WebkitAppearance: 'none',
+                                                                '--lg-knob-bg': isLight ? SELECTED_PERIWINKLE_LIGHT : SELECTED_PERIWINKLE,
+                                                            } as React.CSSProperties}
+                                                        />
+
+                                                        <div className="flex justify-between mt-1.5">
+                                                            <span className="text-[10px] text-text-tertiary">{t('More Stealth')}</span>
+                                                            <span className="text-[10px] text-text-tertiary">{t('Fully Visible')}</span>
+                                                        </div>
+
+                                                        <p className="text-xs text-text-tertiary mt-2">
+                                                            {t('Controls the visibility of the in-meeting overlay.')}{' '}
+                                                            <span className="text-text-secondary">{t('Hold the slider to preview.')}</span>
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            {/* Process Disguise */}
+                                            <div className={`${isLight ? 'bg-bg-card' : 'bg-bg-item-surface'} rounded-xl p-5 border border-border-subtle`}>
+                                                <div className="flex flex-col gap-1 mb-3">
+                                                    <div className="flex items-center gap-2">
+                                                        <h3 className="text-lg font-bold text-text-primary">{t('Process Disguise')}</h3>
+                                                    </div>
+                                                    <p className="text-xs text-text-secondary">
+                                                        {t('Disguise Natively as another application to prevent detection during screen sharing.')}
+                                                        <span className="block mt-1 text-text-tertiary">
+                                                            {t('Select a disguise to be automatically applied when Undetectable mode is on.')}
                                                         </span>
-                                                    </div>
-
-                                                    <input
-                                                        type="range"
-                                                        min={OVERLAY_OPACITY_MIN}
-                                                        max={1.0}
-                                                        step={0.01}
-                                                        defaultValue={overlayOpacity}
-                                                        onChange={(e) => handleOpacityChange(parseFloat(e.target.value))}
-                                                        onPointerDown={startPreviewingOpacity}
-                                                        onPointerUp={stopPreviewingOpacity}
-                                                        onPointerCancel={stopPreviewingOpacity}
-                                                        onPointerLeave={stopPreviewingOpacity}
-                                                        className="lg-slider w-full h-1.5 rounded-full appearance-none bg-bg-input"
-                                                        style={{
-                                                            WebkitAppearance: 'none',
-                                                            '--lg-knob-bg': isLight ? SELECTED_PERIWINKLE_LIGHT : SELECTED_PERIWINKLE,
-                                                        } as React.CSSProperties}
-                                                    />
-
-                                                    <div className="flex justify-between mt-1.5">
-                                                        <span className="text-[10px] text-text-tertiary">{t('More Stealth')}</span>
-                                                        <span className="text-[10px] text-text-tertiary">{t('Fully Visible')}</span>
-                                                    </div>
-
-                                                    <p className="text-xs text-text-tertiary mt-2">
-                                                        {t('Controls the visibility of the in-meeting overlay.')}{' '}
-                                                        <span className="text-text-secondary">{t('Hold the slider to preview.')}</span>
                                                     </p>
                                                 </div>
 
-                                        </div>
-
-                                    </div>
-
-                                    {/* Process Disguise */}
-                                    <div className={`${isLight ? 'bg-bg-card' : 'bg-bg-item-surface'} rounded-xl p-5 border border-border-subtle`}>
-                                        <div className="flex flex-col gap-1 mb-3">
-                                            <div className="flex items-center gap-2">
-                                                <h3 className="text-lg font-bold text-text-primary">{t('Process Disguise')}</h3>
-                                            </div>
-                                            <p className="text-xs text-text-secondary">
-                                                {t('Disguise Natively as another application to prevent detection during screen sharing.')}
-                                                <span className="block mt-1 text-text-tertiary">
-                                                    {t('Select a disguise to be automatically applied when Undetectable mode is on.')}
-                                                </span>
-                                            </p>
-                                        </div>
-
-                                        {/* `.lg-clear` inherits its label colour from this grid. No blanket
+                                                {/* `.lg-clear` inherits its label colour from this grid. No blanket
                                             opacity when locked: `disabled` dims the parts and keeps the rim
                                             (ui-components/design.md, States). */}
-                                        {/* The lock notice folds open above the grid rather than popping in
+                                                {/* The lock notice folds open above the grid rather than popping in
                                             as a grid row, which shoved all four tiles down in one frame.
                                             Same box as before: 8px under the header (the -4px margin it
                                             always had, now animated with it), 16px over the tiles. */}
-                                        <AnimatePresence initial={false}>
-                                            {isUndetectable && (
-                                                <motion.div
-                                                    key="disguise-lock"
-                                                    initial={generalMotionReady ? (reduceMotion ? { opacity: 0, marginTop: -4 } : { opacity: 0, height: 0, marginTop: 0 }) : false}
-                                                    animate={{ opacity: 1, height: 'auto', marginTop: -4 }}
-                                                    exit={reduceMotion ? { opacity: 0, transition: { duration: 0.15 } } : { opacity: 0, height: 0, marginTop: 0, transition: { duration: 0.15, ease: [0.22, 1, 0.36, 1] } }}
-                                                    transition={{ duration: reduceMotion ? 0.15 : 0.25, ease: [0.22, 1, 0.36, 1] }}
-                                                    style={{ overflow: 'hidden' }}
-                                                >
-                                                    <p className="flex items-center gap-1.5 text-xs text-yellow-500/80 pb-4">
-                                                        <TriangleAlert size={13} strokeWidth={2} className="flex-shrink-0" aria-hidden="true" />
-                                                        {t('Disable Undetectable mode first to change disguise.')}
-                                                    </p>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                        <div className={`grid grid-cols-2 gap-3 text-text-secondary ${isUndetectable ? 'pointer-events-none' : ''}`}>
-                                            {[
-                                                // Names match what _applyDisguise renames the app to per platform.
-                                                { id: 'none', label: 'None (Default)', icon: <Layout size={18} strokeWidth={1.75} /> },
-                                                { id: 'terminal', label: isWindows ? 'Command Prompt' : 'Terminal', icon: <Terminal size={18} strokeWidth={1.75} /> },
-                                                { id: 'settings', label: isWindows ? 'Settings' : 'System Settings', icon: <Settings size={18} strokeWidth={1.75} /> },
-                                                { id: 'activity', label: isWindows ? 'Task Manager' : 'Activity Monitor', icon: <Activity size={18} strokeWidth={1.75} /> }
-                                            ].map((option) => {
-                                                const selected = disguiseMode === option.id;
-                                                return (
-                                                    <LiquidGlassButton
-                                                        key={option.id}
-                                                        variant={selected ? 'lavender' : 'clear'}
-                                                        className="lg-sm lg-tile w-full [&_.lg-content]:justify-start"
-                                                        icon={<span className={selected ? undefined : 'text-text-primary'}>{option.icon}</span>}
-                                                        aria-pressed={selected}
-                                                        disabled={isUndetectable}
-                                                        style={selected ? (isLight ? DISGUISE_TILE_SELECTED_LIGHT : DISGUISE_TILE_SELECTED) : DISGUISE_TILE_RESTING}
-                                                        onClick={() => {
-                                                            if (isUndetectable) return;
-                                                            // @ts-ignore
-                                                            setDisguiseMode(option.id);
-                                                            // @ts-ignore
-                                                            window.electronAPI?.setDisguise(option.id);
-                                                            // Analytics
-                                                            analytics.trackModeSelected(`disguise_${option.id}`);
-                                                        }}
-                                                    >
-                                                        {t(option.label)}
-                                                    </LiquidGlassButton>
-                                                );
-                                            })}
+                                                <AnimatePresence initial={false}>
+                                                    {isUndetectable && (
+                                                        <motion.div
+                                                            key="disguise-lock"
+                                                            initial={generalMotionReady ? (reduceMotion ? { opacity: 0, marginTop: -4 } : { opacity: 0, height: 0, marginTop: 0 }) : false}
+                                                            animate={{ opacity: 1, height: 'auto', marginTop: -4 }}
+                                                            exit={reduceMotion ? { opacity: 0, transition: { duration: 0.15 } } : { opacity: 0, height: 0, marginTop: 0, transition: { duration: 0.15, ease: [0.22, 1, 0.36, 1] } }}
+                                                            transition={{ duration: reduceMotion ? 0.15 : 0.25, ease: [0.22, 1, 0.36, 1] }}
+                                                            style={{ overflow: 'hidden' }}
+                                                        >
+                                                            <p className="flex items-center gap-1.5 text-xs text-yellow-500/80 pb-4">
+                                                                <TriangleAlert size={13} strokeWidth={2} className="flex-shrink-0" aria-hidden="true" />
+                                                                {t('Disable Undetectable mode first to change disguise.')}
+                                                            </p>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                                <div className={`grid grid-cols-2 gap-3 text-text-secondary ${isUndetectable ? 'pointer-events-none' : ''}`}>
+                                                    {[
+                                                        // Names match what _applyDisguise renames the app to per platform.
+                                                        { id: 'none', label: 'None (Default)', icon: <Layout size={18} strokeWidth={1.75} /> },
+                                                        { id: 'terminal', label: isWindows ? 'Command Prompt' : 'Terminal', icon: <Terminal size={18} strokeWidth={1.75} /> },
+                                                        { id: 'settings', label: isWindows ? 'Settings' : 'System Settings', icon: <Settings size={18} strokeWidth={1.75} /> },
+                                                        { id: 'activity', label: isWindows ? 'Task Manager' : 'Activity Monitor', icon: <Activity size={18} strokeWidth={1.75} /> }
+                                                    ].map((option) => {
+                                                        const selected = disguiseMode === option.id;
+                                                        return (
+                                                            <LiquidGlassButton
+                                                                key={option.id}
+                                                                variant={selected ? 'lavender' : 'clear'}
+                                                                className="lg-sm lg-tile w-full [&_.lg-content]:justify-start"
+                                                                icon={<span className={selected ? undefined : 'text-text-primary'}>{option.icon}</span>}
+                                                                aria-pressed={selected}
+                                                                disabled={isUndetectable}
+                                                                style={selected ? (isLight ? DISGUISE_TILE_SELECTED_LIGHT : DISGUISE_TILE_SELECTED) : DISGUISE_TILE_RESTING}
+                                                                onClick={() => {
+                                                                    if (isUndetectable) return;
+                                                                    // @ts-ignore
+                                                                    setDisguiseMode(option.id);
+                                                                    // @ts-ignore
+                                                                    window.electronAPI?.setDisguise(option.id);
+                                                                    // Analytics
+                                                                    analytics.trackModeSelected(`disguise_${option.id}`);
+                                                                }}
+                                                            >
+                                                                {t(option.label)}
+                                                            </LiquidGlassButton>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+
                                         </div>
-                                    </div>
+                                    </SettingsMotionReady.Provider>
+                                )}
 
-                                </div>
-                                </SettingsMotionReady.Provider>
-                            )}
-
-                            {activeTab === 'ai-providers' && (
-                                <AIProvidersSettings
-                                    onNavigate={setActiveTab}
-                                    aiResponseLanguage={aiResponseLanguage}
-                                    availableAiLanguages={availableAiLanguages}
-                                    isAiLangDropdownOpen={isAiLangDropdownOpen}
-                                    onToggleAiLangDropdown={() => setIsAiLangDropdownOpen(!isAiLangDropdownOpen)}
-                                    onSelectAiLanguage={(code) => {
-                                        handleAiLanguageChange(code);
-                                        setIsAiLangDropdownOpen(false);
-                                    }}
-                                    aiLangDropdownRef={aiLangDropdownRef}
-                                />
-                            )}
-                            {activeTab === 'skills' && (
-                                <SkillsSettings />
-                            )}
-                            {(activeTab === 'plans' || activeTab === 'natively-api' || activeTab === 'natively-pro') && (
-                                <PlansSettings initialIsPremium={initialIsPremium} initialHasNativelyKey={hasNativelyKey} />
-                            )}
-                            {activeTab === 'keybinds' && (
-                                <div className="space-y-5 animated fadeIn select-text pb-4">
-                                    <div className="flex items-start justify-between">
-                                        <div>
-                                            <h3 className="text-lg font-bold text-text-primary mb-1">{t('Keyboard shortcuts')}</h3>
-                                            <p className="text-xs text-text-secondary">{t('Natively works with these easy to remember commands.')}</p>
+                                {activeTab === 'ai-providers' && (
+                                    <AIProvidersSettings
+                                        onNavigate={setActiveTab}
+                                        aiResponseLanguage={aiResponseLanguage}
+                                        availableAiLanguages={availableAiLanguages}
+                                        isAiLangDropdownOpen={isAiLangDropdownOpen}
+                                        onToggleAiLangDropdown={() => setIsAiLangDropdownOpen(!isAiLangDropdownOpen)}
+                                        onSelectAiLanguage={(code) => {
+                                            handleAiLanguageChange(code);
+                                            setIsAiLangDropdownOpen(false);
+                                        }}
+                                        aiLangDropdownRef={aiLangDropdownRef}
+                                    />
+                                )}
+                                {activeTab === 'skills' && (
+                                    <SkillsSettings />
+                                )}
+                                {(activeTab === 'plans' || activeTab === 'natively-api' || activeTab === 'natively-pro') && (
+                                    <PlansSettings initialIsPremium={initialIsPremium} initialHasNativelyKey={hasNativelyKey} />
+                                )}
+                                {activeTab === 'keybinds' && (
+                                    <div className="space-y-5 animated fadeIn select-text pb-4">
+                                        <div className="flex items-start justify-between">
+                                            <div>
+                                                <h3 className="text-lg font-bold text-text-primary mb-1">{t('Keyboard shortcuts')}</h3>
+                                                <p className="text-xs text-text-secondary">{t('Natively works with these easy to remember commands.')}</p>
+                                            </div>
+                                            <button
+                                                onClick={resetShortcuts}
+                                                className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle hover:bg-bg-item-surface hover:border-green-500/30 transition-[color,background-color,border-color,transform] duration-150 ease-out text-xs font-medium text-text-secondary hover:text-green-500 active:scale-95 mt-1"
+                                            >
+                                                <RotateCcw size={13} strokeWidth={2.5} />
+                                                {t('Restore Default')}
+                                            </button>
                                         </div>
-                                        <button
-                                            onClick={resetShortcuts}
-                                            className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle hover:bg-bg-item-surface hover:border-green-500/30 transition-[color,background-color,border-color,transform] duration-150 ease-out text-xs font-medium text-text-secondary hover:text-green-500 active:scale-95 mt-1"
-                                        >
-                                            <RotateCcw size={13} strokeWidth={2.5} />
-                                            {t('Restore Default')}
-                                        </button>
-                                    </div>
 
-                                    {/* Issue #517: one switch to stop Natively claiming keys OS-wide.
+                                        {/* Issue #517: one switch to stop Natively claiming keys OS-wide.
                                         The card fill is what makes it a card in dark, where
                                         --border-subtle is transparent. */}
-                                    <div className="flex items-center justify-between gap-4 px-4 py-3 rounded-xl border border-border-subtle bg-bg-card">
-                                        <div>
-                                            <h4 className="text-sm font-bold text-text-primary">{t('Global shortcuts')}</h4>
-                                            <p className="text-xs text-text-secondary mt-0.5">
-                                                <DescriptionSwap id={globalShortcutsEnabled ? 'global' : 'focused'}>
-                                                    {globalShortcutsEnabled
-                                                        ? t('Shortcuts work even when another app is focused.')
-                                                        : t('Shortcuts work only while Natively is focused. Toggle Visibility stays global so you can always bring Natively back.')}
-                                                </DescriptionSwap>
-                                            </p>
+                                        <div className="flex items-center justify-between gap-4 px-4 py-3 rounded-xl border border-border-subtle bg-bg-card">
+                                            <div>
+                                                <h4 className="text-sm font-bold text-text-primary">{t('Global shortcuts')}</h4>
+                                                <p className="text-xs text-text-secondary mt-0.5">
+                                                    <DescriptionSwap id={globalShortcutsEnabled ? 'global' : 'focused'}>
+                                                        {globalShortcutsEnabled
+                                                            ? t('Shortcuts work even when another app is focused.')
+                                                            : t('Shortcuts work only while Natively is focused. Toggle Visibility stays global so you can always bring Natively back.')}
+                                                    </DescriptionSwap>
+                                                </p>
+                                            </div>
+                                            <SettingsToggle
+                                                checked={globalShortcutsEnabled}
+                                                label={t('Global shortcuts')}
+                                                onChange={() => setGlobalShortcutsEnabled(!globalShortcutsEnabled)}
+                                                className={globalShortcutsEnabled ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
+                                            />
                                         </div>
-                                        <SettingsToggle
-                                            checked={globalShortcutsEnabled}
-                                            label={t('Global shortcuts')}
-                                            onChange={() => setGlobalShortcutsEnabled(!globalShortcutsEnabled)}
-                                            className={globalShortcutsEnabled ? 'bg-accent-primary border border-transparent' : 'bg-bg-toggle-switch border border-border-muted'}
-                                        />
-                                    </div>
 
-                                    {/* Surfaces globalShortcut.register() failures in bulk — e.g. on
+                                        {/* Surfaces globalShortcut.register() failures in bulk — e.g. on
                                         Windows, another running app (screenshot tool, clipboard
                                         manager, IME) can silently claim a combo Natively wants,
                                         which otherwise looks like "the hotkey just doesn't work". */}
-                                    {conflicts.size > 0 && (
-                                        <div className="flex items-start gap-2.5 px-3 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 settings-swap-in">
-                                            <AlertCircle size={14} className="text-amber-400 shrink-0 mt-0.5" />
-                                            <p className="text-xs text-amber-200/90 leading-snug">
-                                                {t("Some shortcuts below (marked \"In use\") are claimed by another app on your system and won't fire. Record a new key combo for each to fix it.")}
-                                            </p>
-                                        </div>
-                                    )}
-
-                                    <div className="grid gap-6" data-settings-stagger>
-                                        {/* General Category */}
-                                        <div>
-                                            <h4 className="text-sm font-bold text-text-primary mb-3">{t('General')}</h4>
-                                            <div className="space-y-1">
-                                                <div className="flex items-center justify-between py-1.5 group">
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><Eye size={14} /></span>
-                                                        <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Toggle Visibility')}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        {renderShortcutConflictBadge('toggleVisibility')}
-                                                        <KeyRecorder
-                                                            currentKeys={shortcuts.toggleVisibility}
-                                                            onSave={(keys) => updateShortcut('toggleVisibility', keys)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center justify-between py-1.5 group">
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><PointerOff size={14} /></span>
-                                                        <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Toggle Mouse Passthrough')}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        {renderShortcutConflictBadge('toggleMousePassthrough')}
-                                                        <KeyRecorder
-                                                            currentKeys={shortcuts.toggleMousePassthrough}
-                                                            onSave={(keys) => updateShortcut('toggleMousePassthrough', keys)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center justify-between py-1.5 group">
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><MessageSquare size={14} /></span>
-                                                        <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Process Screenshots')}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        {renderShortcutConflictBadge('processScreenshots')}
-                                                        <KeyRecorder
-                                                            currentKeys={shortcuts.processScreenshots}
-                                                            onSave={(keys) => updateShortcut('processScreenshots', keys)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center justify-between py-1.5 group">
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><Sparkles size={14} /></span>
-                                                        <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Capture Screen & Ask AI')}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        {renderShortcutConflictBadge('captureAndProcess')}
-                                                        <KeyRecorder
-                                                            currentKeys={shortcuts.captureAndProcess}
-                                                            onSave={(keys) => updateShortcut('captureAndProcess', keys)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center justify-between py-1.5 group">
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><Globe size={14} /></span>
-                                                        <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Capture Page (Browser)')}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        {renderShortcutConflictBadge('capturePage')}
-                                                        <KeyRecorder
-                                                            currentKeys={shortcuts.capturePage}
-                                                            onSave={(keys) => updateShortcut('capturePage', keys)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center justify-between py-1.5 group">
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><RotateCcw size={14} /></span>
-                                                        <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Reset / Cancel')}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        {renderShortcutConflictBadge('resetCancel')}
-                                                        <KeyRecorder
-                                                            currentKeys={shortcuts.resetCancel}
-                                                            onSave={(keys) => updateShortcut('resetCancel', keys)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center justify-between py-1.5 group">
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><Camera size={14} /></span>
-                                                        <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Take Screenshot')}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        {renderShortcutConflictBadge('takeScreenshot')}
-                                                        <KeyRecorder
-                                                            currentKeys={shortcuts.takeScreenshot}
-                                                            onSave={(keys) => updateShortcut('takeScreenshot', keys)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center justify-between py-1.5 group">
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><Crop size={14} /></span>
-                                                        <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Selective Screenshot')}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        {renderShortcutConflictBadge('selectiveScreenshot')}
-                                                        <KeyRecorder
-                                                            currentKeys={shortcuts.selectiveScreenshot}
-                                                            onSave={(keys) => updateShortcut('selectiveScreenshot', keys)}
-                                                        />
-                                                    </div>
-                                                </div>
+                                        {conflicts.size > 0 && (
+                                            <div className="flex items-start gap-2.5 px-3 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 settings-swap-in">
+                                                <AlertCircle size={14} className="text-amber-400 shrink-0 mt-0.5" />
+                                                <p className="text-xs text-amber-200/90 leading-snug">
+                                                    {t("Some shortcuts below (marked \"In use\") are claimed by another app on your system and won't fire. Record a new key combo for each to fix it.")}
+                                                </p>
                                             </div>
-                                        </div>
+                                        )}
 
-                                        {/* Chat Category */}
-                                        <div>
-                                            <div className="mb-3">
-                                                <h4 className="text-sm font-bold text-text-primary">{t('Chat')}</h4>
-                                            </div>
-                                            <div className="space-y-1">
-                                                {[
-                                                    { id: 'whatToAnswer', label: 'What to Answer', icon: <Sparkles size={14} /> },
-                                                    { id: 'clarify', label: 'Clarify', icon: <MessageSquare size={14} /> },
-                                                    { id: 'followUp', label: 'Follow Up', icon: <MessageSquare size={14} /> },
-                                                    { id: 'dynamicAction4', label: 'Recap / Brainstorm', icon: <RefreshCw size={14} /> },
-                                                    { id: 'answer', label: 'Answer / Record', icon: <Mic size={14} /> },
-                                                    { id: 'codeHint', label: 'Get Code Hint', icon: <Zap size={14} /> },
-                                                    { id: 'brainstorm', label: 'Brainstorm Approaches', icon: <Zap size={14} /> },
-                                                    { id: 'acceptSuggestion', label: 'Use Suggestion', icon: <CornerDownRight size={14} /> },
-                                                    { id: 'scrollUp', label: 'Scroll Up', icon: <ArrowUp size={14} /> },
-                                                    { id: 'scrollDown', label: 'Scroll Down', icon: <ArrowDown size={14} /> },
-                                                    { id: 'scrollLeft', label: 'Scroll Left (code block)', icon: <ArrowLeft size={14} /> },
-                                                    { id: 'scrollRight', label: 'Scroll Right (code block)', icon: <ArrowRight size={14} /> },
-                                                    { id: 'focusInput', label: 'Toggle Stealth Typing', icon: <MessageSquare size={14} /> },
-                                                ].map((item, i) => (
-                                                    <div key={i} className="flex items-center justify-between py-1.5 group">
+                                        <div className="grid gap-6" data-settings-stagger>
+                                            {/* General Category */}
+                                            <div>
+                                                <h4 className="text-sm font-bold text-text-primary mb-3">{t('General')}</h4>
+                                                <div className="space-y-1">
+                                                    <div className="flex items-center justify-between py-1.5 group">
                                                         <div className="flex items-center gap-3">
-                                                            <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center">{item.icon}</span>
-                                                            <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t(item.label)}</span>
+                                                            <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><Eye size={14} /></span>
+                                                            <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Toggle Visibility')}</span>
                                                         </div>
                                                         <div className="flex items-center gap-2">
-                                                            {renderShortcutConflictBadge(item.id as keyof typeof shortcuts)}
+                                                            {renderShortcutConflictBadge('toggleVisibility')}
                                                             <KeyRecorder
-                                                                currentKeys={shortcuts[item.id as keyof typeof shortcuts]}
-                                                                onSave={(keys) => updateShortcut(item.id as any, keys)}
+                                                                currentKeys={shortcuts.toggleVisibility}
+                                                                onSave={(keys) => updateShortcut('toggleVisibility', keys)}
                                                             />
                                                         </div>
                                                     </div>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        {/* Window Category */}
-                                        <div>
-                                            <h4 className="text-sm font-bold text-text-primary mb-3">{t('Window')}</h4>
-                                            <div className="space-y-1">
-                                                {[
-                                                    { id: 'moveWindowUp', label: 'Move Window Up', icon: <ArrowUp size={14} /> },
-                                                    { id: 'moveWindowDown', label: 'Move Window Down', icon: <ArrowDown size={14} /> },
-                                                    { id: 'moveWindowLeft', label: 'Move Window Left', icon: <ArrowLeft size={14} /> },
-                                                    { id: 'moveWindowRight', label: 'Move Window Right', icon: <ArrowRight size={14} /> }
-                                                ].map((item, i) => (
-                                                    <div key={i} className="flex items-center justify-between py-1.5 group">
+                                                    <div className="flex items-center justify-between py-1.5 group">
                                                         <div className="flex items-center gap-3">
-                                                            <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center">{item.icon}</span>
-                                                            <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t(item.label)}</span>
+                                                            <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><PointerOff size={14} /></span>
+                                                            <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Toggle Mouse Passthrough')}</span>
                                                         </div>
                                                         <div className="flex items-center gap-2">
-                                                            {renderShortcutConflictBadge(item.id as keyof typeof shortcuts)}
+                                                            {renderShortcutConflictBadge('toggleMousePassthrough')}
                                                             <KeyRecorder
-                                                                currentKeys={shortcuts[item.id as keyof typeof shortcuts]}
-                                                                onSave={(keys) => updateShortcut(item.id as any, keys)}
+                                                                currentKeys={shortcuts.toggleMousePassthrough}
+                                                                onSave={(keys) => updateShortcut('toggleMousePassthrough', keys)}
                                                             />
                                                         </div>
                                                     </div>
-                                                ))}
+                                                    <div className="flex items-center justify-between py-1.5 group">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><MessageSquare size={14} /></span>
+                                                            <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Process Screenshots')}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            {renderShortcutConflictBadge('processScreenshots')}
+                                                            <KeyRecorder
+                                                                currentKeys={shortcuts.processScreenshots}
+                                                                onSave={(keys) => updateShortcut('processScreenshots', keys)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center justify-between py-1.5 group">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><Sparkles size={14} /></span>
+                                                            <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Capture Screen & Ask AI')}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            {renderShortcutConflictBadge('captureAndProcess')}
+                                                            <KeyRecorder
+                                                                currentKeys={shortcuts.captureAndProcess}
+                                                                onSave={(keys) => updateShortcut('captureAndProcess', keys)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center justify-between py-1.5 group">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><Globe size={14} /></span>
+                                                            <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Capture Page (Browser)')}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            {renderShortcutConflictBadge('capturePage')}
+                                                            <KeyRecorder
+                                                                currentKeys={shortcuts.capturePage}
+                                                                onSave={(keys) => updateShortcut('capturePage', keys)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center justify-between py-1.5 group">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><RotateCcw size={14} /></span>
+                                                            <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Reset / Cancel')}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            {renderShortcutConflictBadge('resetCancel')}
+                                                            <KeyRecorder
+                                                                currentKeys={shortcuts.resetCancel}
+                                                                onSave={(keys) => updateShortcut('resetCancel', keys)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center justify-between py-1.5 group">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><Camera size={14} /></span>
+                                                            <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Take Screenshot')}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            {renderShortcutConflictBadge('takeScreenshot')}
+                                                            <KeyRecorder
+                                                                currentKeys={shortcuts.takeScreenshot}
+                                                                onSave={(keys) => updateShortcut('takeScreenshot', keys)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center justify-between py-1.5 group">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center"><Crop size={14} /></span>
+                                                            <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t('Selective Screenshot')}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            {renderShortcutConflictBadge('selectiveScreenshot')}
+                                                            <KeyRecorder
+                                                                currentKeys={shortcuts.selectiveScreenshot}
+                                                                onSave={(keys) => updateShortcut('selectiveScreenshot', keys)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Chat Category */}
+                                            <div>
+                                                <div className="mb-3">
+                                                    <h4 className="text-sm font-bold text-text-primary">{t('Chat')}</h4>
+                                                </div>
+                                                <div className="space-y-1">
+                                                    {[
+                                                        { id: 'whatToAnswer', label: 'What to Answer', icon: <Sparkles size={14} /> },
+                                                        { id: 'clarify', label: 'Clarify', icon: <MessageSquare size={14} /> },
+                                                        { id: 'followUp', label: 'Follow Up', icon: <MessageSquare size={14} /> },
+                                                        { id: 'dynamicAction4', label: 'Recap / Brainstorm', icon: <RefreshCw size={14} /> },
+                                                        { id: 'answer', label: 'Answer / Record', icon: <Mic size={14} /> },
+                                                        { id: 'codeHint', label: 'Get Code Hint', icon: <Zap size={14} /> },
+                                                        { id: 'brainstorm', label: 'Brainstorm Approaches', icon: <Zap size={14} /> },
+                                                        { id: 'acceptSuggestion', label: 'Use Suggestion', icon: <CornerDownRight size={14} /> },
+                                                        { id: 'scrollUp', label: 'Scroll Up', icon: <ArrowUp size={14} /> },
+                                                        { id: 'scrollDown', label: 'Scroll Down', icon: <ArrowDown size={14} /> },
+                                                        { id: 'scrollLeft', label: 'Scroll Left (code block)', icon: <ArrowLeft size={14} /> },
+                                                        { id: 'scrollRight', label: 'Scroll Right (code block)', icon: <ArrowRight size={14} /> },
+                                                        { id: 'focusInput', label: 'Toggle Stealth Typing', icon: <MessageSquare size={14} /> },
+                                                    ].map((item, i) => (
+                                                        <div key={i} className="flex items-center justify-between py-1.5 group">
+                                                            <div className="flex items-center gap-3">
+                                                                <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center">{item.icon}</span>
+                                                                <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t(item.label)}</span>
+                                                            </div>
+                                                            <div className="flex items-center gap-2">
+                                                                {renderShortcutConflictBadge(item.id as keyof typeof shortcuts)}
+                                                                <KeyRecorder
+                                                                    currentKeys={shortcuts[item.id as keyof typeof shortcuts]}
+                                                                    onSave={(keys) => updateShortcut(item.id as any, keys)}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Window Category */}
+                                            <div>
+                                                <h4 className="text-sm font-bold text-text-primary mb-3">{t('Window')}</h4>
+                                                <div className="space-y-1">
+                                                    {[
+                                                        { id: 'moveWindowUp', label: 'Move Window Up', icon: <ArrowUp size={14} /> },
+                                                        { id: 'moveWindowDown', label: 'Move Window Down', icon: <ArrowDown size={14} /> },
+                                                        { id: 'moveWindowLeft', label: 'Move Window Left', icon: <ArrowLeft size={14} /> },
+                                                        { id: 'moveWindowRight', label: 'Move Window Right', icon: <ArrowRight size={14} /> }
+                                                    ].map((item, i) => (
+                                                        <div key={i} className="flex items-center justify-between py-1.5 group">
+                                                            <div className="flex items-center gap-3">
+                                                                <span className="text-text-tertiary group-hover:text-text-primary transition-colors w-5 flex justify-center">{item.icon}</span>
+                                                                <span className="text-sm text-text-secondary font-medium group-hover:text-text-primary transition-colors">{t(item.label)}</span>
+                                                            </div>
+                                                            <div className="flex items-center gap-2">
+                                                                {renderShortcutConflictBadge(item.id as keyof typeof shortcuts)}
+                                                                <KeyRecorder
+                                                                    currentKeys={shortcuts[item.id as keyof typeof shortcuts]}
+                                                                    onSave={(keys) => updateShortcut(item.id as any, keys)}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
 
-                            {activeTab === 'audio' && (
-                                <div className="space-y-6 animated fadeIn" data-settings-stagger>
-                                    {/* ── Speech Provider Section ── */}
-                                    <div>
-                                        <h3 className="text-lg font-bold text-text-primary mb-1">{t('Speech Provider')}</h3>
-                                        <p className="text-xs text-text-secondary mb-4">{t('Choose the engine that transcribes audio to text.')}</p>
+                                {activeTab === 'audio' && (
+                                    <div className="space-y-6 animated fadeIn" data-settings-stagger>
+                                        {/* ── Speech Provider Section ── */}
+                                        <div>
+                                            <h3 className="text-lg font-bold text-text-primary mb-1">{t('Speech Provider')}</h3>
+                                            <p className="text-xs text-text-secondary mb-4">{t('Choose the engine that transcribes audio to text.')}</p>
 
-                                        <div className="space-y-4">
-                                            <div className="bg-bg-card rounded-xl border border-border-subtle p-4 space-y-3">
-                                                <label className="text-xs font-medium text-text-secondary block">{t('Speech Provider')}</label>
-                                                <div className="relative">
-                                                    <ProviderSelect
-                                                        value={sttProvider}
-                                                        onChange={(val) => handleSttProviderChange(val as any)}
-                                                        options={[
-                                                            /* Icons are each provider's official monochrome brand mark, inlined so it
-                                                               inherits the tile's per-provider tint (see src/components/ui/BrandMark.tsx).
-                                                               Soniox is a monogram because it publishes no licence-compatible mark;
-                                                               Natively is our own logo component. Every option used to share one
-                                                               generic <Mic>, which made the list unreadable at a glance. */
-                                                            ...(hasNativelyKey ? [{ id: 'natively', label: 'Natively API', badge: 'Saved' as const, desc: t('Managed transcription via Natively backend'), color: 'blue', icon: <BrandMark provider="natively" />, neutralTile: true }] : []),
-                                                            /* Directly under Natively API: both are turnkey — no key to paste,
-                                                               nothing to configure — so they belong together at the top, ahead
-                                                               of the bring-your-own-key providers. macOS only; the mark is
-                                                               Apple's because the model runs on this machine. */
-                                                            ...(isMac ? [{ id: 'apple-speech', label: 'Apple Speech', badge: null, desc: t('On-device · macOS 26+'), color: 'green', icon: <BrandMark provider="apple" />, neutralTile: true }] : []),
-                                                            { id: 'google', label: 'Google Cloud', badge: googleServiceAccountPath ? 'Saved' : null, desc: t('gRPC streaming via Service Account'), color: 'blue', icon: <BrandMark provider="google" />, neutralTile: true },
-                                                            { id: 'groq', label: 'Groq Whisper', badge: hasStoredSttGroqKey ? 'Saved' : null, desc: t('Ultra-fast REST transcription'), color: 'orange', icon: <BrandMark provider="groq" />, neutralTile: true },
-                                                            { id: 'nvidia_nim', label: 'Nvidia Nim', badge: hasStoredNvidiaNimKey ? 'Saved' : null, desc: t('Low-latency Nemotron / Parakeet streaming ASR'), color: 'green', icon: <BrandMark provider="nvidia_nim" />, neutralTile: true },
-                                                            { id: 'openai', label: 'OpenAI Whisper', badge: hasStoredSttOpenaiKey ? 'Saved' : null, desc: t('OpenAI-compatible Whisper API'), color: 'green', icon: <BrandMark provider="openai" />, neutralTile: true },
-                                                            { id: 'deepgram', label: 'Deepgram', badge: hasStoredDeepgramKey ? 'Saved' : null, desc: `${STT_MODEL_CATALOG.deepgram.models.find((m) => m.id === sttModels.deepgram)?.label ?? 'Nova-3'} · ${t('300 ms endpointing')}`, color: 'purple', icon: <BrandMark provider="deepgram" />, neutralTile: true },
-                                                            { id: 'elevenlabs', label: 'ElevenLabs Scribe', badge: hasStoredElevenLabsKey ? 'Saved' : null, desc: t('Scribe v2 Realtime API'), color: 'teal', icon: <BrandMark provider="elevenlabs" />, neutralTile: true },
-                                                            { id: 'azure', label: 'Azure Speech', badge: hasStoredAzureKey ? 'Saved' : null, desc: t('Microsoft Cognitive Services STT'), color: 'cyan', icon: <BrandMark provider="azure" />, neutralTile: true },
-                                                            { id: 'ibmwatson', label: 'IBM Watson', badge: hasStoredIbmWatsonKey ? 'Saved' : null, desc: t('IBM Watson cloud STT service'), color: 'indigo', icon: <BrandMark provider="ibmwatson" />, neutralTile: true },
-                                                            /* Soniox has no licence-compatible mark, so its monogram reproduces the brand's
-                                                               own treatment instead of a generic tint: white letterform on black. Fixed in
-                                                               both themes — it is a brand colour pair, not a themed surface. */
-                                                            { id: 'soniox', label: 'Soniox', badge: hasStoredSonioxKey ? 'Saved' : null, desc: t('60+ languages, multilingual, domain context'), color: 'cyan', icon: <BrandMonogram name="Soniox" />, tileClassName: 'bg-black text-white' },
-                                                            /* Label only — the `local-whisper` id stays as-is. It is the persisted
-                                                               sttProvider value and is matched across the main process, IPC and
-                                                               CredentialsManager, so renaming it would strand every existing user
-                                                               on a provider the app no longer recognises. */
-                                                            /* The host OS mark: these models run on THIS machine, so the platform is
-                                                               the identity. Apple on macOS; on Windows the Microsoft mark, because no
-                                                               Windows logo exists under a licence compatible with AGPL-3.0 (it is in
-                                                               neither lobehub nor simple-icons — see the README). `isMac` is the same
-                                                               platform source the rest of this panel uses. */
-                                                            { id: 'local-whisper', label: 'Local Models', badge: null, desc: t('Privacy-first: runs 100% on your device'), color: 'green', icon: <BrandMark provider={isMac ? 'apple' : 'microsoft'} />, neutralTile: true },
-                                                        ]}
-                                                    />
+                                            <div className="space-y-4">
+                                                <div className="bg-bg-card rounded-xl border border-border-subtle p-4 space-y-3">
+                                                    <label className="text-xs font-medium text-text-secondary block">{t('Speech Provider')}</label>
+                                                    <div className="relative">
+                                                        <ProviderSelect
+                                                            value={sttProvider}
+                                                            onChange={(val) => handleSttProviderChange(val as any)}
+                                                            options={[
+                                                                /* Icons are each provider's official monochrome brand mark, inlined so it
+                                                                   inherits the tile's per-provider tint (see src/components/ui/BrandMark.tsx).
+                                                                   Soniox is a monogram because it publishes no licence-compatible mark;
+                                                                   Natively is our own logo component. Every option used to share one
+                                                                   generic <Mic>, which made the list unreadable at a glance. */
+                                                                ...(hasNativelyKey ? [{ id: 'natively', label: 'Natively API', badge: 'Saved' as const, desc: t('Managed transcription via Natively backend'), color: 'blue', icon: <BrandMark provider="natively" />, neutralTile: true }] : []),
+                                                                /* Directly under Natively API: both are turnkey — no key to paste,
+                                                                   nothing to configure — so they belong together at the top, ahead
+                                                                   of the bring-your-own-key providers. macOS only; the mark is
+                                                                   Apple's because the model runs on this machine. */
+                                                                ...(isMac ? [{ id: 'apple-speech', label: 'Apple Speech', badge: null, desc: t('On-device · macOS 26+'), color: 'green', icon: <BrandMark provider="apple" />, neutralTile: true }] : []),
+                                                                { id: 'google', label: 'Google Cloud', badge: googleServiceAccountPath ? 'Saved' : null, desc: t('gRPC streaming via Service Account'), color: 'blue', icon: <BrandMark provider="google" />, neutralTile: true },
+                                                                { id: 'groq', label: 'Groq Whisper', badge: hasStoredSttGroqKey ? 'Saved' : null, desc: t('Ultra-fast REST transcription'), color: 'orange', icon: <BrandMark provider="groq" />, neutralTile: true },
+                                                                { id: 'nvidia_nim', label: 'Nvidia Nim', badge: hasStoredNvidiaNimKey ? 'Saved' : null, desc: t('Low-latency Nemotron / Parakeet streaming ASR'), color: 'green', icon: <BrandMark provider="nvidia_nim" />, neutralTile: true },
+                                                                { id: 'openai', label: 'OpenAI Whisper', badge: hasStoredSttOpenaiKey ? 'Saved' : null, desc: t('OpenAI-compatible Whisper API'), color: 'green', icon: <BrandMark provider="openai" />, neutralTile: true },
+                                                                { id: 'deepgram', label: 'Deepgram', badge: hasStoredDeepgramKey ? 'Saved' : null, desc: `${STT_MODEL_CATALOG.deepgram.models.find((m) => m.id === sttModels.deepgram)?.label ?? 'Nova-3'} · ${t('300 ms endpointing')}`, color: 'purple', icon: <BrandMark provider="deepgram" />, neutralTile: true },
+                                                                { id: 'elevenlabs', label: 'ElevenLabs Scribe', badge: hasStoredElevenLabsKey ? 'Saved' : null, desc: t('Scribe v2 Realtime API'), color: 'teal', icon: <BrandMark provider="elevenlabs" />, neutralTile: true },
+                                                                { id: 'azure', label: 'Azure Speech', badge: hasStoredAzureKey ? 'Saved' : null, desc: t('Microsoft Cognitive Services STT'), color: 'cyan', icon: <BrandMark provider="azure" />, neutralTile: true },
+                                                                { id: 'ibmwatson', label: 'IBM Watson', badge: hasStoredIbmWatsonKey ? 'Saved' : null, desc: t('IBM Watson cloud STT service'), color: 'indigo', icon: <BrandMark provider="ibmwatson" />, neutralTile: true },
+                                                                /* Soniox has no licence-compatible mark, so its monogram reproduces the brand's
+                                                                   own treatment instead of a generic tint: white letterform on black. Fixed in
+                                                                   both themes — it is a brand colour pair, not a themed surface. */
+                                                                { id: 'soniox', label: 'Soniox', badge: hasStoredSonioxKey ? 'Saved' : null, desc: t('60+ languages, multilingual, domain context'), color: 'cyan', icon: <BrandMonogram name="Soniox" />, tileClassName: 'bg-black text-white' },
+                                                                /* Label only — the `local-whisper` id stays as-is. It is the persisted
+                                                                   sttProvider value and is matched across the main process, IPC and
+                                                                   CredentialsManager, so renaming it would strand every existing user
+                                                                   on a provider the app no longer recognises. */
+                                                                /* The host OS mark: these models run on THIS machine, so the platform is
+                                                                   the identity. Apple on macOS; on Windows the Microsoft mark, because no
+                                                                   Windows logo exists under a licence compatible with AGPL-3.0 (it is in
+                                                                   neither lobehub nor simple-icons — see the README). `isMac` is the same
+                                                                   platform source the rest of this panel uses. */
+                                                                { id: 'local-whisper', label: 'Local Models', badge: null, desc: t('Privacy-first: runs 100% on your device'), color: 'green', icon: <BrandMark provider={isMac ? 'apple' : 'microsoft'} />, neutralTile: true },
+                                                            ]}
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            {/* Groq Model Selector */}
-                                            {/* Each card below belongs to one provider and fades up as it
+                                                {/* Groq Model Selector */}
+                                                {/* Each card below belongs to one provider and fades up as it
                                                 mounts (.settings-swap-in, src/index.css), so switching the
                                                 provider above swaps them in rather than cutting. */}
-                                            {/* Google Cloud Service Account */}
-                                            {sttProvider === 'google' && (
-                                                <div className="bg-bg-card rounded-xl border border-border-subtle p-4 settings-swap-in">
-                                                    <label className="text-xs font-medium text-text-secondary mb-2 block">{t('Service Account JSON')}</label>
-                                                    <div className="flex gap-2">
-                                                        <div className="flex-1 bg-bg-input border border-border-subtle rounded-lg px-3 py-2 text-xs text-text-secondary font-mono truncate">
-                                                            {googleServiceAccountPath
-                                                                ? <span className="text-text-primary">{googleServiceAccountPath.split('/').pop()}</span>
-                                                                : <span className="text-text-tertiary italic">{t('No file selected')}</span>}
+                                                {/* Google Cloud Service Account */}
+                                                {sttProvider === 'google' && (
+                                                    <div className="bg-bg-card rounded-xl border border-border-subtle p-4 settings-swap-in">
+                                                        <label className="text-xs font-medium text-text-secondary mb-2 block">{t('Service Account JSON')}</label>
+                                                        <div className="flex gap-2">
+                                                            <div className="flex-1 bg-bg-input border border-border-subtle rounded-lg px-3 py-2 text-xs text-text-secondary font-mono truncate">
+                                                                {googleServiceAccountPath
+                                                                    ? <span className="text-text-primary">{googleServiceAccountPath.split('/').pop()}</span>
+                                                                    : <span className="text-text-tertiary italic">{t('No file selected')}</span>}
+                                                            </div>
+                                                            <button
+                                                                onClick={async () => {
+                                                                    // @ts-ignore
+                                                                    const result = await window.electronAPI?.selectServiceAccount?.();
+                                                                    if (result?.success && result.path) {
+                                                                        setGoogleServiceAccountPath(result.path);
+                                                                        setGoogleServiceAccountError('');
+                                                                    } else if (result && !result.cancelled) {
+                                                                        // A rejected pick must say WHY. Silently doing nothing
+                                                                        // reads as "Settings is broken" and the user retries
+                                                                        // the same wrong file.
+                                                                        setGoogleServiceAccountError(result.error || t('That file is not a usable Google service-account key.'));
+                                                                    }
+                                                                }}
+                                                                className="px-3 py-2 bg-bg-input hover:bg-bg-elevated border border-border-subtle rounded-lg text-xs font-medium text-text-primary transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100 flex items-center gap-2"
+                                                            >
+                                                                <Upload size={14} /> {t('Select File')}
+                                                            </button>
                                                         </div>
-                                                        <button
-                                                            onClick={async () => {
-                                                                // @ts-ignore
-                                                                const result = await window.electronAPI?.selectServiceAccount?.();
-                                                                if (result?.success && result.path) {
-                                                                    setGoogleServiceAccountPath(result.path);
-                                                                    setGoogleServiceAccountError('');
-                                                                } else if (result && !result.cancelled) {
-                                                                    // A rejected pick must say WHY. Silently doing nothing
-                                                                    // reads as "Settings is broken" and the user retries
-                                                                    // the same wrong file.
-                                                                    setGoogleServiceAccountError(result.error || t('That file is not a usable Google service-account key.'));
-                                                                }
-                                                            }}
-                                                            className="px-3 py-2 bg-bg-input hover:bg-bg-elevated border border-border-subtle rounded-lg text-xs font-medium text-text-primary transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100 flex items-center gap-2"
-                                                        >
-                                                            <Upload size={14} /> {t('Select File')}
-                                                        </button>
+                                                        {googleServiceAccountError && (
+                                                            <p className="text-xs text-red-400 mt-2">{googleServiceAccountError}</p>
+                                                        )}
+                                                        <p className="text-[10px] text-text-tertiary mt-2">
+                                                            {t('Required for Google Cloud Speech-to-Text.')}
+                                                        </p>
                                                     </div>
-                                                    {googleServiceAccountError && (
-                                                        <p className="text-xs text-red-400 mt-2">{googleServiceAccountError}</p>
-                                                    )}
-                                                    <p className="text-[10px] text-text-tertiary mt-2">
-                                                        {t('Required for Google Cloud Speech-to-Text.')}
-                                                    </p>
-                                                </div>
-                                            )}
+                                                )}
 
-                                            {/* API Key Input (non-Google providers) — AI Providers' own card
+                                                {/* API Key Input (non-Google providers) — AI Providers' own card
                                                 (ProviderCard): the provider's mark and name with Get Key on the
                                                 head row, the key in one field with Save as its inset segment,
                                                 then Test Connection on a row of its own and one note line for
@@ -3708,821 +3707,821 @@ const SettingsOverlay: React.FC<SettingsOverlayProps> = ({
                                                 exactly like a model key does in AI Providers. Keyed on the
                                                 provider: every key-backed provider shares this card, so
                                                 without a key it would never remount — and never swap. */}
-                                            {sttProvider !== 'google' && sttProvider !== 'local-whisper' && sttProvider !== 'apple-speech' && sttProvider !== 'natively' && sttProvider !== 'none' && (() => {
-                                                const providerName = sttProvider === 'nvidia_nim' ? 'Nvidia Nim' : sttProvider === 'groq' ? 'Groq' : sttProvider === 'openai' ? 'OpenAI STT' : sttProvider === 'elevenlabs' ? 'ElevenLabs' : sttProvider === 'azure' ? 'Azure' : sttProvider === 'ibmwatson' ? 'IBM Watson' : sttProvider === 'soniox' ? 'Soniox' : 'Deepgram';
-                                                const keyValue = sttProvider === 'nvidia_nim' ? sttNvidiaNimKey
-                                                    : sttProvider === 'groq' ? sttGroqKey
-                                                    : sttProvider === 'openai' ? sttOpenaiKey
-                                                    : sttProvider === 'elevenlabs' ? sttElevenLabsKey
-                                                    : sttProvider === 'azure' ? sttAzureKey
-                                                    : sttProvider === 'ibmwatson' ? sttIbmKey
-                                                    : sttProvider === 'soniox' ? sttSonioxKey
-                                                    : sttDeepgramKey;
-                                                const hasStoredKey = sttProvider === 'nvidia_nim' ? hasStoredNvidiaNimKey
-                                                    : sttProvider === 'groq' ? hasStoredSttGroqKey
-                                                    : sttProvider === 'openai' ? hasStoredSttOpenaiKey
-                                                    : sttProvider === 'elevenlabs' ? hasStoredElevenLabsKey
-                                                    : sttProvider === 'azure' ? hasStoredAzureKey
-                                                    : sttProvider === 'ibmwatson' ? hasStoredIbmWatsonKey
-                                                    : sttProvider === 'soniox' ? hasStoredSonioxKey
-                                                    : hasStoredDeepgramKey;
-                                                // handleRemoveSttKey has no NVIDIA branch (the key is shared
-                                                // with AI Providers), so the card never offered one.
-                                                const removable = hasStoredKey && sttProvider !== 'nvidia_nim';
-                                                return (
-                                                // The card's fill is this pane's (bg-card), not AI Providers'
-                                                // (bg-item-surface): in the light theme that is grey against the
-                                                // white Speech Provider and Language cards around it.
-                                                <div key={sttProvider} className="aip-root settings-swap-in" data-theme={resolvedTheme} style={{ ['--aip-card-bg' as string]: 'var(--bg-card)' } as React.CSSProperties}>
-                                                    {/* bg-bg-card also brings the light theme's card shadow
+                                                {sttProvider !== 'google' && sttProvider !== 'local-whisper' && sttProvider !== 'apple-speech' && sttProvider !== 'natively' && sttProvider !== 'none' && (() => {
+                                                    const providerName = sttProvider === 'nvidia_nim' ? 'Nvidia Nim' : sttProvider === 'groq' ? 'Groq' : sttProvider === 'openai' ? 'OpenAI STT' : sttProvider === 'elevenlabs' ? 'ElevenLabs' : sttProvider === 'azure' ? 'Azure' : sttProvider === 'ibmwatson' ? 'IBM Watson' : sttProvider === 'soniox' ? 'Soniox' : 'Deepgram';
+                                                    const keyValue = sttProvider === 'nvidia_nim' ? sttNvidiaNimKey
+                                                        : sttProvider === 'groq' ? sttGroqKey
+                                                            : sttProvider === 'openai' ? sttOpenaiKey
+                                                                : sttProvider === 'elevenlabs' ? sttElevenLabsKey
+                                                                    : sttProvider === 'azure' ? sttAzureKey
+                                                                        : sttProvider === 'ibmwatson' ? sttIbmKey
+                                                                            : sttProvider === 'soniox' ? sttSonioxKey
+                                                                                : sttDeepgramKey;
+                                                    const hasStoredKey = sttProvider === 'nvidia_nim' ? hasStoredNvidiaNimKey
+                                                        : sttProvider === 'groq' ? hasStoredSttGroqKey
+                                                            : sttProvider === 'openai' ? hasStoredSttOpenaiKey
+                                                                : sttProvider === 'elevenlabs' ? hasStoredElevenLabsKey
+                                                                    : sttProvider === 'azure' ? hasStoredAzureKey
+                                                                        : sttProvider === 'ibmwatson' ? hasStoredIbmWatsonKey
+                                                                            : sttProvider === 'soniox' ? hasStoredSonioxKey
+                                                                                : hasStoredDeepgramKey;
+                                                    // handleRemoveSttKey has no NVIDIA branch (the key is shared
+                                                    // with AI Providers), so the card never offered one.
+                                                    const removable = hasStoredKey && sttProvider !== 'nvidia_nim';
+                                                    return (
+                                                        // The card's fill is this pane's (bg-card), not AI Providers'
+                                                        // (bg-item-surface): in the light theme that is grey against the
+                                                        // white Speech Provider and Language cards around it.
+                                                        <div key={sttProvider} className="aip-root settings-swap-in" data-theme={resolvedTheme} style={{ ['--aip-card-bg' as string]: 'var(--bg-card)' } as React.CSSProperties}>
+                                                            {/* bg-bg-card also brings the light theme's card shadow
                                                         (index.css, "Level 1"), which the cards around it have. */}
-                                                    <div className="aip-card aip-provider bg-bg-card">
-                                                        <div className="aip-provider-head">
-                                                            {/* The provider's official mark, as AI Providers draws it.
+                                                            <div className="aip-card aip-provider bg-bg-card">
+                                                                <div className="aip-provider-head">
+                                                                    {/* The provider's official mark, as AI Providers draws it.
                                                                 Soniox publishes no licence-clean mark: its monogram in
                                                                 the brand's own white-on-black. */}
-                                                            {sttProvider === 'soniox' ? (
-                                                                <span className="aip-tile" style={{ background: '#000', color: '#fff', borderColor: 'transparent' }} aria-hidden="true">SO</span>
-                                                            ) : (
-                                                                <span className="aip-tile aip-tile--mark" aria-hidden="true">
-                                                                    <BrandMark provider={sttProvider} />
-                                                                </span>
-                                                            )}
-                                                            <h4 className="aip-card-title truncate min-w-0">{providerName}</h4>
-                                                            {STT_KEY_URLS[sttProvider] && (
-                                                                <div className="ml-auto flex items-center gap-2 shrink-0">
-                                                                    <button
-                                                                        // @ts-ignore
-                                                                        onClick={() => window.electronAPI?.openExternal(STT_KEY_URLS[sttProvider])}
-                                                                        className="aip-btn"
-                                                                        data-size="sm"
-                                                                        data-variant="ghost"
-                                                                        title={`Get ${providerName} API Key`}
-                                                                    >
-                                                                        <span className="uppercase tracking-wide">{t('Get Key')}</span>
-                                                                        <ExternalLink size={12} strokeWidth={1.75} />
-                                                                    </button>
-                                                                </div>
-                                                            )}
-                                                        </div>
-
-                                                        {sttProvider === 'openai' && (
-                                                            <p className="aip-meta">{t('This key is separate from your main AI Provider key.')}</p>
-                                                        )}
-
-                                                        <div className="aip-provider-row">
-                                                            <div className="aip-provider-field">
-                                                                {/* One 32px shell: glyph + input + Save as an inset segment. */}
-                                                                <div className="aip-field">
-                                                                    <KeyRound size={13} strokeWidth={1.75} className="aip-field-icon" aria-hidden="true" />
-                                                                    <input
-                                                                        type="password"
-                                                                        value={keyValue}
-                                                                        onChange={(e) => {
-                                                                            if (sttProvider === 'nvidia_nim') setSttNvidiaNimKey(e.target.value);
-                                                                            else if (sttProvider === 'groq') setSttGroqKey(e.target.value);
-                                                                            else if (sttProvider === 'openai') setSttOpenaiKey(e.target.value);
-                                                                            else if (sttProvider === 'elevenlabs') setSttElevenLabsKey(e.target.value);
-                                                                            else if (sttProvider === 'azure') setSttAzureKey(e.target.value);
-                                                                            else if (sttProvider === 'ibmwatson') setSttIbmKey(e.target.value);
-                                                                            else if (sttProvider === 'soniox') setSttSonioxKey(e.target.value);
-                                                                            else setSttDeepgramKey(e.target.value);
-                                                                        }}
-                                                                        autoComplete="off"
-                                                                        spellCheck={false}
-                                                                        data-1p-ignore
-                                                                        aria-label={`${providerName} ${t('API key')}`}
-                                                                        placeholder={
-                                                                            sttProvider === 'nvidia_nim'
-                                                                                ? (hasStoredNvidiaNimKey ? '••••••••••••' : t('Enter Nvidia Nim API key'))
-                                                                                : sttProvider === 'groq'
-                                                                                ? (hasStoredSttGroqKey ? '••••••••••••' : t('Enter Groq API key'))
-                                                                                : sttProvider === 'openai'
-                                                                                    ? (hasStoredSttOpenaiKey ? '••••••••••••' : t('Enter OpenAI STT API key'))
-                                                                                    : sttProvider === 'elevenlabs'
-                                                                                        ? (hasStoredElevenLabsKey ? '••••••••••••' : t('Enter ElevenLabs API key'))
-                                                                                        : sttProvider === 'azure'
-                                                                                            ? (hasStoredAzureKey ? '••••••••••••' : t('Enter Azure API key'))
-                                                                                            : sttProvider === 'ibmwatson'
-                                                                                                ? (hasStoredIbmWatsonKey ? '••••••••••••' : t('Enter IBM Watson API key'))
-                                                                                                : sttProvider === 'soniox'
-                                                                                                    ? (hasStoredSonioxKey ? '••••••••••••' : t('Enter Soniox API key'))
-                                                                                                    : (hasStoredDeepgramKey ? '••••••••••••' : t('Enter Deepgram API key'))
-                                                                        }
-                                                                        className="aip-input"
-                                                                    />
-                                                                    {/* Rendered-and-disabled, never conditional, and sized to
-                                                                        its widest label, so the key field never changes width. */}
-                                                                    <button
-                                                                        onClick={() => handleSttKeySubmit(sttProvider as any, keyValue || '')}
-                                                                        disabled={sttSaving || !(keyValue || '').trim()}
-                                                                        className="aip-field-seg"
-                                                                        data-tone={sttSaved ? 'ok' : undefined}
-                                                                    >
-                                                                        <SizedLabelSwap
-                                                                            id={sttSaving ? 'saving' : sttSaved ? 'saved' : 'save'}
-                                                                            sizers={[
-                                                                                <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Saving...')}</span>,
-                                                                                <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Saved')}</span>,
-                                                                                t('Save'),
-                                                                            ]}
-                                                                        >
-                                                                            {sttSaving
-                                                                                ? <span className="inline-flex items-center gap-1.5"><Loader2 size={12} strokeWidth={1.75} className="aip-spinner" />{t('Saving...')}</span>
-                                                                                : sttSaved
-                                                                                    ? <span className="inline-flex items-center gap-1.5"><Check size={12} strokeWidth={2} className="aip-check" />{t('Saved')}</span>
-                                                                                    : t('Save')}
-                                                                        </SizedLabelSwap>
-                                                                    </button>
-                                                                </div>
-                                                                {removable && (
-                                                                    <button
-                                                                        onClick={() => handleRemoveSttKey(sttProvider as any)}
-                                                                        className="aip-btn shrink-0"
-                                                                        data-icon="true"
-                                                                        data-variant="danger-ghost"
-                                                                        title={t("Remove API Key")}
-                                                                        aria-label={t("Remove API Key")}
-                                                                    >
-                                                                        <Trash2 size={14} strokeWidth={1.75} />
-                                                                    </button>
-                                                                )}
-                                                            </div>
-                                                        </div>
-
-                                                        {/* Azure: the key's region, in the same field. */}
-                                                        {sttProvider === 'azure' && (
-                                                            <div className="aip-provider-row">
-                                                                <div className="aip-provider-field">
-                                                                    <div className="aip-field">
-                                                                        <MapPin size={13} strokeWidth={1.75} className="aip-field-icon" aria-hidden="true" />
-                                                                        <input
-                                                                            type="text"
-                                                                            value={sttAzureRegion}
-                                                                            onChange={(e) => setSttAzureRegion(e.target.value)}
-                                                                            placeholder={t("e.g. eastus")}
-                                                                            aria-label={t('Region')}
-                                                                            className="aip-input"
-                                                                        />
-                                                                        <button
-                                                                            onClick={async () => {
-                                                                                const region = sttAzureRegion.trim();
-                                                                                if (!region) return;
-                                                                                // @ts-ignore
-                                                                                await window.electronAPI?.setAzureRegion?.(region);
-                                                                                setSavedAzureRegion(region);
-                                                                                markSttFieldSaved('region');
-                                                                            }}
-                                                                            disabled={!sttAzureRegion.trim() || sttAzureRegion.trim() === savedAzureRegion}
-                                                                            className="aip-field-seg"
-                                                                            data-tone={sttFieldSaved === 'region' ? 'ok' : undefined}
-                                                                        >
-                                                                            <SizedLabelSwap
-                                                                                id={sttFieldSaved === 'region' ? 'saved' : 'save'}
-                                                                                sizers={[
-                                                                                    <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Saving...')}</span>,
-                                                                                    <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Saved')}</span>,
-                                                                                    t('Save'),
-                                                                                ]}
-                                                                            >
-                                                                                {sttFieldSaved === 'region'
-                                                                                    ? <span className="inline-flex items-center gap-1.5"><Check size={12} strokeWidth={2} className="aip-check" />{t('Saved')}</span>
-                                                                                    : t('Save')}
-                                                                            </SizedLabelSwap>
-                                                                        </button>
-                                                                    </div>
-                                                                    {removable && (
-                                                                        <span className="aip-btn shrink-0 invisible" data-icon="true" aria-hidden="true">
-                                                                            <Trash2 size={14} strokeWidth={1.75} />
+                                                                    {sttProvider === 'soniox' ? (
+                                                                        <span className="aip-tile" style={{ background: '#000', color: '#fff', borderColor: 'transparent' }} aria-hidden="true">SO</span>
+                                                                    ) : (
+                                                                        <span className="aip-tile aip-tile--mark" aria-hidden="true">
+                                                                            <BrandMark provider={sttProvider} />
                                                                         </span>
                                                                     )}
+                                                                    <h4 className="aip-card-title truncate min-w-0">{providerName}</h4>
+                                                                    {STT_KEY_URLS[sttProvider] && (
+                                                                        <div className="ml-auto flex items-center gap-2 shrink-0">
+                                                                            <button
+                                                                                // @ts-ignore
+                                                                                onClick={() => window.electronAPI?.openExternal(STT_KEY_URLS[sttProvider])}
+                                                                                className="aip-btn"
+                                                                                data-size="sm"
+                                                                                data-variant="ghost"
+                                                                                title={`Get ${providerName} API Key`}
+                                                                            >
+                                                                                <span className="uppercase tracking-wide">{t('Get Key')}</span>
+                                                                                <ExternalLink size={12} strokeWidth={1.75} />
+                                                                            </button>
+                                                                        </div>
+                                                                    )}
                                                                 </div>
-                                                            </div>
-                                                        )}
 
-                                                        {/* OpenAI Custom Base URL — for self-hosted OpenAI-compatible servers (e.g. Speaches).
-                                                            When set, the WebSocket Realtime path is skipped and REST is used against the custom host. */}
-                                                        {sttProvider === 'openai' && (
-                                                            <>
+                                                                {sttProvider === 'openai' && (
+                                                                    <p className="aip-meta">{t('This key is separate from your main AI Provider key.')}</p>
+                                                                )}
+
                                                                 <div className="aip-provider-row">
                                                                     <div className="aip-provider-field">
+                                                                        {/* One 32px shell: glyph + input + Save as an inset segment. */}
                                                                         <div className="aip-field">
-                                                                            <Globe size={13} strokeWidth={1.75} className="aip-field-icon" aria-hidden="true" />
+                                                                            <KeyRound size={13} strokeWidth={1.75} className="aip-field-icon" aria-hidden="true" />
                                                                             <input
-                                                                                type="text"
-                                                                                value={sttOpenaiBaseUrl}
-                                                                                onChange={(e) => setSttOpenaiBaseUrl(e.target.value)}
-                                                                                placeholder={t("https://api.openai.com (default)")}
-                                                                                aria-label={t('Custom Base URL')}
+                                                                                type="password"
+                                                                                value={keyValue}
+                                                                                onChange={(e) => {
+                                                                                    if (sttProvider === 'nvidia_nim') setSttNvidiaNimKey(e.target.value);
+                                                                                    else if (sttProvider === 'groq') setSttGroqKey(e.target.value);
+                                                                                    else if (sttProvider === 'openai') setSttOpenaiKey(e.target.value);
+                                                                                    else if (sttProvider === 'elevenlabs') setSttElevenLabsKey(e.target.value);
+                                                                                    else if (sttProvider === 'azure') setSttAzureKey(e.target.value);
+                                                                                    else if (sttProvider === 'ibmwatson') setSttIbmKey(e.target.value);
+                                                                                    else if (sttProvider === 'soniox') setSttSonioxKey(e.target.value);
+                                                                                    else setSttDeepgramKey(e.target.value);
+                                                                                }}
+                                                                                autoComplete="off"
+                                                                                spellCheck={false}
+                                                                                data-1p-ignore
+                                                                                aria-label={`${providerName} ${t('API key')}`}
+                                                                                placeholder={
+                                                                                    sttProvider === 'nvidia_nim'
+                                                                                        ? (hasStoredNvidiaNimKey ? '••••••••••••' : t('Enter Nvidia Nim API key'))
+                                                                                        : sttProvider === 'groq'
+                                                                                            ? (hasStoredSttGroqKey ? '••••••••••••' : t('Enter Groq API key'))
+                                                                                            : sttProvider === 'openai'
+                                                                                                ? (hasStoredSttOpenaiKey ? '••••••••••••' : t('Enter OpenAI STT API key'))
+                                                                                                : sttProvider === 'elevenlabs'
+                                                                                                    ? (hasStoredElevenLabsKey ? '••••••••••••' : t('Enter ElevenLabs API key'))
+                                                                                                    : sttProvider === 'azure'
+                                                                                                        ? (hasStoredAzureKey ? '••••••••••••' : t('Enter Azure API key'))
+                                                                                                        : sttProvider === 'ibmwatson'
+                                                                                                            ? (hasStoredIbmWatsonKey ? '••••••••••••' : t('Enter IBM Watson API key'))
+                                                                                                            : sttProvider === 'soniox'
+                                                                                                                ? (hasStoredSonioxKey ? '••••••••••••' : t('Enter Soniox API key'))
+                                                                                                                : (hasStoredDeepgramKey ? '••••••••••••' : t('Enter Deepgram API key'))
+                                                                                }
                                                                                 className="aip-input"
                                                                             />
+                                                                            {/* Rendered-and-disabled, never conditional, and sized to
+                                                                        its widest label, so the key field never changes width. */}
                                                                             <button
-                                                                                onClick={async () => {
-                                                                                    const url = sttOpenaiBaseUrl.trim();
-                                                                                    // @ts-ignore
-                                                                                    await window.electronAPI?.setOpenAiSttBaseUrl?.(url);
-                                                                                    setSavedOpenaiBaseUrl(url);
-                                                                                    markSttFieldSaved('baseUrl');
-                                                                                }}
-                                                                                disabled={sttOpenaiBaseUrl.trim() === savedOpenaiBaseUrl}
+                                                                                onClick={() => handleSttKeySubmit(sttProvider as any, keyValue || '')}
+                                                                                disabled={sttSaving || !(keyValue || '').trim()}
                                                                                 className="aip-field-seg"
-                                                                                data-tone={sttFieldSaved === 'baseUrl' ? 'ok' : undefined}
+                                                                                data-tone={sttSaved ? 'ok' : undefined}
                                                                             >
                                                                                 <SizedLabelSwap
-                                                                                    id={sttFieldSaved === 'baseUrl' ? 'saved' : 'save'}
+                                                                                    id={sttSaving ? 'saving' : sttSaved ? 'saved' : 'save'}
                                                                                     sizers={[
                                                                                         <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Saving...')}</span>,
                                                                                         <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Saved')}</span>,
                                                                                         t('Save'),
                                                                                     ]}
                                                                                 >
-                                                                                    {sttFieldSaved === 'baseUrl'
-                                                                                        ? <span className="inline-flex items-center gap-1.5"><Check size={12} strokeWidth={2} className="aip-check" />{t('Saved')}</span>
-                                                                                        : t('Save')}
+                                                                                    {sttSaving
+                                                                                        ? <span className="inline-flex items-center gap-1.5"><Loader2 size={12} strokeWidth={1.75} className="aip-spinner" />{t('Saving...')}</span>
+                                                                                        : sttSaved
+                                                                                            ? <span className="inline-flex items-center gap-1.5"><Check size={12} strokeWidth={2} className="aip-check" />{t('Saved')}</span>
+                                                                                            : t('Save')}
                                                                                 </SizedLabelSwap>
                                                                             </button>
                                                                         </div>
                                                                         {removable && (
-                                                                            <span className="aip-btn shrink-0 invisible" data-icon="true" aria-hidden="true">
+                                                                            <button
+                                                                                onClick={() => handleRemoveSttKey(sttProvider as any)}
+                                                                                className="aip-btn shrink-0"
+                                                                                data-icon="true"
+                                                                                data-variant="danger-ghost"
+                                                                                title={t("Remove API Key")}
+                                                                                aria-label={t("Remove API Key")}
+                                                                            >
                                                                                 <Trash2 size={14} strokeWidth={1.75} />
-                                                                            </span>
+                                                                            </button>
                                                                         )}
                                                                     </div>
                                                                 </div>
-                                                            </>
-                                                        )}
 
-                                                        {/* Test Connection leads its own row, as in AI Providers. Sized
+                                                                {/* Azure: the key's region, in the same field. */}
+                                                                {sttProvider === 'azure' && (
+                                                                    <div className="aip-provider-row">
+                                                                        <div className="aip-provider-field">
+                                                                            <div className="aip-field">
+                                                                                <MapPin size={13} strokeWidth={1.75} className="aip-field-icon" aria-hidden="true" />
+                                                                                <input
+                                                                                    type="text"
+                                                                                    value={sttAzureRegion}
+                                                                                    onChange={(e) => setSttAzureRegion(e.target.value)}
+                                                                                    placeholder={t("e.g. eastus")}
+                                                                                    aria-label={t('Region')}
+                                                                                    className="aip-input"
+                                                                                />
+                                                                                <button
+                                                                                    onClick={async () => {
+                                                                                        const region = sttAzureRegion.trim();
+                                                                                        if (!region) return;
+                                                                                        // @ts-ignore
+                                                                                        await window.electronAPI?.setAzureRegion?.(region);
+                                                                                        setSavedAzureRegion(region);
+                                                                                        markSttFieldSaved('region');
+                                                                                    }}
+                                                                                    disabled={!sttAzureRegion.trim() || sttAzureRegion.trim() === savedAzureRegion}
+                                                                                    className="aip-field-seg"
+                                                                                    data-tone={sttFieldSaved === 'region' ? 'ok' : undefined}
+                                                                                >
+                                                                                    <SizedLabelSwap
+                                                                                        id={sttFieldSaved === 'region' ? 'saved' : 'save'}
+                                                                                        sizers={[
+                                                                                            <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Saving...')}</span>,
+                                                                                            <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Saved')}</span>,
+                                                                                            t('Save'),
+                                                                                        ]}
+                                                                                    >
+                                                                                        {sttFieldSaved === 'region'
+                                                                                            ? <span className="inline-flex items-center gap-1.5"><Check size={12} strokeWidth={2} className="aip-check" />{t('Saved')}</span>
+                                                                                            : t('Save')}
+                                                                                    </SizedLabelSwap>
+                                                                                </button>
+                                                                            </div>
+                                                                            {removable && (
+                                                                                <span className="aip-btn shrink-0 invisible" data-icon="true" aria-hidden="true">
+                                                                                    <Trash2 size={14} strokeWidth={1.75} />
+                                                                                </span>
+                                                                            )}
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+
+                                                                {/* OpenAI Custom Base URL — for self-hosted OpenAI-compatible servers (e.g. Speaches).
+                                                            When set, the WebSocket Realtime path is skipped and REST is used against the custom host. */}
+                                                                {sttProvider === 'openai' && (
+                                                                    <>
+                                                                        <div className="aip-provider-row">
+                                                                            <div className="aip-provider-field">
+                                                                                <div className="aip-field">
+                                                                                    <Globe size={13} strokeWidth={1.75} className="aip-field-icon" aria-hidden="true" />
+                                                                                    <input
+                                                                                        type="text"
+                                                                                        value={sttOpenaiBaseUrl}
+                                                                                        onChange={(e) => setSttOpenaiBaseUrl(e.target.value)}
+                                                                                        placeholder={t("https://api.openai.com (default)")}
+                                                                                        aria-label={t('Custom Base URL')}
+                                                                                        className="aip-input"
+                                                                                    />
+                                                                                    <button
+                                                                                        onClick={async () => {
+                                                                                            const url = sttOpenaiBaseUrl.trim();
+                                                                                            // @ts-ignore
+                                                                                            await window.electronAPI?.setOpenAiSttBaseUrl?.(url);
+                                                                                            setSavedOpenaiBaseUrl(url);
+                                                                                            markSttFieldSaved('baseUrl');
+                                                                                        }}
+                                                                                        disabled={sttOpenaiBaseUrl.trim() === savedOpenaiBaseUrl}
+                                                                                        className="aip-field-seg"
+                                                                                        data-tone={sttFieldSaved === 'baseUrl' ? 'ok' : undefined}
+                                                                                    >
+                                                                                        <SizedLabelSwap
+                                                                                            id={sttFieldSaved === 'baseUrl' ? 'saved' : 'save'}
+                                                                                            sizers={[
+                                                                                                <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Saving...')}</span>,
+                                                                                                <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Saved')}</span>,
+                                                                                                t('Save'),
+                                                                                            ]}
+                                                                                        >
+                                                                                            {sttFieldSaved === 'baseUrl'
+                                                                                                ? <span className="inline-flex items-center gap-1.5"><Check size={12} strokeWidth={2} className="aip-check" />{t('Saved')}</span>
+                                                                                                : t('Save')}
+                                                                                        </SizedLabelSwap>
+                                                                                    </button>
+                                                                                </div>
+                                                                                {removable && (
+                                                                                    <span className="aip-btn shrink-0 invisible" data-icon="true" aria-hidden="true">
+                                                                                        <Trash2 size={14} strokeWidth={1.75} />
+                                                                                    </span>
+                                                                                )}
+                                                                            </div>
+                                                                        </div>
+                                                                    </>
+                                                                )}
+
+                                                                {/* Test Connection leads its own row, as in AI Providers. Sized
                                                             to its widest label, so "Testing..." → "Passed" never moves it. */}
-                                                        <div className="aip-provider-row">
-                                                            <button
-                                                                onClick={handleTestSttConnection}
-                                                                disabled={sttTestStatus === 'testing'}
-                                                                className="aip-btn shrink-0"
-                                                                data-tone={sttTestStatus === 'success' ? 'ok' : sttTestStatus === 'error' ? 'danger' : undefined}
-                                                                title={sttTestError || t('Test Connection')}
-                                                            >
-                                                                <SizedLabelSwap
-                                                                    id={sttTestStatus}
-                                                                    sizers={[
-                                                                        t('Test Connection'),
-                                                                        <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Testing...')}</span>,
-                                                                        <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Passed')}</span>,
-                                                                        <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Error')}</span>,
-                                                                    ]}
-                                                                >
-                                                                    {sttTestStatus === 'testing' ? <span className="inline-flex items-center gap-1.5"><Loader2 size={12} strokeWidth={1.75} className="aip-spinner" />{t('Testing...')}</span> :
-                                                                        sttTestStatus === 'success' ? <span className="inline-flex items-center gap-1.5"><AipPassedCheck />{t('Passed')}</span> :
-                                                                            sttTestStatus === 'error' ? <span className="inline-flex items-center gap-1.5"><AlertCircle size={12} strokeWidth={1.75} />{t('Error')}</span> :
-                                                                                t('Test Connection')}
-                                                                </SizedLabelSwap>
-                                                            </button>
-                                                            {/* MODELS beside Test, as in AI Providers. OpenAI with a
+                                                                <div className="aip-provider-row">
+                                                                    <button
+                                                                        onClick={handleTestSttConnection}
+                                                                        disabled={sttTestStatus === 'testing'}
+                                                                        className="aip-btn shrink-0"
+                                                                        data-tone={sttTestStatus === 'success' ? 'ok' : sttTestStatus === 'error' ? 'danger' : undefined}
+                                                                        title={sttTestError || t('Test Connection')}
+                                                                    >
+                                                                        <SizedLabelSwap
+                                                                            id={sttTestStatus}
+                                                                            sizers={[
+                                                                                t('Test Connection'),
+                                                                                <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Testing...')}</span>,
+                                                                                <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Passed')}</span>,
+                                                                                <span className="inline-flex items-center gap-1.5"><span className="w-3" />{t('Error')}</span>,
+                                                                            ]}
+                                                                        >
+                                                                            {sttTestStatus === 'testing' ? <span className="inline-flex items-center gap-1.5"><Loader2 size={12} strokeWidth={1.75} className="aip-spinner" />{t('Testing...')}</span> :
+                                                                                sttTestStatus === 'success' ? <span className="inline-flex items-center gap-1.5"><AipPassedCheck />{t('Passed')}</span> :
+                                                                                    sttTestStatus === 'error' ? <span className="inline-flex items-center gap-1.5"><AlertCircle size={12} strokeWidth={1.75} />{t('Error')}</span> :
+                                                                                        t('Test Connection')}
+                                                                        </SizedLabelSwap>
+                                                                    </button>
+                                                                    {/* MODELS beside Test, as in AI Providers. OpenAI with a
                                                                 custom server skips the Realtime socket (REST only), so
                                                                 a Realtime model choice would do nothing there.
                                                                 OpenAI's own URL is not a custom server. */}
-                                                            {(sttProvider === 'deepgram' || (sttProvider === 'openai' && isDefaultOpenAiSttBase(savedOpenaiBaseUrl))) && (
-                                                                <SttModelList
-                                                                    models={STT_MODEL_CATALOG[sttProvider as SttModelProvider].models}
-                                                                    value={sttModels[sttProvider as SttModelProvider]}
-                                                                    onSelect={(id) => void selectSttModel(sttProvider as SttModelProvider, id)}
-                                                                />
-                                                            )}
-                                                            {sttProvider === 'groq' && (
-                                                                <SttModelList
-                                                                    models={[
-                                                                        { id: 'whisper-large-v3-turbo', label: 'Whisper Large V3 Turbo', description: t('Fastest') },
-                                                                        { id: 'whisper-large-v3', label: 'Whisper Large V3', description: t('Most Accurate') },
-                                                                    ]}
-                                                                    value={groqSttModel}
-                                                                    onSelect={(id) => void selectGroqSttModel(id)}
-                                                                />
-                                                            )}
-                                                            {sttProvider === 'nvidia_nim' && (
-                                                                <SttModelList
-                                                                    models={NVIDIA_NIM_STT_MODELS.map((m) => ({ id: m.id, label: m.label, description: m.description }))}
-                                                                    value={nvidiaNimSttModel}
-                                                                    onSelect={(id) => void selectNvidiaNimSttModel(id)}
-                                                                />
-                                                            )}
-                                                        </div>
+                                                                    {(sttProvider === 'deepgram' || (sttProvider === 'openai' && isDefaultOpenAiSttBase(savedOpenaiBaseUrl))) && (
+                                                                        <SttModelList
+                                                                            models={STT_MODEL_CATALOG[sttProvider as SttModelProvider].models}
+                                                                            value={sttModels[sttProvider as SttModelProvider]}
+                                                                            onSelect={(id) => void selectSttModel(sttProvider as SttModelProvider, id)}
+                                                                        />
+                                                                    )}
+                                                                    {sttProvider === 'groq' && (
+                                                                        <SttModelList
+                                                                            models={[
+                                                                                { id: 'whisper-large-v3-turbo', label: 'Whisper Large V3 Turbo', description: t('Fastest') },
+                                                                                { id: 'whisper-large-v3', label: 'Whisper Large V3', description: t('Most Accurate') },
+                                                                            ]}
+                                                                            value={groqSttModel}
+                                                                            onSelect={(id) => void selectGroqSttModel(id)}
+                                                                        />
+                                                                    )}
+                                                                    {sttProvider === 'nvidia_nim' && (
+                                                                        <SttModelList
+                                                                            models={NVIDIA_NIM_STT_MODELS.map((m) => ({ id: m.id, label: m.label, description: m.description }))}
+                                                                            value={nvidiaNimSttModel}
+                                                                            onSelect={(id) => void selectNvidiaNimSttModel(id)}
+                                                                        />
+                                                                    )}
+                                                                </div>
 
-                                                        {/* One note line, and only when something is actually wrong. */}
-                                                        {sttTestStatus === 'error' && sttTestError && (
-                                                            <p className="aip-meta aip-danger-fg aip-provider-note settings-swap-in" role="alert">{sttTestError}</p>
-                                                        )}
-                                                    </div>
-                                                    {/* OpenAI's server note sits under the card, in the footnote
+                                                                {/* One note line, and only when something is actually wrong. */}
+                                                                {sttTestStatus === 'error' && sttTestError && (
+                                                                    <p className="aip-meta aip-danger-fg aip-provider-note settings-swap-in" role="alert">{sttTestError}</p>
+                                                                )}
+                                                            </div>
+                                                            {/* OpenAI's server note sits under the card, in the footnote
                                                         form the pane's other notes use (Auto mode, ScreenCaptureKit). */}
-                                                    {sttProvider === 'openai' && (
-                                                        <div className="flex gap-2 items-center mt-2 px-1">
-                                                            <Info size={14} className="text-text-secondary shrink-0" />
-                                                            <p className="text-xs text-text-secondary">
-                                                                {t('Point at any OpenAI-compatible server (e.g. Speaches). Custom servers use REST only — Realtime WebSocket is skipped. Leave blank for default.')}
-                                                            </p>
-                                                        </div>
-                                                    )}
-                                                    {/* Last child, as in AI Providers and the Local Models panel:
+                                                            {sttProvider === 'openai' && (
+                                                                <div className="flex gap-2 items-center mt-2 px-1">
+                                                                    <Info size={14} className="text-text-secondary shrink-0" />
+                                                                    <p className="text-xs text-text-secondary">
+                                                                        {t('Point at any OpenAI-compatible server (e.g. Speaches). Custom servers use REST only — Realtime WebSocket is skipped. Leave blank for default.')}
+                                                                    </p>
+                                                                </div>
+                                                            )}
+                                                            {/* Last child, as in AI Providers and the Local Models panel:
                                                         on this tab AIProvidersSettings is unmounted, so its copy
                                                         of the sheet is not in the DOM. */}
-                                                    <style>{AIP_CSS}</style>
-                                                </div>
-                                                );
-                                            })()}
+                                                            <style>{AIP_CSS}</style>
+                                                        </div>
+                                                    );
+                                                })()}
 
-                                            {sttProvider === 'apple-speech' && (
-                                                <p className="text-xs text-text-secondary settings-swap-in">{t('Transcribes on this Mac. “Auto” follows your system language.')}</p>
-                                            )}
-                                            {/* Local Whisper Model Panel */}
-                                            {sttProvider === 'local-whisper' && (
-                                                <div className="settings-swap-in">
-                                                    <LocalWhisperModelPanel onModelConfigChanged={setLocalWhisperConfig} />
-                                                </div>
-                                            )}
+                                                {sttProvider === 'apple-speech' && (
+                                                    <p className="text-xs text-text-secondary settings-swap-in">{t('Transcribes on this Mac. “Auto” follows your system language.')}</p>
+                                                )}
+                                                {/* Local Whisper Model Panel */}
+                                                {sttProvider === 'local-whisper' && (
+                                                    <div className="settings-swap-in">
+                                                        <LocalWhisperModelPanel onModelConfigChanged={setLocalWhisperConfig} />
+                                                    </div>
+                                                )}
 
-                                            {/* Recognition Language Family — options restricted to what the
+                                                {/* Recognition Language Family — options restricted to what the
                                                 active local model accepts (per its official docs); greyed out
                                                 entirely when the model is English-only and language cannot change. */}
-                                            {/* Language and its Accent share one row: the accent
+                                                {/* Language and its Accent share one row: the accent
                                                 is a refinement of the language beside it, and two short
                                                 selects stacked full-width left most of each card empty. */}
-                                            <div className={currentGroupVariants.length > 1 ? 'grid grid-cols-2 gap-4' : ''}>
-                                                <CustomSelect
-                                                    label={t("Language")}
-                                                    value={displayedSttGroup}
-                                                    options={languageGroups.map(g => ({
-                                                        deviceId: g,
-                                                        label: g,
-                                                        kind: 'audioinput' as MediaDeviceKind,
-                                                        groupId: '',
-                                                        toJSON: () => ({})
-                                                    }))}
-                                                    onChange={handleGroupChange}
-                                                    placeholder={t("Select Language")}
-                                                    disabled={languageLocked}
-                                                    badges={appleLanguageBadges?.group}
-                                                />
+                                                <div className={currentGroupVariants.length > 1 ? 'grid grid-cols-2 gap-4' : ''}>
+                                                    <CustomSelect
+                                                        label={t("Language")}
+                                                        value={displayedSttGroup}
+                                                        options={languageGroups.map(g => ({
+                                                            deviceId: g,
+                                                            label: g,
+                                                            kind: 'audioinput' as MediaDeviceKind,
+                                                            groupId: '',
+                                                            toJSON: () => ({})
+                                                        }))}
+                                                        onChange={handleGroupChange}
+                                                        placeholder={t("Select Language")}
+                                                        disabled={languageLocked}
+                                                        badges={appleLanguageBadges?.group}
+                                                    />
 
-                                                {/* Variant/Accent Selector (Conditional) — greyed out when the
+                                                    {/* Variant/Accent Selector (Conditional) — greyed out when the
                                                     active local model's language conditioning is region-neutral
                                                     (Whisper-family) or fixed (English-only checkpoints). Only
                                                     Nemotron consumes regional variants. */}
-                                                {currentGroupVariants.length > 1 && (
-                                                    <div className="settings-swap-in">
-                                                        <CustomSelect
-                                                            label={t("Accent")}
-                                                            value={displayedRecognitionLanguage}
-                                                            options={currentGroupVariants}
-                                                            onChange={handleLanguageChange}
-                                                            placeholder={t("Select Accent")}
-                                                            badges={appleLanguageBadges?.variant}
-                                                            disabled={!!localLanguageCapability && !localLanguageCapability.accentSelectable}
-                                                        />
+                                                    {currentGroupVariants.length > 1 && (
+                                                        <div className="settings-swap-in">
+                                                            <CustomSelect
+                                                                label={t("Accent")}
+                                                                value={displayedRecognitionLanguage}
+                                                                options={currentGroupVariants}
+                                                                onChange={handleLanguageChange}
+                                                                placeholder={t("Select Accent")}
+                                                                badges={appleLanguageBadges?.variant}
+                                                                disabled={!!localLanguageCapability && !localLanguageCapability.accentSelectable}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </div>
+
+                                                {/* Local model capability notes */}
+                                                {localLanguageCapability && languageLocked && (
+                                                    <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
+                                                        <Info size={14} className="text-text-secondary shrink-0" />
+                                                        <p className="text-xs text-text-secondary">
+                                                            {(localLanguageCapability.englishOnlyNames.length > 0
+                                                                ? localLanguageCapability.englishOnlyNames.join(', ')
+                                                                : t('The selected local model'))}
+                                                            {' '}{localLanguageCapability.accentSelectable
+                                                                ? t('supports English only — language is fixed for this model.')
+                                                                : t('supports English only — language and accent are fixed for this model.')}
+                                                        </p>
                                                     </div>
                                                 )}
-                                            </div>
-
-                                            {/* Local model capability notes */}
-                                            {localLanguageCapability && languageLocked && (
-                                                <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
-                                                    <Info size={14} className="text-text-secondary shrink-0" />
-                                                    <p className="text-xs text-text-secondary">
-                                                        {(localLanguageCapability.englishOnlyNames.length > 0
-                                                            ? localLanguageCapability.englishOnlyNames.join(', ')
-                                                            : t('The selected local model'))}
-                                                        {' '}{localLanguageCapability.accentSelectable
-                                                            ? t('supports English only — language is fixed for this model.')
-                                                            : t('supports English only — language and accent are fixed for this model.')}
-                                                    </p>
-                                                </div>
-                                            )}
-                                            {/* Apple Speech: the stored language may be one of the 20
+                                                {/* Apple Speech: the stored language may be one of the 20
                                                 Natively offers that Apple cannot transcribe. It is filtered
                                                 out of the selects above, so without this the control would
                                                 just sit on its placeholder with no explanation. */}
-                                            {appleLanguageCapability && storedLanguageUnsupported && !storedLanguageParakeetOnly && (
-                                                <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
-                                                    <AlertCircle size={14} className="text-amber-400 shrink-0" />
-                                                    <p className="text-xs text-amber-200/90">
-                                                        {`"${availableLanguages[recognitionLanguage]?.label ?? recognitionLanguage}" ${t("isn't available in Apple Speech — pick one of the listed languages.")}`}
-                                                    </p>
-                                                </div>
-                                            )}
-                                            {/* Download the selected language now, with a visible bar,
+                                                {appleLanguageCapability && storedLanguageUnsupported && !storedLanguageParakeetOnly && (
+                                                    <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
+                                                        <AlertCircle size={14} className="text-amber-400 shrink-0" />
+                                                        <p className="text-xs text-amber-200/90">
+                                                            {`"${availableLanguages[recognitionLanguage]?.label ?? recognitionLanguage}" ${t("isn't available in Apple Speech — pick one of the listed languages.")}`}
+                                                        </p>
+                                                    </div>
+                                                )}
+                                                {/* Download the selected language now, with a visible bar,
                                                 instead of letting the first meeting stall on it. Apple
                                                 reports a 0..1 fraction and no transfer size, so this is a
                                                 percentage — there is no MB figure available to show. */}
-                                            {appleLanguageCapability && selectedAppleNeedsDownload && (
-                                                <div className="mt-3 rounded-xl border border-border-subtle bg-bg-card p-3 settings-swap-in">
-                                                    {/* Gate on the locale actually downloading, not merely on
+                                                {appleLanguageCapability && selectedAppleNeedsDownload && (
+                                                    <div className="mt-3 rounded-xl border border-border-subtle bg-bg-card p-3 settings-swap-in">
+                                                        {/* Gate on the locale actually downloading, not merely on
                                                         "a download exists": switching language mid-download
                                                         otherwise showed the NEW language's card wearing the
                                                         OLD language's progress bar, and hid its own button. */}
-                                                    {appleInstall && appleInstall.locale === selectedAppleLocale ? (
-                                                        <>
-                                                            <div className="flex items-center justify-between mb-2">
-                                                                <span className="text-xs text-text-primary">
-                                                                    {t('Downloading language model…')}
-                                                                </span>
-                                                                <span className="text-xs tabular-nums text-text-secondary">
-                                                                    {Math.round(appleInstall.fraction * 100)}%
-                                                                </span>
-                                                            </div>
-                                                            <div className="h-1.5 w-full rounded-full bg-bg-input overflow-hidden">
-                                                                <div
-                                                                    className="h-full rounded-full bg-accent-primary transition-[width] duration-300 ease-out"
-                                                                    style={{ width: `${Math.max(2, appleInstall.fraction * 100)}%` }}
-                                                                />
-                                                            </div>
-                                                            <p className="text-[11px] text-text-secondary mt-2">
-                                                                {t('macOS is fetching this language. You can keep using Natively; the download continues in the background.')}
-                                                            </p>
-                                                        </>
-                                                    ) : (
-                                                        <div className="flex items-center justify-between gap-3">
-                                                            <div className="min-w-0">
-                                                                <p className="text-xs text-text-primary">
-                                                                    {t('This language is not downloaded yet.')}
+                                                        {appleInstall && appleInstall.locale === selectedAppleLocale ? (
+                                                            <>
+                                                                <div className="flex items-center justify-between mb-2">
+                                                                    <span className="text-xs text-text-primary">
+                                                                        {t('Downloading language model…')}
+                                                                    </span>
+                                                                    <span className="text-xs tabular-nums text-text-secondary">
+                                                                        {Math.round(appleInstall.fraction * 100)}%
+                                                                    </span>
+                                                                </div>
+                                                                <div className="h-1.5 w-full rounded-full bg-bg-input overflow-hidden">
+                                                                    <div
+                                                                        className="h-full rounded-full bg-accent-primary transition-[width] duration-300 ease-out"
+                                                                        style={{ width: `${Math.max(2, appleInstall.fraction * 100)}%` }}
+                                                                    />
+                                                                </div>
+                                                                <p className="text-[11px] text-text-secondary mt-2">
+                                                                    {t('macOS is fetching this language. You can keep using Natively; the download continues in the background.')}
                                                                 </p>
-                                                                <p className="text-[11px] text-text-secondary mt-0.5">
-                                                                    {t('Download it now, or the first meeting will wait while macOS fetches it.')}
-                                                                </p>
+                                                            </>
+                                                        ) : (
+                                                            <div className="flex items-center justify-between gap-3">
+                                                                <div className="min-w-0">
+                                                                    <p className="text-xs text-text-primary">
+                                                                        {t('This language is not downloaded yet.')}
+                                                                    </p>
+                                                                    <p className="text-[11px] text-text-secondary mt-0.5">
+                                                                        {t('Download it now, or the first meeting will wait while macOS fetches it.')}
+                                                                    </p>
+                                                                </div>
+                                                                <button
+                                                                    onClick={startAppleDownload}
+                                                                    disabled={!!appleSlots?.full}
+                                                                    title={appleSlots?.full ? t('Remove a downloaded language first.') : undefined}
+                                                                    className="shrink-0 text-xs font-medium px-3 py-1.5 rounded-lg bg-bg-input hover:bg-bg-elevated text-text-primary border border-border-subtle transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                                                                >
+                                                                    {t('Download')}
+                                                                </button>
                                                             </div>
-                                                            <button
-                                                                onClick={startAppleDownload}
-                                                                disabled={!!appleSlots?.full}
-                                                                title={appleSlots?.full ? t('Remove a downloaded language first.') : undefined}
-                                                                className="shrink-0 text-xs font-medium px-3 py-1.5 rounded-lg bg-bg-input hover:bg-bg-elevated text-text-primary border border-border-subtle transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                                                            >
-                                                                {t('Download')}
-                                                            </button>
-                                                        </div>
-                                                    )}
-                                                    {appleInstallError && (
-                                                        <p className="text-[11px] text-amber-200/90 mt-2">{appleInstallError}</p>
-                                                    )}
-                                                </div>
-                                            )}
-                                            {/* Apple allocates a fixed number of language slots per app
+                                                        )}
+                                                        {appleInstallError && (
+                                                            <p className="text-[11px] text-amber-200/90 mt-2">{appleInstallError}</p>
+                                                        )}
+                                                    </div>
+                                                )}
+                                                {/* Apple allocates a fixed number of language slots per app
                                                 and an install takes one permanently, so the cap has to be
                                                 visible and recoverable — otherwise the sixth language just
                                                 fails with Apple's opaque "Too many allocated locales". */}
-                                            {appleSlots && appleSlots.entries.length > 0 && (
-                                                <div className="mt-3 rounded-xl border border-border-subtle bg-bg-card p-3 settings-swap-in">
-                                                    <div className="flex items-center justify-between mb-2">
-                                                        <span className="text-xs font-medium text-text-primary">
-                                                            {t('Downloaded languages')}
-                                                        </span>
-                                                        <span className={`text-[11px] tabular-nums ${appleSlots.full ? 'text-amber-300/90' : 'text-text-secondary'}`}>
-                                                            {appleSlots.used} / {appleSlots.max}
-                                                        </span>
+                                                {appleSlots && appleSlots.entries.length > 0 && (
+                                                    <div className="mt-3 rounded-xl border border-border-subtle bg-bg-card p-3 settings-swap-in">
+                                                        <div className="flex items-center justify-between mb-2">
+                                                            <span className="text-xs font-medium text-text-primary">
+                                                                {t('Downloaded languages')}
+                                                            </span>
+                                                            <span className={`text-[11px] tabular-nums ${appleSlots.full ? 'text-amber-300/90' : 'text-text-secondary'}`}>
+                                                                {appleSlots.used} / {appleSlots.max}
+                                                            </span>
+                                                        </div>
+                                                        <ul className="space-y-1">
+                                                            {appleSlots.entries.map((e) => (
+                                                                <li key={e.bcp} className="flex items-center justify-between gap-3">
+                                                                    <span className="text-xs text-text-secondary truncate">{e.label}</span>
+                                                                    <button
+                                                                        onClick={() => releaseAppleLanguage(e.bcp)}
+                                                                        disabled={appleReleasing === e.bcp}
+                                                                        className="shrink-0 text-[11px] px-2 py-1 rounded-md text-text-secondary hover:text-text-primary hover:bg-bg-input border border-transparent hover:border-border-subtle transition-colors disabled:opacity-40"
+                                                                    >
+                                                                        {appleReleasing === e.bcp ? t('Removing…') : t('Remove')}
+                                                                    </button>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                        <p className="text-[11px] text-text-secondary mt-2">
+                                                            {appleSlots.full
+                                                                ? t('All language slots are in use. Remove one to download another — removing deletes the model, so it has to be downloaded again to use it.')
+                                                                : t('Apple allows a limited number of downloaded languages. Removing one deletes its model.')}
+                                                        </p>
                                                     </div>
-                                                    <ul className="space-y-1">
-                                                        {appleSlots.entries.map((e) => (
-                                                            <li key={e.bcp} className="flex items-center justify-between gap-3">
-                                                                <span className="text-xs text-text-secondary truncate">{e.label}</span>
-                                                                <button
-                                                                    onClick={() => releaseAppleLanguage(e.bcp)}
-                                                                    disabled={appleReleasing === e.bcp}
-                                                                    className="shrink-0 text-[11px] px-2 py-1 rounded-md text-text-secondary hover:text-text-primary hover:bg-bg-input border border-transparent hover:border-border-subtle transition-colors disabled:opacity-40"
-                                                                >
-                                                                    {appleReleasing === e.bcp ? t('Removing…') : t('Remove')}
-                                                                </button>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                    <p className="text-[11px] text-text-secondary mt-2">
-                                                        {appleSlots.full
-                                                            ? t('All language slots are in use. Remove one to download another — removing deletes the model, so it has to be downloaded again to use it.')
-                                                            : t('Apple allows a limited number of downloaded languages. Removing one deletes its model.')}
-                                                    </p>
-                                                </div>
-                                            )}
-                                            {appleLanguageCapability && (
-                                                <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
-                                                    <Info size={14} className="text-text-secondary shrink-0" />
-                                                    <p className="text-xs text-text-secondary">
-                                                        {t('macOS fetches languages marked Download the first time you use them.')}
-                                                    </p>
-                                                </div>
-                                            )}
-                                            {localLanguageCapability && !languageLocked && storedLanguageUnsupported && (
-                                                <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
-                                                    <AlertCircle size={14} className="text-amber-400 shrink-0" />
-                                                    <p className="text-xs text-amber-200/90">
-                                                        {`"${availableLanguages[recognitionLanguage]?.label ?? recognitionLanguage}" ${t("isn't supported by the selected local model — pick one of the listed languages.")}`}
-                                                    </p>
-                                                </div>
-                                            )}
-                                            {storedLanguageParakeetOnly && (
-                                                <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
-                                                    <AlertCircle size={14} className="text-amber-400 shrink-0" />
-                                                    <p className="text-xs text-amber-200/90">
-                                                        {`"${availableLanguages[recognitionLanguage]?.label ?? recognitionLanguage}" ${t("is only available with the Parakeet TDT local model — pick one of the listed languages.")}`}
-                                                    </p>
-                                                </div>
-                                            )}
-                                            {localLanguageCapability && !languageLocked && autoDetectUnavailable && (
-                                                <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
-                                                    <Info size={14} className="text-text-secondary shrink-0" />
-                                                    <p className="text-xs text-text-secondary">
-                                                        {t("This model has no auto-detect mode — English is transcribed unless you pick a language.")}
-                                                    </p>
-                                                </div>
-                                            )}
-                                            {localLanguageCapability && !languageLocked && !storedLanguageUnsupported && !autoDetectUnavailable
-                                                && !localLanguageCapability.accentSelectable && currentGroupVariants.length > 1 && (
-                                                <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
-                                                    <Info size={14} className="text-text-secondary shrink-0" />
-                                                    <p className="text-xs text-text-secondary">
-                                                        {t("This model doesn't distinguish accents or regions — only the language itself applies.")}
-                                                    </p>
-                                                </div>
-                                            )}
+                                                )}
+                                                {appleLanguageCapability && (
+                                                    <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
+                                                        <Info size={14} className="text-text-secondary shrink-0" />
+                                                        <p className="text-xs text-text-secondary">
+                                                            {t('macOS fetches languages marked Download the first time you use them.')}
+                                                        </p>
+                                                    </div>
+                                                )}
+                                                {localLanguageCapability && !languageLocked && storedLanguageUnsupported && (
+                                                    <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
+                                                        <AlertCircle size={14} className="text-amber-400 shrink-0" />
+                                                        <p className="text-xs text-amber-200/90">
+                                                            {`"${availableLanguages[recognitionLanguage]?.label ?? recognitionLanguage}" ${t("isn't supported by the selected local model — pick one of the listed languages.")}`}
+                                                        </p>
+                                                    </div>
+                                                )}
+                                                {storedLanguageParakeetOnly && (
+                                                    <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
+                                                        <AlertCircle size={14} className="text-amber-400 shrink-0" />
+                                                        <p className="text-xs text-amber-200/90">
+                                                            {`"${availableLanguages[recognitionLanguage]?.label ?? recognitionLanguage}" ${t("is only available with the Parakeet TDT local model — pick one of the listed languages.")}`}
+                                                        </p>
+                                                    </div>
+                                                )}
+                                                {localLanguageCapability && !languageLocked && autoDetectUnavailable && (
+                                                    <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
+                                                        <Info size={14} className="text-text-secondary shrink-0" />
+                                                        <p className="text-xs text-text-secondary">
+                                                            {t("This model has no auto-detect mode — English is transcribed unless you pick a language.")}
+                                                        </p>
+                                                    </div>
+                                                )}
+                                                {localLanguageCapability && !languageLocked && !storedLanguageUnsupported && !autoDetectUnavailable
+                                                    && !localLanguageCapability.accentSelectable && currentGroupVariants.length > 1 && (
+                                                        <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
+                                                            <Info size={14} className="text-text-secondary shrink-0" />
+                                                            <p className="text-xs text-text-secondary">
+                                                                {t("This model doesn't distinguish accents or regions — only the language itself applies.")}
+                                                            </p>
+                                                        </div>
+                                                    )}
 
-                                            {/* Auto mode only. The picker's own label already says this
+                                                {/* Auto mode only. The picker's own label already says this
                                                 is the meeting language, so restating it under every explicit
                                                 choice was noise — and it pushed the genuinely useful notes
                                                 (download state, slot budget) further down the panel. */}
-                                            {/* An English-only Deepgram model says so; it transcribes
+                                                {/* An English-only Deepgram model says so; it transcribes
                                                 English whatever was stored before. */}
-                                            {deepgramLanguageCapability && (
-                                                <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
-                                                    <Info size={14} className="text-text-secondary shrink-0" />
-                                                    <p className="text-xs text-text-secondary">{t('This model transcribes English only.')}</p>
-                                                </div>
-                                            )}
-                                            {/* Not while English is fixed: "detected" would be untrue. */}
-                                            {recognitionLanguage === 'auto' && !showsEnglishFallback && (
-                                                <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
-                                                    <Info size={14} className="text-text-secondary shrink-0" />
-                                                    <p className="text-xs text-text-secondary">
-                                                        {autoDetectedLanguage
-                                                            ? (() => {
-                                                                const label = Object.values(availableLanguages).find((l: any) =>
-                                                                    l.bcp47 === autoDetectedLanguage || l.iso639 === autoDetectedLanguage
-                                                                )?.label as string | undefined;
-                                                                return `${t('Auto mode — detected:')} ${label ?? autoDetectedLanguage}`;
-                                                              })()
-                                                            : t('Detected from the first few seconds of audio.')
-                                                        }
-                                                    </p>
-                                                </div>
-                                            )}
+                                                {deepgramLanguageCapability && (
+                                                    <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
+                                                        <Info size={14} className="text-text-secondary shrink-0" />
+                                                        <p className="text-xs text-text-secondary">{t('This model transcribes English only.')}</p>
+                                                    </div>
+                                                )}
+                                                {/* Not while English is fixed: "detected" would be untrue. */}
+                                                {recognitionLanguage === 'auto' && !showsEnglishFallback && (
+                                                    <div className="flex gap-2 items-center mt-2 px-1 settings-swap-in">
+                                                        <Info size={14} className="text-text-secondary shrink-0" />
+                                                        <p className="text-xs text-text-secondary">
+                                                            {autoDetectedLanguage
+                                                                ? (() => {
+                                                                    const label = Object.values(availableLanguages).find((l: any) =>
+                                                                        l.bcp47 === autoDetectedLanguage || l.iso639 === autoDetectedLanguage
+                                                                    )?.label as string | undefined;
+                                                                    return `${t('Auto mode — detected:')} ${label ?? autoDetectedLanguage}`;
+                                                                })()
+                                                                : t('Detected from the first few seconds of audio.')
+                                                            }
+                                                        </p>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    {/* ── Audio Configuration Section ── */}
-                                    <div>
-                                        {/* Test Sound sits on the heading line, on the right: it checks the
+                                        {/* ── Audio Configuration Section ── */}
+                                        <div>
+                                            {/* Test Sound sits on the heading line, on the right: it checks the
                                             whole section's output path, not one card. On the page, not a
                                             card, so it takes General's button fill (bg-component, as Theme
                                             and Check use): the selects' bg-input vanishes on this background. */}
-                                        <div className="flex items-start justify-between gap-4 mb-4">
-                                            <div>
-                                                <h3 className="text-lg font-bold text-text-primary mb-1">{t('Audio Configuration')}</h3>
-                                                <p className="text-xs text-text-secondary">{t('Manage input and output devices.')}</p>
-                                            </div>
-                                            <button
-                                                onClick={async () => {
-                                                    // The tone lasts 1s; the icon says so for as long.
-                                                    setTestSoundPlaying(true);
-                                                    clearTimeout(testSoundTimer.current);
-                                                    testSoundTimer.current = setTimeout(() => setTestSoundPlaying(false), 1000);
-                                                    try {
-                                                        const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-                                                        if (!AudioContext) {
-                                                            console.error("Web Audio API not supported");
-                                                            return;
-                                                        }
-
-                                                        const ctx = new AudioContext();
-
-                                                        if (ctx.state === 'suspended') {
-                                                            await ctx.resume();
-                                                        }
-
-                                                        const oscillator = ctx.createOscillator();
-                                                        const gainNode = ctx.createGain();
-
-                                                        oscillator.connect(gainNode);
-                                                        gainNode.connect(ctx.destination);
-
-                                                        oscillator.type = 'sine';
-                                                        oscillator.frequency.setValueAtTime(523.25, ctx.currentTime);
-                                                        gainNode.gain.setValueAtTime(0.5, ctx.currentTime);
-                                                        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.0);
-
-                                                        if (selectedOutput && (ctx as any).setSinkId) {
-                                                            try {
-                                                                await (ctx as any).setSinkId(selectedOutput);
-                                                            } catch (e) {
-                                                                console.warn("Error setting sink for AudioContext", e);
-                                                            }
-                                                        }
-
-                                                        oscillator.start();
-                                                        oscillator.stop(ctx.currentTime + 1.0);
-                                                    } catch (e) {
-                                                        console.error("Error playing test sound", e);
-                                                    }
-                                                }}
-                                                // Pressed, it gives (0.97, like every button in Settings);
-                                                // while the tone plays the speaker cross-fades to a sounding
-                                                // one (icon swap). The label never changes, so neither
-                                                // does the width.
-                                                className="mt-0.5 shrink-0 text-xs bg-bg-component hover:bg-bg-elevated border border-border-subtle text-text-primary px-3 py-1.5 rounded-lg transition-[color,background-color,border-color,transform] duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100 flex items-center gap-2"
-                                            >
-                                                <SettingsMotionReady.Provider value={true}>
-                                                    <Presence kind="icon" id={testSoundPlaying ? 'playing' : 'idle'}>
-                                                        {testSoundPlaying ? <Volume2 size={12} /> : <Speaker size={12} />}
-                                                    </Presence>
-                                                </SettingsMotionReady.Provider>
-                                                {t('Test Sound')}
-                                            </button>
-                                        </div>
-
-                                        {/* Device-fallback banner: shown when main process couldn't
-                                            open the selected device and silently used the default. */}
-                                        {deviceFallbackNotice && (
-                                            <div className="mb-4 flex items-start gap-2.5 px-3 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 settings-swap-in">
-                                                <AlertCircle size={14} className="text-amber-400 shrink-0 mt-0.5" />
-                                                <div className="min-w-0 flex-1">
-                                                    <p className="text-xs text-amber-200/90 leading-snug">
-                                                        {deviceFallbackNotice.kind === 'input' ? t('Selected microphone') : t('Selected output device')}
-                                                        {deviceFallbackNotice.requested ? ` "${deviceFallbackNotice.requested}"` : ''} {t("couldn't be opened — using")} <span className="font-medium">{deviceFallbackNotice.actual ?? t('no device')}</span> {t('instead.')}
-                                                    </p>
-                                                    {deviceFallbackNotice.reason && (
-                                                        <p className="text-[11px] text-amber-200/60 mt-1 font-mono break-all">{deviceFallbackNotice.reason}</p>
-                                                    )}
+                                            <div className="flex items-start justify-between gap-4 mb-4">
+                                                <div>
+                                                    <h3 className="text-lg font-bold text-text-primary mb-1">{t('Audio Configuration')}</h3>
+                                                    <p className="text-xs text-text-secondary">{t('Manage input and output devices.')}</p>
                                                 </div>
                                                 <button
-                                                    onClick={() => {
-                                                        // Clear stale localStorage so the next meeting starts clean.
-                                                        if (deviceFallbackNotice.kind === 'input') {
-                                                            localStorage.removeItem('preferredInputDeviceId');
-                                                            setSelectedInput('default');
-                                                        } else {
-                                                            localStorage.removeItem('preferredOutputDeviceId');
-                                                            setSelectedOutput('default');
+                                                    onClick={async () => {
+                                                        // The tone lasts 1s; the icon says so for as long.
+                                                        setTestSoundPlaying(true);
+                                                        clearTimeout(testSoundTimer.current);
+                                                        testSoundTimer.current = setTimeout(() => setTestSoundPlaying(false), 1000);
+                                                        try {
+                                                            const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+                                                            if (!AudioContext) {
+                                                                console.error("Web Audio API not supported");
+                                                                return;
+                                                            }
+
+                                                            const ctx = new AudioContext();
+
+                                                            if (ctx.state === 'suspended') {
+                                                                await ctx.resume();
+                                                            }
+
+                                                            const oscillator = ctx.createOscillator();
+                                                            const gainNode = ctx.createGain();
+
+                                                            oscillator.connect(gainNode);
+                                                            gainNode.connect(ctx.destination);
+
+                                                            oscillator.type = 'sine';
+                                                            oscillator.frequency.setValueAtTime(523.25, ctx.currentTime);
+                                                            gainNode.gain.setValueAtTime(0.5, ctx.currentTime);
+                                                            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.0);
+
+                                                            if (selectedOutput && (ctx as any).setSinkId) {
+                                                                try {
+                                                                    await (ctx as any).setSinkId(selectedOutput);
+                                                                } catch (e) {
+                                                                    console.warn("Error setting sink for AudioContext", e);
+                                                                }
+                                                            }
+
+                                                            oscillator.start();
+                                                            oscillator.stop(ctx.currentTime + 1.0);
+                                                        } catch (e) {
+                                                            console.error("Error playing test sound", e);
                                                         }
-                                                        setDeviceFallbackNotice(null);
                                                     }}
-                                                    className="shrink-0 text-[11px] font-medium text-amber-400 hover:text-amber-300 transition-colors px-2 py-0.5 rounded-md bg-amber-500/15 hover:bg-amber-500/25"
+                                                    // Pressed, it gives (0.97, like every button in Settings);
+                                                    // while the tone plays the speaker cross-fades to a sounding
+                                                    // one (icon swap). The label never changes, so neither
+                                                    // does the width.
+                                                    className="mt-0.5 shrink-0 text-xs bg-bg-component hover:bg-bg-elevated border border-border-subtle text-text-primary px-3 py-1.5 rounded-lg transition-[color,background-color,border-color,transform] duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100 flex items-center gap-2"
                                                 >
-                                                    {t('Reset')}
+                                                    <SettingsMotionReady.Provider value={true}>
+                                                        <Presence kind="icon" id={testSoundPlaying ? 'playing' : 'idle'}>
+                                                            {testSoundPlaying ? <Volume2 size={12} /> : <Speaker size={12} />}
+                                                        </Presence>
+                                                    </SettingsMotionReady.Provider>
+                                                    {t('Test Sound')}
                                                 </button>
                                             </div>
-                                        )}
 
-                                        <div className="space-y-4">
-                                            {/* The two meters, side by side on one line, and set apart from
+                                            {/* Device-fallback banner: shown when main process couldn't
+                                            open the selected device and silently used the default. */}
+                                            {deviceFallbackNotice && (
+                                                <div className="mb-4 flex items-start gap-2.5 px-3 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 settings-swap-in">
+                                                    <AlertCircle size={14} className="text-amber-400 shrink-0 mt-0.5" />
+                                                    <div className="min-w-0 flex-1">
+                                                        <p className="text-xs text-amber-200/90 leading-snug">
+                                                            {deviceFallbackNotice.kind === 'input' ? t('Selected microphone') : t('Selected output device')}
+                                                            {deviceFallbackNotice.requested ? ` "${deviceFallbackNotice.requested}"` : ''} {t("couldn't be opened — using")} <span className="font-medium">{deviceFallbackNotice.actual ?? t('no device')}</span> {t('instead.')}
+                                                        </p>
+                                                        {deviceFallbackNotice.reason && (
+                                                            <p className="text-[11px] text-amber-200/60 mt-1 font-mono break-all">{deviceFallbackNotice.reason}</p>
+                                                        )}
+                                                    </div>
+                                                    <button
+                                                        onClick={() => {
+                                                            // Clear stale localStorage so the next meeting starts clean.
+                                                            if (deviceFallbackNotice.kind === 'input') {
+                                                                localStorage.removeItem('preferredInputDeviceId');
+                                                                setSelectedInput('default');
+                                                            } else {
+                                                                localStorage.removeItem('preferredOutputDeviceId');
+                                                                setSelectedOutput('default');
+                                                            }
+                                                            setDeviceFallbackNotice(null);
+                                                        }}
+                                                        className="shrink-0 text-[11px] font-medium text-amber-400 hover:text-amber-300 transition-colors px-2 py-0.5 rounded-md bg-amber-500/15 hover:bg-amber-500/25"
+                                                    >
+                                                        {t('Reset')}
+                                                    </button>
+                                                </div>
+                                            )}
+
+                                            <div className="space-y-4">
+                                                {/* The two meters, side by side on one line, and set apart from
                                                 the device cards below (pb-4). Both run off the same audio test;
                                                 the system meter answers "will the app hear the person I am
                                                 talking to", which the mic meter cannot. */}
-                                            <div className="pb-4">
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <div>
-                                                        <div className="flex justify-between text-xs text-text-secondary mb-2 px-1">
-                                                            <span>{t('Input Level')}</span>
+                                                <div className="pb-4">
+                                                    <div className="grid grid-cols-2 gap-4">
+                                                        <div>
+                                                            <div className="flex justify-between text-xs text-text-secondary mb-2 px-1">
+                                                                <span>{t('Input Level')}</span>
+                                                            </div>
+                                                            <div className="h-1.5 bg-bg-input rounded-full overflow-hidden">
+                                                                <div
+                                                                    className="h-full w-full origin-left bg-green-500 transition-transform ease-out motion-reduce:transition-none"
+                                                                    style={{ transform: `scaleX(${Math.min(1, Math.max(0, micLevel / 100))})`, transitionDuration: micFalling ? '350ms' : '80ms' }}
+                                                                />
+                                                            </div>
                                                         </div>
-                                                        <div className="h-1.5 bg-bg-input rounded-full overflow-hidden">
-                                                            <div
-                                                                className="h-full w-full origin-left bg-green-500 transition-transform ease-out motion-reduce:transition-none"
-                                                                style={{ transform: `scaleX(${Math.min(1, Math.max(0, micLevel / 100))})`, transitionDuration: micFalling ? '350ms' : '80ms' }}
-                                                            />
+                                                        <div>
+                                                            <div className="flex justify-between text-xs text-text-secondary mb-2 px-1">
+                                                                <span>{t('System Audio Level')}</span>
+                                                                {systemAudioError && (
+                                                                    <span className="text-red-500 settings-swap-in" title={systemAudioError}>
+                                                                        {t('Unavailable')}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                            <div className="h-1.5 bg-bg-input rounded-full overflow-hidden">
+                                                                <div
+                                                                    className="h-full w-full origin-left bg-green-500 transition-transform ease-out motion-reduce:transition-none"
+                                                                    style={{ transform: `scaleX(${Math.min(1, Math.max(0, systemAudioLevel / 100))})`, transitionDuration: systemFalling ? '350ms' : '80ms' }}
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div>
-                                                        <div className="flex justify-between text-xs text-text-secondary mb-2 px-1">
-                                                            <span>{t('System Audio Level')}</span>
-                                                            {systemAudioError && (
-                                                                <span className="text-red-500 settings-swap-in" title={systemAudioError}>
-                                                                    {t('Unavailable')}
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                        <div className="h-1.5 bg-bg-input rounded-full overflow-hidden">
-                                                            <div
-                                                                className="h-full w-full origin-left bg-green-500 transition-transform ease-out motion-reduce:transition-none"
-                                                                style={{ transform: `scaleX(${Math.min(1, Math.max(0, systemAudioLevel / 100))})`, transitionDuration: systemFalling ? '350ms' : '80ms' }}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/* Full width under the pair: the reason is a sentence, and half
+                                                    {/* Full width under the pair: the reason is a sentence, and half
                                                     a column would wrap it into a block. */}
-                                                {systemAudioError && (
-                                                    <p className="text-xs text-red-500 mt-2 px-1 settings-swap-in">{systemAudioError}</p>
-                                                )}
-                                            </div>
+                                                    {systemAudioError && (
+                                                        <p className="text-xs text-red-500 mt-2 px-1 settings-swap-in">{systemAudioError}</p>
+                                                    )}
+                                                </div>
 
-                                            {/* Input and Output Device side by side: each card held one select
+                                                {/* Input and Output Device side by side: each card held one select
                                                 across the whole column. */}
-                                            <div className="grid grid-cols-2 gap-4">
-                                                <CustomSelect
-                                                    label={t("Input Device")}
-                                                    value={selectedInput}
-                                                    options={inputDevices}
-                                                    onChange={(id) => {
-                                                        setSelectedInput(id);
-                                                        localStorage.setItem('preferredInputDeviceId', id);
-                                                    }}
-                                                    placeholder={t("Default Microphone")}
-                                                />
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <CustomSelect
+                                                        label={t("Input Device")}
+                                                        value={selectedInput}
+                                                        options={inputDevices}
+                                                        onChange={(id) => {
+                                                            setSelectedInput(id);
+                                                            localStorage.setItem('preferredInputDeviceId', id);
+                                                        }}
+                                                        placeholder={t("Default Microphone")}
+                                                    />
 
-                                                <CustomSelect
-                                                    label={t("Output Device")}
-                                                    value={selectedOutput}
-                                                    options={outputDevices}
-                                                    onChange={(id) => {
-                                                        setSelectedOutput(id);
-                                                        localStorage.setItem('preferredOutputDeviceId', id);
-                                                    }}
-                                                    placeholder={t("Default Speakers")}
-                                                />
-                                            </div>
+                                                    <CustomSelect
+                                                        label={t("Output Device")}
+                                                        value={selectedOutput}
+                                                        options={outputDevices}
+                                                        onChange={(id) => {
+                                                            setSelectedOutput(id);
+                                                            localStorage.setItem('preferredOutputDeviceId', id);
+                                                        }}
+                                                        placeholder={t("Default Speakers")}
+                                                    />
+                                                </div>
 
-                                            {/* System Audio Capture (the SCK backend) — macOS only. The ScreenCaptureKit
+                                                {/* System Audio Capture (the SCK backend) — macOS only. The ScreenCaptureKit
                                                 backend is a CoreAudio alternative implemented in the
                                                 Rust speaker module under #[cfg(target_os="macos")];
                                                 Windows audio runs via WASAPI loopback so the toggle
                                                 has no meaning there and routing "sck" as a device id
                                                 silently breaks system audio (issue #252 audit / F-003). */}
-                                            {isMac && (
-                                                /* A card like its neighbours: Input Device and Output Device are
-                                                   CustomSelect cards (uppercase label, one control), so the capture
-                                                   method is one too, and the hint under it is the Language card's.
-                                                   It was a tile/title/switch card titled "SCK Backend" — the
-                                                   internal name — with a two-line description; a picker names both
-                                                   choices and shows which is on. App reads the flag when a meeting
-                                                   starts, so a change applies from the next one. */
-                                                <div>
-                                                    <CustomSelect
-                                                        label={t('System Audio Capture')}
-                                                        value={useExperimentalSck ? 'sck' : 'coreaudio'}
-                                                        options={[
-                                                            { deviceId: 'coreaudio', label: t('Core Audio (default)') },
-                                                            { deviceId: 'sck', label: 'ScreenCaptureKit' },
-                                                        ].map((o) => ({ ...o, kind: 'audiooutput' as MediaDeviceKind, groupId: '', toJSON: () => ({}) }))}
-                                                        onChange={(id) => {
-                                                            const useSck = id === 'sck';
-                                                            setUseExperimentalSck(useSck);
-                                                            window.localStorage.setItem('useExperimentalSckBackend', useSck ? 'true' : 'false');
-                                                        }}
-                                                    />
-                                                    <div className="flex gap-2 items-center mt-2 px-1">
-                                                        <Info size={14} className="text-text-secondary shrink-0" />
-                                                        <p className="text-xs text-text-secondary">
-                                                            {t("Try ScreenCaptureKit if the other side isn't transcribed.")}
-                                                        </p>
+                                                {isMac && (
+                                                    /* A card like its neighbours: Input Device and Output Device are
+                                                       CustomSelect cards (uppercase label, one control), so the capture
+                                                       method is one too, and the hint under it is the Language card's.
+                                                       It was a tile/title/switch card titled "SCK Backend" — the
+                                                       internal name — with a two-line description; a picker names both
+                                                       choices and shows which is on. App reads the flag when a meeting
+                                                       starts, so a change applies from the next one. */
+                                                    <div>
+                                                        <CustomSelect
+                                                            label={t('System Audio Capture')}
+                                                            value={useExperimentalSck ? 'sck' : 'coreaudio'}
+                                                            options={[
+                                                                { deviceId: 'coreaudio', label: t('Core Audio (default)') },
+                                                                { deviceId: 'sck', label: 'ScreenCaptureKit' },
+                                                            ].map((o) => ({ ...o, kind: 'audiooutput' as MediaDeviceKind, groupId: '', toJSON: () => ({}) }))}
+                                                            onChange={(id) => {
+                                                                const useSck = id === 'sck';
+                                                                setUseExperimentalSck(useSck);
+                                                                window.localStorage.setItem('useExperimentalSckBackend', useSck ? 'true' : 'false');
+                                                            }}
+                                                        />
+                                                        <div className="flex gap-2 items-center mt-2 px-1">
+                                                            <Info size={14} className="text-text-secondary shrink-0" />
+                                                            <p className="text-xs text-text-secondary">
+                                                                {t("Try ScreenCaptureKit if the other side isn't transcribed.")}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )}
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
 
 
-                            {activeTab === 'calendar' && <CalendarSettings />}
+                                {activeTab === 'calendar' && <CalendarSettings />}
 
-                            {activeTab === 'phone-mirror' && (
-                                <PhoneMirrorSettings />
-                            )}
+                                {activeTab === 'phone-mirror' && (
+                                    <PhoneMirrorSettings />
+                                )}
 
-                            {isRetrievalTab(activeTab) && (
-                                /* No `key`. Keying on activeTab would remount both panels
-                                   whenever the id changed — including the 'embedding' ->
-                                   'retrieval' flip you get from clicking the sidebar item
-                                   you are ALREADY on, which discarded the user's sub-tab
-                                   and flashed skeletons for ~400ms. A mounted layout picks
-                                   up a late deep link through its own effect instead.
+                                {isRetrievalTab(activeTab) && (
+                                    /* No `key`. Keying on activeTab would remount both panels
+                                       whenever the id changed — including the 'embedding' ->
+                                       'retrieval' flip you get from clicking the sidebar item
+                                       you are ALREADY on, which discarded the user's sub-tab
+                                       and flashed skeletons for ~400ms. A mounted layout picks
+                                       up a late deep link through its own effect instead.
+    
+                                       `initialTab` is passed ONLY for the legacy ids: plain
+                                       'retrieval' sends undefined, which is what tells the
+                                       layout to leave the current sub-tab alone. */
+                                    <RetrievalSettings
+                                        initialTab={retrievalRequest.tab}
+                                        navSeq={retrievalRequest.seq}
+                                    />
+                                )}
 
-                                   `initialTab` is passed ONLY for the legacy ids: plain
-                                   'retrieval' sends undefined, which is what tells the
-                                   layout to leave the current sub-tab alone. */
-                                <RetrievalSettings
-                                    initialTab={retrievalRequest.tab}
-                                    navSeq={retrievalRequest.seq}
-                                />
-                            )}
+                                {activeTab === 'intelligence' && (
+                                    <IntelligenceSettings />
+                                )}
 
-                            {activeTab === 'intelligence' && (
-                                <IntelligenceSettings />
-                            )}
+                                {activeTab === 'help' && (
+                                    <HelpSettings onNavigate={setActiveTab} onOpenModes={onOpenModes} onOpenProfile={onOpenProfile} />
+                                )}
 
-                            {activeTab === 'help' && (
-                                <HelpSettings onNavigate={setActiveTab} onOpenModes={onOpenModes} onOpenProfile={onOpenProfile} />
-                            )}
-
-                            {activeTab === 'about' && (
-                                <AboutSection onNavigate={setActiveTab} onOpenModes={onOpenModes} onOpenProfile={onOpenProfile} onOpenSearch={onOpenSearch} onOpenMeeting={onOpenMeeting} />
-                            )}
+                                {activeTab === 'about' && (
+                                    <AboutSection onNavigate={setActiveTab} onOpenModes={onOpenModes} onOpenProfile={onOpenProfile} onOpenSearch={onOpenSearch} onOpenMeeting={onOpenMeeting} />
+                                )}
                             </ErrorBoundary>
-                            </motion.div>
-                        </div>
+                        </motion.div>
                     </div>
+                </div>
             </GenieModal>
 
 

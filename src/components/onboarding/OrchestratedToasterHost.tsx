@@ -39,8 +39,15 @@ type CloseReason = 'acted' | 'never' | 'after_error' | 'connected' | undefined;
 
 /** Write one card outcome to the main-process ledger (cards:record). */
 function recordCard(card: string, outcome: string, meta?: { until?: number }): void {
-  window.electronAPI?.cardsRecord?.(card, outcome, meta)?.catch?.(() => {});
+  window.electronAPI?.cardsRecord?.(card, outcome, meta)?.catch?.(() => { });
 }
+
+const BrowserExtensionDismissHost: React.FC<{ onDismiss: (reason?: CloseReason) => void }> = ({ onDismiss }) => {
+  useEffect(() => {
+    onDismiss('never');
+  }, [onDismiss]);
+  return null;
+};
 
 interface HostProps {
   /** Open a Settings tab (ai-providers, plans, natively-api…). */
@@ -92,7 +99,7 @@ export const OrchestratorProvider: React.FC<ProviderProps> = ({ children }) => {
 
 // ─── Host ─────────────────────────────────────────────────────────
 
-export const OrchestratedToasterHost: React.FC<HostProps> = ({ onOpenSettings, onOpenProfile }) => {
+export const OrchestratedToasterHost: React.FC<HostProps> = ({ onOpenSettings, onOpenProfile: _onOpenProfile }) => {
   const orch = getOrchestrator();
   // Stable subscribe/snapshot refs — .bind() would re-allocate every render.
   const orchSubscribe = React.useCallback((cb: () => void) => orch.subscribe(cb), [orch]);
@@ -115,7 +122,7 @@ export const OrchestratedToasterHost: React.FC<HostProps> = ({ onOpenSettings, o
   // user closes it. A forced (dev) showing reports nothing, like the ledger.
   useEffect(() => {
     if (activeId === 'permissions' && !forced) {
-      window.electronAPI?.funnelTrack?.('onboarding_stage', { stage: 'permissions', action: 'shown' })?.catch?.(() => {});
+      window.electronAPI?.funnelTrack?.('onboarding_stage', { stage: 'permissions', action: 'shown' })?.catch?.(() => { });
     }
   }, [activeId, forced]);
 
@@ -157,8 +164,8 @@ export const OrchestratedToasterHost: React.FC<HostProps> = ({ onOpenSettings, o
             // launch. A permission that later breaks (either platform) is
             // detected via checkPermissions and re-triggers via the
             // permissionsNeedAttention user-state.
-            try { localStorage.setItem('natively_perms_shown_v1', '1'); } catch {}
-            window.electronAPI?.onboardingSetFlag?.('permsShown', true).catch(() => {});
+            try { localStorage.setItem('natively_perms_shown_v1', '1'); } catch { }
+            window.electronAPI?.onboardingSetFlag?.('permsShown', true).catch(() => { });
             // Reflect permsShown in the live orchestrator user-state *now*.
             // Without this, `permsShown` stays false in-session (it is only
             // re-read from localStorage on the next App.tsx effect / relaunch),
@@ -166,18 +173,16 @@ export const OrchestratedToasterHost: React.FC<HostProps> = ({ onOpenSettings, o
             // becomes true and the RAF drain loop re-raises this toaster on the
             // very next frame — making the X button appear to do nothing.
             orch.setUserState({ permsShown: true });
-            if (!forced) window.electronAPI?.funnelTrack?.('onboarding_stage', { stage: 'permissions', action: 'completed' })?.catch?.(() => {});
+            if (!forced) window.electronAPI?.funnelTrack?.('onboarding_stage', { stage: 'permissions', action: 'completed' })?.catch?.(() => { });
             onDismiss('permissions')();
           }}
         />
       );
 
     case 'browser_extension':
-      // No onSkip: a card's waits live in the card ledger, never in a skip.
-      return <BrowserExtensionToaster isOpen={true} onDismiss={closeWith('browser_extension')} />;
+      return <BrowserExtensionDismissHost onDismiss={closeWith('browser_extension')} />;
 
     case 'profile_intelligence':
-      // Profile intelligence is rendered by Launcher's popover when triggered
       // via the existing icon click. The orchestrator's "completion" here
       // means user has seen the settings panel; the popover itself is gone.
       return null;
@@ -186,10 +191,11 @@ export const OrchestratedToasterHost: React.FC<HostProps> = ({ onOpenSettings, o
       // Same as profile — modes onboarding popover gone.
       return null;
 
-    case 'trial_promo':
-      // TrialPromoToaster needs additional props for start/manual setup,
-      // which it reads from window.electronAPI at runtime. The orchestrator
-      // hands it `isOpen` and onDismiss only.
+    case 'trial_promo': {
+      const suppressPromo = true;
+      if (suppressPromo) {
+        return <BrowserExtensionDismissHost onDismiss={closeWith('trial_promo')} />;
+      }
       return (
         <TrialPromoToaster
           isOpen={true}
@@ -216,87 +222,31 @@ export const OrchestratedToasterHost: React.FC<HostProps> = ({ onOpenSettings, o
           }}
         />
       );
+    }
 
     case 'quiet_window':
       // Internal gate — never renders a visible component.
       return null;
 
     case 'support':
-      return (
-        <SupportToaster
-          isOpen={true}
-          onDismiss={(reason?: CloseReason) => {
-            // DonationManager still counts showings (About page, legacy
-            // import); the card ledger decides when support may return.
-            window.electronAPI?.markDonationToastShown?.().catch(() => {});
-            closeWith('support')(reason);
-          }}
-        />
-      );
+      return <BrowserExtensionDismissHost onDismiss={closeWith('support')} />;
 
-    // ── Ads (premium components; scheduled like every other card) ──
+    // ── Ads (premium components; suppressed) ──
     case 'natively_api_new':
-    case 'natively_api_existing': {
-      const id = activeId;
-      return (
-        <NativelyApiPromoToaster
-          isOpen={true}
-          variant={id === 'natively_api_new' ? 'new' : 'existing'}
-          onDismiss={(reason?: CloseReason) => {
-            // "I'll set up manually" on the new-user variant retires it and
-            // goes where the keys are entered.
-            if (reason === 'never' && id === 'natively_api_new') openSettings('ai-providers');
-            closeWith(id)(reason);
-          }}
-          onOpenSettings={(tab: string) => openSettings(tab)}
-        />
-      );
-    }
+    case 'natively_api_existing':
+      return <BrowserExtensionDismissHost onDismiss={closeWith(activeId)} />;
 
     case 'profile_ad':
-      return (
-        <ProfileFeatureToaster
-          isOpen={true}
-          onDismiss={closeWith('profile_ad')}
-          onSetupProfile={() => onOpenProfile?.()}
-        />
-      );
+      return <BrowserExtensionDismissHost onDismiss={closeWith('profile_ad')} />;
 
     case 'jd_ad':
-      return (
-        <JDAwarenessToaster
-          isOpen={true}
-          onDismiss={closeWith('jd_ad')}
-          onSetupJD={() => onOpenProfile?.()}
-        />
-      );
+      return <BrowserExtensionDismissHost onDismiss={closeWith('jd_ad')} />;
 
     case 'max_ultra':
-      return (
-        <MaxUltraUpgradeToaster
-          isOpen={true}
-          onDismiss={(reason?: CloseReason) => {
-            if (reason === 'acted') {
-              // Retired for this billing cycle only: back next cycle if the
-              // user is near the limit again. 30 days when the cycle end is unknown.
-              const until = orch.getUserState().nativelyQuotaResetsAt ?? Date.now() + 30 * DAY_MS;
-              recorder.outcome('acted', { until });
-            }
-            closeWith('max_ultra')(reason);
-          }}
-          onUpgrade={() => openSettings('plans')}
-        />
-      );
+      return <BrowserExtensionDismissHost onDismiss={closeWith('max_ultra')} />;
 
     case 'review_prompt':
-      return (
-        <ReviewPromptHost
-          isOpen={true}
-          paused={false}
-          onOutcome={(o) => recorder.outcome(o)}
-          onClose={closeWith('review_prompt')}
-        />
-      );
+      return <BrowserExtensionDismissHost onDismiss={closeWith('review_prompt')} />;
 
     default:
       return null;

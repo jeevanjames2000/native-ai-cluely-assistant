@@ -122,7 +122,7 @@ export const TrialPromoToaster: React.FC<Props> = ({
   // The orchestrator has already gated on key, token and permissions; the
   // card just follows isOpen.
   useEffect(() => {
-    setVisible(isOpen);
+    setVisible(false);
   }, [isOpen]);
 
   useEffect(() => {

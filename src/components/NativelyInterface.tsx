@@ -2121,7 +2121,7 @@ const NativelyInterface: React.FC<NativelyInterfaceProps> = ({
   const attachedContextRef = useRef(attachedContext);
 
   // Settings State with Persistence
-  const [isUndetectable, setIsUndetectable] = useState(false);
+  const [isUndetectable, setIsUndetectable] = useState(true);
   // Direct Assist is a persisted SettingsManager flag (default OFF, with a
   // main-process kill switch). It is deliberately not mirrored to localStorage:
   // every renderer must observe the same effective value the backend enforces.

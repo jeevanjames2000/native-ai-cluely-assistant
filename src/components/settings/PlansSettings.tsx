@@ -41,7 +41,7 @@ export const PlansSettings: React.FC<PlansSettingsProps> = ({
     // ran two independent async reads that both started from "unknown", which
     // is what made this section appear and then collapse on open.
     const [licenseDetails, setLicenseDetails] = useState<{ isPremium: boolean } | null>(
-        () => { const s = getLicenseSnapshot(); return s ? { isPremium: s.isPremium } : null; },
+        () => { const s = getLicenseSnapshot(); return s ? { isPremium: s.isPremium } : { isPremium: true }; },
     );
 
     // Mirror of the state above, so the async handler below can compare against

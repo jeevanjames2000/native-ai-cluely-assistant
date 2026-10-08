@@ -95,7 +95,10 @@ export const SupportToaster: React.FC<SupportToasterProps> = ({ isOpen, onDismis
 
   // The orchestrator unmounts this the moment it hears "dismissed", so the
   // card closes itself first and reports once the genie has played.
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    onDismiss?.();
+  }, [onDismiss]);
   const dismissedRef = useRef(false);
   const dismissReasonRef = useRef<'acted' | undefined>(undefined);
   const dismiss = (reason?: 'acted') => {

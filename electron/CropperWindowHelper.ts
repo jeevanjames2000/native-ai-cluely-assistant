@@ -199,7 +199,7 @@ export class CropperWindowHelper {
     private opacityTimeout: NodeJS.Timeout | null = null;
     private selectionTimeout: NodeJS.Timeout | null = null;
     private resolvePromise: ((value: Electron.Rectangle | null) => void) | null = null;
-    private isUndetectable: boolean = false;
+    private isUndetectable: boolean = true;
     private isWaitingForSelection: boolean = false;
     private isDisposed: boolean = false;
     private isEscapeRegistered: boolean = false;

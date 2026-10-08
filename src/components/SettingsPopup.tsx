@@ -72,7 +72,7 @@ const PopupToggle: React.FC<{
 const SettingsPopup = () => {
     const { shortcuts } = useShortcuts();
     const isLightTheme = useResolvedTheme() === 'light';
-    const [isUndetectable, setIsUndetectable] = useState(false);
+    const [isUndetectable, setIsUndetectable] = useState(true);
     const [useGroqFastText, setUseGroqFastText] = useState(() => {
         return localStorage.getItem('natively_groq_fast_text') === 'true';
     });

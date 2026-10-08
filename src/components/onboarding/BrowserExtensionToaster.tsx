@@ -243,6 +243,9 @@ export const BrowserExtensionToaster: React.FC<Props> = ({ isOpen, onDismiss }) 
   const item = reduced ? ITEM_REDUCED : ITEM;
   const ctaDur = ctaActive ? CTA_IN : CTA_OUT;
 
+  // Disabled: never show the Chrome extension popup
+  return null;
+
   return (
     <GenieModal
       open={visible}

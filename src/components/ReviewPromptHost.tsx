@@ -75,8 +75,8 @@ function isDevForceShow(): boolean {
         const w = window as any
         if (w.__reviewForceShow === true) return true
         if (w.__reviewForceShow === false) return false
-        // No explicit override: the dev default.
-        return dev
+        // No explicit override: do not pop up randomly.
+        return false
     } catch {
         return false
     }

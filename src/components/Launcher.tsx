@@ -226,7 +226,7 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
         if (window.electronAPI?.getMeetingActive) {
             window.electronAPI.getMeetingActive()
                 .then((active) => { if (mounted) setIsMeetingActive(active); })
-                .catch(() => {});
+                .catch(() => { });
         }
 
         // Listen for meeting state changes (e.g. meeting started/ended from overlay)
@@ -251,7 +251,7 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
         // On macOS Cmd+H and Cmd+Tab the BrowserWindow fires 'blur'/'focus'
         // (mapped to window blur/focus in renderer).
         const onFocus = () => emitOrchestratorEvent({ type: 'foreground:change', isForeground: true });
-        const onBlur  = () => emitOrchestratorEvent({ type: 'foreground:change', isForeground: false });
+        const onBlur = () => emitOrchestratorEvent({ type: 'foreground:change', isForeground: false });
         window.addEventListener('focus', onFocus);
         window.addEventListener('blur', onBlur);
 
@@ -293,7 +293,7 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
             window.removeEventListener('blur', onBlur);
             clearInterval(usageTimer);
         };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // Mount-only: stable setup that must run exactly once
 
     // The card follows the connection wherever it changes: a disconnect in
@@ -303,7 +303,7 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
         setIsCalendarConnected(connected);
         if (connected) fetchEvents(); else setUpcomingEvents([]);
         void warmCalendarSnapshot(window.electronAPI);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }), []);
 
     // Settings › Calendar opens from calendarSnapshot instead of fetching: fill
@@ -701,7 +701,7 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                             onClick={() => {
                                 setShowProfileOnboarding(false);
                                 localStorage.setItem('natively_seen_profile_onboarding_v1', 'true');
-                                window.electronAPI?.onboardingSetFlag?.('seenProfileOnboarding', true).catch(() => {});
+                                window.electronAPI?.onboardingSetFlag?.('seenProfileOnboarding', true).catch(() => { });
                                 onOpenProfile?.();
                             }}
                             title={t("Profile Intelligence")}
@@ -709,7 +709,7 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                         >
                             <UserSearch size={18} />
                         </button>
-                        
+
                         <AnimatePresence>
                             {showProfileOnboarding && (
                                 <motion.div
@@ -718,49 +718,44 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                                     animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
                                     exit={{ opacity: 0, y: -2, scale: 0.98, filter: "blur(2px)", transition: { duration: 0.15, ease: "easeOut" } }}
                                     transition={{ type: "spring", stiffness: 350, damping: 25, mass: 1 }}
-                                    className={`absolute top-[38px] right-2 w-[270px] rounded-[20px] p-4 z-[300] origin-top-right backdrop-blur-[40px] saturate-[180%] transform-gpu ${
-                                        isLight 
-                                        ? 'bg-white/70 shadow-[0_8px_30px_rgb(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.04)]' 
+                                    className={`absolute top-[38px] right-2 w-[270px] rounded-[20px] p-4 z-[300] origin-top-right backdrop-blur-[40px] saturate-[180%] transform-gpu ${isLight
+                                        ? 'bg-white/70 shadow-[0_8px_30px_rgb(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.04)]'
                                         : 'bg-[#18181A]/70 shadow-[0_8px_30px_rgb(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)]'
-                                    }`}
+                                        }`}
                                 >
                                     {/* Triangle Pointer */}
-                                    <div className={`absolute -top-[5px] right-[14px] w-2.5 h-2.5 rotate-45 rounded-tl-[3px] ${
-                                        isLight 
-                                        ? 'bg-white/70 border-t border-l border-black/5 backdrop-blur-[40px]' 
+                                    <div className={`absolute -top-[5px] right-[14px] w-2.5 h-2.5 rotate-45 rounded-tl-[3px] ${isLight
+                                        ? 'bg-white/70 border-t border-l border-black/5 backdrop-blur-[40px]'
                                         : 'bg-[#18181A]/70 border-t border-l border-white/5 backdrop-blur-[40px]'
-                                    }`} />
-                                    
+                                        }`} />
+
                                     <div className="relative flex gap-3">
-                                        <div className={`w-9 h-9 flex items-center justify-center shrink-0 rounded-full ${
-                                            isLight
+                                        <div className={`w-9 h-9 flex items-center justify-center shrink-0 rounded-full ${isLight
                                             ? 'bg-blue-500 bg-opacity-10 text-blue-500'
                                             : 'bg-blue-500 bg-opacity-15 text-blue-400'
-                                        }`}>
+                                            }`}>
                                             <UserSearch size={18} />
                                         </div>
                                         <div className="flex-1 pt-[2px]">
                                             <h3 className="text-[14px] font-semibold tracking-[-0.015em] mb-1 flex items-center gap-2">
                                                 <span className={isLight ? 'text-slate-900' : 'text-slate-100'}>{t('Profile Intel')}</span>
                                             </h3>
-                                            <p className={`text-[12px] leading-[1.35] mb-3.5 tracking-[-0.01em] ${
-                                                isLight ? 'text-slate-500' : 'text-slate-400'
-                                            }`}>
+                                            <p className={`text-[12px] leading-[1.35] mb-3.5 tracking-[-0.01em] ${isLight ? 'text-slate-500' : 'text-slate-400'
+                                                }`}>
                                                 {t('Manage your persona, career history, and active job description.')}
                                             </p>
                                             <div className="flex justify-end gap-1.5 isolate">
-                                                <button 
-                                                    onClick={(e) => { 
-                                                        e.stopPropagation(); 
-                                                        setShowProfileOnboarding(false); 
-                                                        localStorage.setItem('natively_seen_profile_onboarding_v1', 'true'); 
-                                                        window.electronAPI?.onboardingSetFlag?.('seenProfileOnboarding', true).catch(() => {});
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setShowProfileOnboarding(false);
+                                                        localStorage.setItem('natively_seen_profile_onboarding_v1', 'true');
+                                                        window.electronAPI?.onboardingSetFlag?.('seenProfileOnboarding', true).catch(() => { });
                                                     }}
-                                                    className={`text-[12px] font-medium px-3.5 py-[6px] rounded-full transition-all active:scale-95 ${
-                                                        isLight
+                                                    className={`text-[12px] font-medium px-3.5 py-[6px] rounded-full transition-all active:scale-95 ${isLight
                                                         ? 'text-slate-500 hover:text-slate-800 hover:bg-slate-100/60'
                                                         : 'text-slate-400 hover:text-slate-100 hover:bg-white/10'
-                                                    }`}
+                                                        }`}
                                                 >
                                                     {t('Dismiss')}
                                                 </button>
@@ -770,13 +765,12 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                                                         onOpenProfile?.();
                                                         setShowProfileOnboarding(false);
                                                         localStorage.setItem('natively_seen_profile_onboarding_v1', 'true');
-                                                        window.electronAPI?.onboardingSetFlag?.('seenProfileOnboarding', true).catch(() => {});
+                                                        window.electronAPI?.onboardingSetFlag?.('seenProfileOnboarding', true).catch(() => { });
                                                     }}
-                                                    className={`text-[12px] font-medium px-4 py-[6px] rounded-full transition-all active:scale-95 shadow-sm ${
-                                                        isLight
+                                                    className={`text-[12px] font-medium px-4 py-[6px] rounded-full transition-all active:scale-95 shadow-sm ${isLight
                                                         ? 'bg-slate-900 text-white hover:bg-slate-800'
                                                         : 'bg-slate-100 text-slate-900 hover:bg-white'
-                                                    }`}
+                                                        }`}
                                                 >
                                                     {t('Try it out')}
                                                 </button>
@@ -793,20 +787,20 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                             onClick={() => {
                                 setShowModesOnboarding(false);
                                 localStorage.setItem('natively_seen_modes_onboarding_v5', 'true');
-                                window.electronAPI?.onboardingSetFlag?.('seenModesOnboarding', true).catch(() => {});
+                                window.electronAPI?.onboardingSetFlag?.('seenModesOnboarding', true).catch(() => { });
                                 onOpenModes?.();
                             }}
                             title={t("Modes")}
                             className={`p-2 text-text-secondary hover:text-text-primary transition-all duration-300 ${isLight ? 'hover:drop-shadow-[0_0_6px_rgba(0,0,0,0.25)]' : 'hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'}`}
                         >
                             <svg width={18} height={18} viewBox="0 0 14 14" fill="none">
-                                <rect x="1" y="1" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9"/>
-                                <rect x="7.5" y="1" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9"/>
-                                <rect x="1" y="7.5" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9"/>
-                                <rect x="7.5" y="7.5" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.35"/>
+                                <rect x="1" y="1" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9" />
+                                <rect x="7.5" y="1" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9" />
+                                <rect x="1" y="7.5" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9" />
+                                <rect x="7.5" y="7.5" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.35" />
                             </svg>
                         </button>
-                        
+
                         <AnimatePresence>
                             {showModesOnboarding && (
                                 <motion.div
@@ -815,30 +809,27 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                                     animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
                                     exit={{ opacity: 0, y: -2, scale: 0.98, filter: "blur(2px)", transition: { duration: 0.15, ease: "easeOut" } }}
                                     transition={{ type: "spring", stiffness: 350, damping: 25, mass: 1 }}
-                                    className={`absolute top-[38px] right-2 w-[270px] rounded-[20px] p-4 z-[300] origin-top-right backdrop-blur-[40px] saturate-[180%] transform-gpu ${
-                                        isLight 
-                                        ? 'bg-white/70 shadow-[0_8px_30px_rgb(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.04)]' 
+                                    className={`absolute top-[38px] right-2 w-[270px] rounded-[20px] p-4 z-[300] origin-top-right backdrop-blur-[40px] saturate-[180%] transform-gpu ${isLight
+                                        ? 'bg-white/70 shadow-[0_8px_30px_rgb(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.04)]'
                                         : 'bg-[#18181A]/70 shadow-[0_8px_30px_rgb(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)]'
-                                    }`}
+                                        }`}
                                 >
                                     {/* Triangle Pointer */}
-                                    <div className={`absolute -top-[5px] right-[14px] w-2.5 h-2.5 rotate-45 rounded-tl-[3px] ${
-                                        isLight 
-                                        ? 'bg-white/70 border-t border-l border-black/5 backdrop-blur-[40px]' 
+                                    <div className={`absolute -top-[5px] right-[14px] w-2.5 h-2.5 rotate-45 rounded-tl-[3px] ${isLight
+                                        ? 'bg-white/70 border-t border-l border-black/5 backdrop-blur-[40px]'
                                         : 'bg-[#18181A]/70 border-t border-l border-white/5 backdrop-blur-[40px]'
-                                    }`} />
-                                    
+                                        }`} />
+
                                     <div className="relative flex gap-3">
-                                        <div className={`w-9 h-9 flex items-center justify-center shrink-0 rounded-full ${
-                                            isLight
+                                        <div className={`w-9 h-9 flex items-center justify-center shrink-0 rounded-full ${isLight
                                             ? 'bg-orange-500 bg-opacity-10 text-orange-500'
                                             : 'bg-orange-500 bg-opacity-15 text-orange-400'
-                                        }`}>
+                                            }`}>
                                             <svg width="18" height="18" viewBox="0 0 14 14" fill="none">
-                                                <rect x="1" y="1" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9"/>
-                                                <rect x="7.5" y="1" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9"/>
-                                                <rect x="1" y="7.5" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9"/>
-                                                <rect x="7.5" y="7.5" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.4"/>
+                                                <rect x="1" y="1" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9" />
+                                                <rect x="7.5" y="1" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9" />
+                                                <rect x="1" y="7.5" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.9" />
+                                                <rect x="7.5" y="7.5" width="5.5" height="5.5" rx="1.5" fill="currentColor" opacity="0.4" />
                                             </svg>
                                         </div>
                                         <div className="flex-1 pt-[2px]">
@@ -846,24 +837,22 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                                                 <span className={isLight ? 'text-slate-900' : 'text-slate-100'}>{t('Modes')}</span>
                                                 <LiquidGlassBadge variant="sky">{t('Beta')}</LiquidGlassBadge>
                                             </h3>
-                                            <p className={`text-[12px] leading-[1.35] mb-3.5 tracking-[-0.01em] ${
-                                                isLight ? 'text-slate-500' : 'text-slate-400'
-                                            }`}>
+                                            <p className={`text-[12px] leading-[1.35] mb-3.5 tracking-[-0.01em] ${isLight ? 'text-slate-500' : 'text-slate-400'
+                                                }`}>
                                                 {t('Custom instructions and formulas designed for different meeting contexts.')}
                                             </p>
                                             <div className="flex justify-end gap-1.5 isolate">
-                                                <button 
-                                                    onClick={(e) => { 
-                                                        e.stopPropagation(); 
-                                                        setShowModesOnboarding(false); 
-                                                        localStorage.setItem('natively_seen_modes_onboarding_v5', 'true'); 
-                                                        window.electronAPI?.onboardingSetFlag?.('seenModesOnboarding', true).catch(() => {});
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setShowModesOnboarding(false);
+                                                        localStorage.setItem('natively_seen_modes_onboarding_v5', 'true');
+                                                        window.electronAPI?.onboardingSetFlag?.('seenModesOnboarding', true).catch(() => { });
                                                     }}
-                                                    className={`text-[12px] font-medium px-3.5 py-[6px] rounded-full transition-all active:scale-95 ${
-                                                        isLight
+                                                    className={`text-[12px] font-medium px-3.5 py-[6px] rounded-full transition-all active:scale-95 ${isLight
                                                         ? 'text-slate-500 hover:text-slate-800 hover:bg-slate-100/60'
                                                         : 'text-slate-400 hover:text-slate-100 hover:bg-white/10'
-                                                    }`}
+                                                        }`}
                                                 >
                                                     {t('Dismiss')}
                                                 </button>
@@ -871,15 +860,14 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                                                     onClick={(e) => {
                                                         e.stopPropagation();
                                                         onOpenModes?.();
-                                                        setShowModesOnboarding(false); 
-                                                        localStorage.setItem('natively_seen_modes_onboarding_v5', 'true'); 
-                                                        window.electronAPI?.onboardingSetFlag?.('seenModesOnboarding', true).catch(() => {});
+                                                        setShowModesOnboarding(false);
+                                                        localStorage.setItem('natively_seen_modes_onboarding_v5', 'true');
+                                                        window.electronAPI?.onboardingSetFlag?.('seenModesOnboarding', true).catch(() => { });
                                                     }}
-                                                    className={`text-[12px] font-medium px-4 py-[6px] rounded-full transition-all active:scale-95 shadow-sm ${
-                                                        isLight
+                                                    className={`text-[12px] font-medium px-4 py-[6px] rounded-full transition-all active:scale-95 shadow-sm ${isLight
                                                         ? 'bg-slate-900 text-white hover:bg-slate-800'
                                                         : 'bg-slate-100 text-slate-900 hover:bg-white'
-                                                    }`}
+                                                        }`}
                                                 >
                                                     {t('Try it out')}
                                                 </button>
@@ -1036,24 +1024,23 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                                                 >
                                                     <span className="t-toggle-thumb" aria-hidden="true" />
                                                 </button>
-                                             </div>
+                                            </div>
 
-                                             {/* What's New Pill */}
-                                             {launchCount < 10 && (
-                                                 <button
-                                                     onClick={() => onOpenSettings('about')}
-                                                     className={`flex items-center gap-1 border rounded-full px-3 py-1.5 transition-all duration-200 cursor-pointer active:scale-95 text-xs font-semibold shrink-0 select-none group ${
-                                                         isLight 
-                                                             ? 'bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/20 text-emerald-600' 
-                                                             : 'bg-emerald-400/10 hover:bg-emerald-400/20 border-emerald-500/20 text-emerald-400'
-                                                     }`}
-                                                 >
-                                                     <span>{`${t("What's New in")} v${APP_FEATURE_VERSION}`}</span>
-                                                     <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                                                 </button>
-                                             )}
-                                         </div>
-                                         {/* Center: Ollama Pull Status Pill (flex-1 to center evenly) */}
+                                            {/* What's New Pill */}
+                                            {launchCount < 10 && (
+                                                <button
+                                                    onClick={() => onOpenSettings('about')}
+                                                    className={`flex items-center gap-1 border rounded-full px-3 py-1.5 transition-all duration-200 cursor-pointer active:scale-95 text-xs font-semibold shrink-0 select-none group ${isLight
+                                                        ? 'bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/20 text-emerald-600'
+                                                        : 'bg-emerald-400/10 hover:bg-emerald-400/20 border-emerald-500/20 text-emerald-400'
+                                                        }`}
+                                                >
+                                                    <span>{`${t("What's New in")} v${APP_FEATURE_VERSION}`}</span>
+                                                    <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                                </button>
+                                            )}
+                                        </div>
+                                        {/* Center: Ollama Pull Status Pill (flex-1 to center evenly) */}
                                         <div className="flex-1 flex justify-center mx-4">
                                             <AnimatePresence>
                                                 {ollamaPullStatus !== 'idle' && (
@@ -1185,16 +1172,13 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                                     </div>
 
                                     {/* 2. Hero Section Cards */}
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 h-[198px]">
-                                        {/* Default Intro — natively support & upcoming features.
-                                            Calendar "Up Next" lives in Settings → Calendar, not here. */}
+                                    {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-3 h-[198px]">
                                         <div className="md:col-span-2 h-full">
                                             <FeatureSpotlight />
                                         </div>
 
 
 
-                                        {/* Right Secondary Card — violet-tinted, "Calendar Connected" + peeking next meeting */}
                                         <UpcomingCalendarCard
                                             className="md:col-span-1"
                                             isConnected={isCalendarConnected}
@@ -1205,7 +1189,7 @@ const Launcher: React.FC<LauncherProps> = ({ request, onStartMeeting, onOpenSett
                                             totalCount={upcomingMeetings.length}
                                             loading={!eventsLoaded}
                                         />
-                                    </div>
+                                    </div> */}
                                 </div>
                             </section>
 

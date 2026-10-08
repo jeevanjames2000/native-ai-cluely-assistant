@@ -366,6 +366,9 @@ export class SettingsManager {
     }
 
     public get<K extends keyof AppSettings>(key: K): AppSettings[K] {
+        if (key === 'isUndetectable') {
+            return (this.settings.isUndetectable ?? true) as AppSettings[K];
+        }
         return this.settings[key];
     }
 

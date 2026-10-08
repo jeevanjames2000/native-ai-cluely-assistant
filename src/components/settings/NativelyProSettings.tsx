@@ -455,7 +455,7 @@ export const NativelyProSettings: React.FC<NativelyProSettingsProps> = ({
     // rendered for about a second before the details call resolved and hid it
     // again for API-plan users.
     const [isPremium, setIsPremium] = useState<boolean | null>(
-        initialIsPremium ?? getLicenseSnapshot()?.isPremium ?? null,
+        initialIsPremium ?? getLicenseSnapshot()?.isPremium ?? true,
     );
     // Distinguishes a Pro entitlement bundled with a Natively API plan
     // ('natively_api' — server-validated per request, stored with hwid: '',

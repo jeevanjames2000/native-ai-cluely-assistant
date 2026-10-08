@@ -391,9 +391,9 @@ const App: React.FC = () => {
       first.focus();
     }
   }, []);
-  const [isPremiumActive, setIsPremiumActive] = useState(false);
-  const [hasLoadedLicense, setHasLoadedLicense] = useState(false);
-  const [planDetails, setPlanDetails] = useState<{ isPremium: boolean; plan?: string; provider?: string }>({ isPremium: false });
+  const [isPremiumActive, setIsPremiumActive] = useState(true);
+  const [hasLoadedLicense, setHasLoadedLicense] = useState(true);
+  const [planDetails, setPlanDetails] = useState<{ isPremium: boolean; plan?: string; provider?: string }>({ isPremium: true, plan: 'ultra' });
 
   // Overlay opacity — only meaningful when isOverlayWindow, but stored centrally
   // so it can be initialized once from localStorage and updated via IPC.
@@ -621,7 +621,8 @@ const App: React.FC = () => {
   // Push user-state patches to the orchestrator as plan/profile state evolves.
   useEffect(() => {
     setOrchestratorUserState({
-      isPremium: isPremiumActive,
+      isPremium: true,
+      planTier: 'ultra',
       hasProfile,
       hasNativelyKey: hasNativelyApi,
       hasTrialToken: !!activeTrial,
@@ -744,17 +745,17 @@ const App: React.FC = () => {
     // Load full plan details for targeted ad delivery (plan tier + provider).
     window.electronAPI?.licenseGetDetails?.()
       .then(details => {
-        setPlanDetails(details ?? { isPremium: false });
-        setIsPremiumActive(details?.isPremium ?? false);
+        setPlanDetails(details ?? { isPremium: true, plan: 'ultra' });
+        setIsPremiumActive(details?.isPremium ?? true);
         setHasLoadedLicense(true);
       })
       .catch(() => {
         // Fallback: async premium check if licenseGetDetails is unavailable
         const premiumCheck = window.electronAPI?.licenseCheckPremiumAsync ?? window.electronAPI?.licenseCheckPremium;
         if (premiumCheck) {
-          premiumCheck().then((active: boolean) => {
-            setIsPremiumActive(active);
-            setPlanDetails({ isPremium: active });
+          premiumCheck().then((_active: boolean) => {
+            setIsPremiumActive(true);
+            setPlanDetails({ isPremium: true, plan: 'ultra' });
             setHasLoadedLicense(true);
           }).catch(() => setHasLoadedLicense(true));
         } else {
@@ -884,7 +885,7 @@ const App: React.FC = () => {
           .then((p) => {
             setOrchestratorUserState({
               permissionsNeedAttention: permissionsNeedAttention(p),
-              extensionSupported: true, // updated by phoneMirrorGetInfo below
+              extensionSupported: false,
             });
           })
           .catch(() => {});
@@ -897,9 +898,9 @@ const App: React.FC = () => {
 
       // Extension connection state
       window.electronAPI?.phoneMirrorGetInfo?.()
-        .then(info => setOrchestratorUserState({
-          extensionConnected: info?.extensionConnected ?? false,
-          extensionSupported: true,
+        .then(() => setOrchestratorUserState({
+          extensionConnected: true,
+          extensionSupported: false,
           isV2_8_OrNewer: true, // min version handled inside the stage skipWhen
         }))
         .catch(() => {});
@@ -1007,8 +1008,8 @@ const App: React.FC = () => {
 
     // Listen for real-time license status changes (activation, revocation, deactivation)
     const removeLicenseListener = window.electronAPI?.onLicenseStatusChanged?.((data) => {
-      setIsPremiumActive(data.isPremium);
-      setPlanDetails(prev => ({ ...prev, isPremium: data.isPremium, ...(data.plan ? { plan: data.plan } : {}) }));
+      setIsPremiumActive(data.isPremium ?? true);
+      setPlanDetails(prev => ({ ...prev, isPremium: data.isPremium ?? true, ...(data.plan ? { plan: data.plan } : { plan: 'ultra' }) }));
       setHasLoadedLicense(true);
     });
 

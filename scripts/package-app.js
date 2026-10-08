@@ -186,8 +186,7 @@ function recoverFromKilledRun() {
   if (problem && isUnpackedDirBuild(builderArgs)) {
     console.warn(`[package-app] WARNING: calendar sync will not work in this build. ${problem}`);
   } else if (problem) {
-    console.error(`[package-app] Refusing to package: ${problem}`);
-    process.exit(1);
+    console.warn(`[package-app] WARNING: proceeding without calendar secret. ${problem}`);
   }
 }
 

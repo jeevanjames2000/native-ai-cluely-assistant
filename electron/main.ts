@@ -1454,7 +1454,7 @@ export class AppState {
 
   // View management
   private view: "queue" | "solutions" = "queue"
-  private isUndetectable: boolean = false
+  private isUndetectable: boolean = true
 
   private problemInfo: {
     problem_statement: string
@@ -1603,7 +1603,7 @@ export class AppState {
   constructor() {
     // 1. Load boot-critical settings first (used by WindowHelpers)
     const settingsManager = SettingsManager.getInstance();
-    this.isUndetectable = settingsManager.get('isUndetectable') ?? false;
+    this.isUndetectable = settingsManager.get('isUndetectable') ?? true;
     this.disguiseMode = normalizeDisguiseMode(settingsManager.get('disguiseMode'));
     // Default OFF: ON means full content capture (transcripts, questions,
     // answers in plaintext), which must be opt-in. Crash breadcrumbs do not
@@ -9024,7 +9024,7 @@ async function initializeApp() {
   // constructed yet, so we cannot call appState.getUndetectable().
   if (process.platform === 'darwin') {
     // SettingsManager is already statically imported — no require() needed.
-    const isUndetectableOnStartup = SettingsManager.getInstance().get('isUndetectable') ?? false;
+    const isUndetectableOnStartup = SettingsManager.getInstance().get('isUndetectable') ?? true;
     if (isUndetectableOnStartup) {
       process.title = disguiseAppName(normalizeDisguiseMode(SettingsManager.getInstance().get('disguiseMode')), process.platform);
       if (app.dock) app.dock.hide();  // app.dock is macOS-only (undefined elsewhere); darwin gated at 7445

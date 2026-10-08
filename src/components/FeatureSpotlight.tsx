@@ -52,8 +52,8 @@ const FEATURES: FeatureSlide[] = [
 
         ],
         type: 'support',
-        actionLabel: 'Contribute to development',
-        url: 'https://buymeacoffee.com/evinjohnn'
+        actionLabel: 'View repository',
+        url: 'https://github.com/jeevanjames2000/native-ai-cluely-assistant'
     },
     {
         id: 'advertise_natively',

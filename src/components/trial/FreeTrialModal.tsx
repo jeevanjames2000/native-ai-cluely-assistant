@@ -173,7 +173,10 @@ export const FreeTrialModal: React.FC<TrialModalProps> = ({ usage, onByok, onSta
 
   // Both hosts unmount this the moment they hear onDone, so the done step's
   // button closes the card first (the genie) and reports from onClosed.
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    onDone?.('dismissed');
+  }, [onDone]);
 
   // Whether this card ENDED the trial, as opposed to merely being closed. Read
   // in onClosed, which fires for both, and a ref rather than state because the

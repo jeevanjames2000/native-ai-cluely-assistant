@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { useT } from '../i18n';
 import {
-    Github, Twitter, Linkedin, Instagram, Send, Star, Bug, Mail, Heart,
+    Github, Star, Bug, Mail,
     CalendarCheck, Workflow, Smartphone, ListOrdered,
     LayoutGrid, Search, FileText, UserRound, PlayCircle,
     HardDrive, Sliders, Lock, ArrowRight,
 } from 'lucide-react';
 import { AutoAnswerIcon } from './AutoAnswerIcon';
-import evinProfile from '../assets/evin.png';
 // Each platform's own app icon: the Liquid Glass render macOS shows in the Dock
 // (assets/icons/mac/dock-icon.png) and the Windows icon (assets/icons/png), at
 // 192px for an 80px header.
@@ -102,14 +101,11 @@ const PRIVACY: AboutItem[] = [
     { title: 'Keys are encrypted', body: "In your OS secure storage.", Icon: Lock },
 ];
 
-const REPO_URL = 'https://github.com/Natively-AI-assistant/natively-cluely-ai-assistant';
-const DONATE_URL = 'https://buymeacoffee.com/evinjohnn';
+const REPO_URL = 'https://github.com/jeevanjames2000/native-ai-cluely-assistant';
+const DONATE_URL = REPO_URL;
 
 const CREATOR_LINKS = [
     { label: 'GitHub', url: REPO_URL, Icon: Github },
-    { label: 'X', url: 'https://x.com/evinjohnn', Icon: Twitter },
-    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/evinjohn', Icon: Linkedin },
-    { label: 'Instagram', url: 'https://www.instagram.com/evinjohnn/', Icon: Instagram },
 ];
 
 // About is built from `./settings/SettingsRow` — the module General, Audio,
@@ -285,12 +281,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate, onOpenMo
     // follow, then report, then write, then pay — so the order reads as
     // intentional rather than as a sort. Re-measure if a label changes.
     const actions = [
-        { title: t('Star on GitHub'), body: t('Love Natively? Support us by starring the repo.'), action: actionButton(t('Star'), REPO_URL, Star, 'group-hover:text-[#E3B341]') },
-        { title: t('Telegram'), body: t('Early betas, direct help from the community, and usage tips.'), action: actionButton(t('Join'), 'https://t.me/nativelyaichat', Send, 'group-hover:text-sky-500') },
-        { title: t('LinkedIn'), body: t('Follow the climb to the top of AI note-taking assistants.'), action: actionButton(t('Follow'), 'https://www.linkedin.com/company/nativley-ai', Linkedin, 'group-hover:text-sky-600') },
+        { title: t('Star on GitHub'), body: t('Love this project? Support by starring the repo.'), action: actionButton(t('Star'), REPO_URL, Star, 'group-hover:text-[#E3B341]') },
         { title: t('Report an Issue'), body: t('Found a bug? Let us know so we can fix it.'), action: actionButton(t('Report'), `${REPO_URL}/issues`, Bug, 'group-hover:text-red-500', false) },
-        { title: t('Get in Touch'), body: t('Open for professional collaborations and job offers.'), action: actionButton(t('Contact Me'), 'mailto:evinjohnignatious@gmail.com', Mail, 'group-hover:text-accent-primary', false) },
-        { title: t('Support Development'), body: t('Natively is independent source-available software.'), action: actionButton(t('Support Project'), DONATE_URL, Heart, 'group-hover:text-pink-500') },
     ];
 
     // A row's glyph (neutral, the tile's own colour), and the button that takes
@@ -329,7 +321,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate, onOpenMo
                     className={isMac ? 'w-[88px] h-[88px]' : 'w-[76px] h-[76px] my-1.5'}
                     draggable={false}
                 />
-                <h2 className="mt-2 text-[22px] leading-7 font-bold tracking-[-0.02em] text-text-primary">Natively</h2>
+                <h2 className="mt-2 text-[22px] leading-7 font-bold tracking-[-0.02em] text-text-primary">Native AI Assistant</h2>
                 <div className="mt-0.5 text-xs text-text-secondary tabular-nums select-text">{versionLine}</div>
             </header>
 
@@ -392,18 +384,15 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate, onOpenMo
                 indented — that is the duplicate-icon fix, not an oversight. */}
             <section>
                 <SettingsSectionHeading
-                    title={t('About Natively')}
+                    title={t('About')}
                     subtitle={t('Designed to be invisible, intelligent, and trusted.')}
                 />
                 <div className={ROW_GROUP}>
                     <SettingsRow
-                        /* The avatar FILLS the tile rather than sitting inside it:
-                           rounded-[7px] is the tile's 8px radius less its 1px border,
-                           so the photo meets the hairline exactly. */
-                        icon={<img src={evinProfile} alt="" className="w-full h-full object-cover rounded-[7px]" draggable={false} />}
-                        title="Evin John"
-                        badge={<LiquidGlassBadge variant="neutral">{t('Creator')}</LiquidGlassBadge>}
-                        description="I build software that stays out of the way."
+                        icon={<div className="w-full h-full flex items-center justify-center rounded-[7px] bg-accent-primary/20 text-accent-primary font-bold text-sm select-none">JS</div>}
+                        title="Jeevan Shekhar Tamada"
+                        badge={<LiquidGlassBadge variant="neutral">{t('Maintainer')}</LiquidGlassBadge>}
+                        description="AI-powered desktop assistant and meeting copilot."
                         control={iconLinks(CREATOR_LINKS)}
                     />
                     {actions.map(({ title, body, action }) => (
